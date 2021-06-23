@@ -1,9 +1,10 @@
 const axios = require('axios');
 
+const API_URL = 'https://au-api.basiq.io/token';
+
 const getClientToken =  async function() {
-    
-    const API_URL = 'https://au-api.basiq.io/token';
-    const API_KEY = "NmE5ODkxMDMtYWI5Yi00YjRmLWIwMTEtZWMwYTNkNDg2YjZjOjNhNzE0YmY4LTE0MGQtNGVjMS1hZmNkLWFlMmExY2M1ZDU5NA==";
+
+    const API_KEY = process.env.API_KEY;
 
     const data = "";
     const config = {
@@ -25,7 +26,6 @@ const getClientToken =  async function() {
 
 const getServerToken =  async function() {
     
-    const API_URL = 'https://au-api.basiq.io/token';
     const API_KEY = process.env.API_KEY;
 
     const data = null;
@@ -42,7 +42,7 @@ const getServerToken =  async function() {
         console.log(response);
         return response;
     } catch (error) {
-       return console.log(error);
+        throw new Error(error)
     }
 }
 
