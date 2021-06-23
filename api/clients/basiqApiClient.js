@@ -1,19 +1,8 @@
 const axios = require('axios');
 
 const API_BASE_URL = 'https://au-api.basiq.io';
-const API_KEY = process.env.API_KEY;
 
-
-const getClientToken =  async function() {
-    const data = null;
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;scope=CLIENT_ACCESS',
-            'Authorization': `Basic ${API_KEY}`,
-            'basiq-version': '2.0'
-          }
-    }
-
+const getClientToken =  async function(data, config) {
     try {
         const response = await axios.post(`${API_BASE_URL}/token`, data, config);
         return response;
@@ -22,16 +11,7 @@ const getClientToken =  async function() {
     }
 }
 
-const getServerToken =  async function() {
-    const data = null;
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;scope=SERVER_ACCESS',
-            'Authorization': `Basic ${API_KEY}`,
-            'basiq-version': '2.0'
-          }
-    }
-
+const getServerToken =  async function(data, config) {
     try {
         const response = await axios.post(`${API_BASE_URL}/token`, data, config);
         return response;

@@ -1,22 +1,42 @@
-const authenticateClient = require('../clients/authenticateClient');
+const basiqClient = require('../clients/basiqApiClient');
 
-exports.getTokenClient((req, res, next) => {
-    authenticateClient.getClientToken()
+const API_KEY = process.env.BASIQ_API_KEY;
+
+exports.getClientToken = ((req, res, next) => {
+    const data = null;
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;scope=CLIENT_ACCESS',
+            'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
+            'basiq-version': '2.0'
+          }
+    }
+
+    basiqClient.getClientToken(data, config)
         .then(response => {
-        res.json(response.data);
+            res.json(response.data);
         })
         .catch(error => {
-        res.send(error)
+            res.send(error)
         })
 })
       
 
-exports.getTokenServer((req, res, next) => {
-    authenticateClient.getServerToken()
+exports.getServerToken = ((req, res, next) => {
+    const data = null;
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;scope=SERVER_ACCESS',
+            'Authorization': `Basic ${API_KEY}`,
+            'basiq-version': '2.0'
+          }
+    }
+
+    basiqClient.getServerToken(data, config)
         .then(response => {
-        res.json(response.data);
+            res.json(response.data);
         })
         .catch(error => {
-        res.send(error)
+            res.send(error)
         })
 })
