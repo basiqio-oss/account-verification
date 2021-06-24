@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { getClientToken } from "../clients/authenticationClient"
+import React from "react";
+import { CreateUserForm } from "./CreateUserForm";
 
 export default function Welcome() {
-    useEffect(() => {
-        getClientToken().then((result) => {
-            sessionStorage.setItem("session_token", result)
-        })
-    }, [])
 
     return(
-        <div>
-            <p>your token is {sessionStorage.getItem("session_token")}</p>
+        <div style={{width: '50%', margin: '0 auto'}}>
+            <CreateUserForm />
         </div>
     )
 }

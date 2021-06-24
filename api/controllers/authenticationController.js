@@ -1,15 +1,14 @@
 const basiqClient = require('../clients/basiqApiClient');
 
-const API_KEY = process.env.BASIQ_API_KEY;
-
 exports.getClientToken = ((req, res, next) => {
     const data = null;
     const config = {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;scope=CLIENT_ACCESS',
+            'Content-Type': 'application/x-www-form-urlencoded;',
             'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
-            'basiq-version': '2.0'
-          }
+            'basiq-version': '2.0',
+            'scope': 'CLIENT_ACCESS'
+          },
     }
 
     basiqClient.getClientToken(data, config)
@@ -27,7 +26,7 @@ exports.getServerToken = ((req, res, next) => {
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;scope=SERVER_ACCESS',
-            'Authorization': `Basic ${API_KEY}`,
+            'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
             'basiq-version': '2.0'
           }
     }
