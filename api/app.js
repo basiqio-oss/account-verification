@@ -16,6 +16,7 @@ app.get("/api/client-token", authenticationController.getClientToken);
 app.get("/api/server-token", authenticationController.getServerToken);
 
 app.post("/api/users", usersController.createUser);
+app.get("/api/users/:id/jobs", usersController.getUserJobs);
 
 const port = process.env.NODE_ENV === 'test' ? 4000 : 3001;
 

@@ -41,13 +41,13 @@ const getServerToken =  async function() {
 }
 
 const createUser = async function(user, token) {
-    const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'basiq-version': '2.0'
+    const standardHeaders = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'basiq-version': '2.0'
+            }
         }
-    }
 
     body = JSON.stringify({
         "email": user.email,
@@ -55,7 +55,24 @@ const createUser = async function(user, token) {
       })
 
     try {
-        const response = await axios.post(`${API_BASE_URL}/users`, body, config);
+        const response = await axios.post(`${API_BASE_URL}/users`, body, standardHeaders);
+        return response;
+    } catch (error) {
+        return console.log(error)
+    }
+}
+
+const getUserJobs = async function(userId, token) {
+    const standardHeaders = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'basiq-version': '2.0'
+            }
+        }
+
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/${userId}/jobs`, standardHeaders);
         return response;
     } catch (error) {
         return console.log(error)
@@ -65,5 +82,6 @@ const createUser = async function(user, token) {
 module.exports = {
     getClientToken,
     getServerToken,
-    createUser
+    createUser,
+    getUserJobs
 };
