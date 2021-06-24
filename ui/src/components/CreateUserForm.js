@@ -13,7 +13,6 @@ export const CreateUserForm = () => {
     const [email, setEmail] = useState("max@hooli.com");
     const [show, setShow] = useState(false);
 
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -22,10 +21,6 @@ export const CreateUserForm = () => {
         createUser(email, mobile).then((result) => {
             setUserId(JSON.parse(result).id)
         })
-    }
-
-    const getAccessToken = () => {
-        return sessionStorage.getItem("session_token")
     }
 
     return(

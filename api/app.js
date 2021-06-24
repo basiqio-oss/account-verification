@@ -17,6 +17,8 @@ app.get("/api/server-token", authenticationController.getServerToken);
 
 app.post("/api/users", usersController.createUser);
 
-app.listen(3001, () => {
- console.log("Server running on port 3001");
+const port = process.env.NODE_ENV === 'test' ? 4000 : 3001;
+
+module.exports = app.listen(port, () => {
+ console.log(`Port running at ${port}`);
 });
