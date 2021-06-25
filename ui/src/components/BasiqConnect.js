@@ -6,7 +6,7 @@ export function BasiqConnectModal(userId) {
         BasiqConnect({
             containerId: "basiq-control",
             token: sessionStorage.getItem("session_token"),
-            userID: "728e1c6c-d46f-40bb-8b70-08e72cb9aaf0", 
+            userID: userId.userId, 
             })
     })
 

@@ -6,9 +6,10 @@ import Modal from 'react-bootstrap/Modal';
 
 import { createUser } from '../clients/usersClient';
 import { BasiqConnectModal } from "./BasiqConnect";
+import { UserAccounts } from './UserAccounts';
 
 export const CreateUserForm = () => {
-    const [userId, setUserId] = useState("799b55cb-a6a8-44c4-9437-4617dd23dd73");
+    const [userId, setUserId] = useState();
     const [mobile, setMobile] = useState("+614xxxxxxxx");
     const [email, setEmail] = useState("max@hooli.com");
     const [show, setShow] = useState(false);
@@ -18,14 +19,17 @@ export const CreateUserForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        createUser(email, mobile).then((result) => {
-            setUserId(JSON.parse(result).id)
+        createUser(email, mobile).then( async (result) => {
+            let userId = await JSON.parse(result).id
+            setUserId(userId)
+            console.log(userId)
         })
     }
 
     return(
         <div>
-            <Form onSubmit={handleSubmit}>
+            { userId ? null : <div>
+                <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label htmlFor="email">Email address</Form.Label>
                     <Form.Control onChange={((e) => setEmail(e.target.value))} type="email" value={email} placeholder="Enter email"/>
@@ -39,15 +43,19 @@ export const CreateUserForm = () => {
                     Submit
                 </Button>
             </Form>
+            </div> }
             <hr />
+            <UserAccounts userId={userId} />
             {userId ? 
-                <Button variant="primary" onClick={handleShow}>
-                    Add your banks
-                </Button>
+                <div>
+                    <Button variant="primary" onClick={handleShow}>
+                        Connect your accounts
+                    </Button>
+                    <Modal show={show} onHide={handleClose}>
+                        <BasiqConnectModal userId={userId} />
+                    </Modal>
+                </div>
                 : null }
-            <Modal show={show} onHide={handleClose}>
-                <BasiqConnectModal userId={userId} />
-            </Modal>
         </div>
     )
 

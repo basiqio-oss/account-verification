@@ -10,8 +10,8 @@ function App() {
     sessionStorage.setItem("session_token", parsedToken.access_token)
 }
 
-refreshToken()
-window.setInterval(refreshToken, 1800000)
+// refreshToken()
+  window.setInterval(refreshToken, 1800000)
 
   return (
     <div className="App">
