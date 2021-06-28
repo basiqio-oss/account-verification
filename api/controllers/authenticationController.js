@@ -1,6 +1,6 @@
 const basiqClient = require('../clients/basiqApiClient');
 
-exports.getToken = ((req, res, next) => {
+const getToken = ((req, res, next) => {
     basiqClient.getToken(req.params.scope)
     .then(response => {
         res.json(response.data);
@@ -9,3 +9,7 @@ exports.getToken = ((req, res, next) => {
         res.send(error)
     })
 })
+
+module.exports = {
+    getToken
+}

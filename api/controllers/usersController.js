@@ -2,7 +2,7 @@ const basiqClient = require('../clients/basiqApiClient');
 
 const serverScope = "SERVER_ACCESS";
 
-exports.createUser = (async (req, res) => {
+const createUser = (async (req, res) => {
     let response = await basiqClient.getToken(serverScope)
     let token = response.data.access_token
 
@@ -15,7 +15,7 @@ exports.createUser = (async (req, res) => {
         })
 })
 
-exports.getUserJobs = (async (req, res) => {
+const getUserJobs = (async (req, res) => {
     let response = await basiqClient.getToken(serverScope)
     let token = response.data.access_token
 
@@ -28,7 +28,7 @@ exports.getUserJobs = (async (req, res) => {
         })
 })
 
-exports.getUserAccounts = (async (req, res) => {
+const getUserAccounts = (async (req, res) => {
     let response = await basiqClient.getToken(serverScope)
     let token = response.data.access_token
 
@@ -40,3 +40,9 @@ exports.getUserAccounts = (async (req, res) => {
             res.send(error);
         })
 })
+
+module.exports = {
+    createUser, 
+    getUserJobs,
+    getUserAccounts
+}
