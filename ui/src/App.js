@@ -29,14 +29,19 @@ function App() {
   return (
     <div className="App">
       <div style={{width: '50%', margin: '0 auto'}}>
+      <h1>Verify your account</h1>
+      <hr />
       <UserIdContext.Provider value={value}>
         <CreateUserForm />
-        <UserAccounts userId={userId} />
-        { userId !== "" ?         
+        { userId !== "" ? 
+        <>        
         <Button variant="primary" onClick={handleShow}>
             Connect your accounts
-        </Button> : null
-        }
+        </Button>
+        <hr />
+        </>
+        : null }
+        <UserAccounts userId={userId} />
         <Modal show={show} onHide={handleClose}>
             <BasiqConnectModal userId={userId} />
         </Modal>

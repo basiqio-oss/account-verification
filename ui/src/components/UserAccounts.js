@@ -43,7 +43,6 @@ export const UserAccounts = (userId) => {
             : 
             null }
             <Button onClick={getAccounts}> Show my connected Accounts </Button>
-            <hr />
         </div>
     )
 }
