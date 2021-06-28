@@ -33,6 +33,7 @@ export const CreateUserForm = () => {
                 <Form.Label htmlFor="mobile">Phone Number</Form.Label>
                 <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
             </Form.Group>
+            
             <Button variant="primary" type="submit">
                 Submit
             </Button>

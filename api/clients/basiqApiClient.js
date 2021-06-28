@@ -1,32 +1,11 @@
 const axios = require('axios');
-const qs = require('qs')
 
 const API_BASE_URL = 'https://au-api.basiq.io';
 
-const getClientToken =  async function(data, config) {
-    try {
-        const response = await axios({
-            method: 'post',
-            url: `${API_BASE_URL}/token`,
-            data: qs.stringify({
-              "scope": 'CLIENT_ACCESS'
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;',
-                'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
-                'basiq-version': '2.0'
-            }
-        })
-        return response;
-    } catch (error) {
-       return console.log(`this is the error response ${error}`);
-    }
-}
-
-const getServerToken =  async function() {
+const getToken = async (scope) => {
     const config = {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;scope=SERVER_ACCESS',
+            'Content-Type': `application/x-www-form-urlencoded;scope=${scope}`,
             'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
             'basiq-version': '2.0'
           }
@@ -97,9 +76,8 @@ const getUserAccounts = async function(userId, token) {
 }
 
 module.exports = {
-    getClientToken,
-    getServerToken,
     createUser,
     getUserJobs,
-    getUserAccounts
+    getUserAccounts,
+    getToken
 };

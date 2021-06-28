@@ -16,6 +16,8 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const thirtyMinutes = 1800000;
+
   const refreshToken = async () => {        
     console.log("refreshingToken")
     let token = await getClientToken();
@@ -23,8 +25,8 @@ function App() {
     sessionStorage.setItem("session_token", parsedToken.access_token)
 }
 
-// refreshToken()
-  window.setInterval(refreshToken, 1800000)
+refreshToken()
+  window.setInterval(refreshToken, thirtyMinutes)
 
   return (
     <div className="App">

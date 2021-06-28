@@ -22,7 +22,6 @@ export const UserAccounts = (userId) => {
              <h2>Your accounts: </h2>
              <br />
              </div>
-             
              : null }
             { userAccounts ? 
                 userAccounts.map((account) => 

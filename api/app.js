@@ -16,7 +16,7 @@ app.get('/api/ping', (req, res) => {
     res.send('pong')
   })
 
-app.get("/api/client-token", authenticationController.getClientToken);
+app.get("/api/token/:scope", authenticationController.getToken)
 
 app.post("/api/users", usersController.createUser);
 app.get("/api/users/:id/jobs", usersController.getUserJobs);
