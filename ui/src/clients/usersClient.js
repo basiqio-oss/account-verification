@@ -20,7 +20,7 @@ export async function createUser(email, phone) {
 }
 
 export async function getUserJobs(userId) {
-    let response = await fetch(`/api/${userId}/jobs`);
+    let response = await fetch(`/api/users/${userId}/jobs`);
 
     if (response.status === 200) {
         let data = await response.text();

@@ -6,13 +6,12 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 export const UserAccounts = (userId) => {
     const [userAccounts, setUserAccounts] = useState()
-    let showAccountButton = true;
-    
+
     const getAccounts = () => {
         getUserAccounts(userId).then((result) => {
             let accountsArray = JSON.parse(result).data;
-            setUserAccounts(accountsArray)
-            showAccountButton = false;
+            let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction")
+            setUserAccounts(userTransactionAccounts)
         })
     }
 
@@ -43,11 +42,7 @@ export const UserAccounts = (userId) => {
                 )
             : 
             null }
-            { showAccountButton == true ? <Button onClick={getAccounts}> Show my connected Accounts </Button> : null }
-            <br />
-            <br />
-            { !userAccounts ? <p>You don't have any accounts yet, connect them below</p> : null }
-            <hr />
+            <Button onClick={getAccounts}> Show my connected Accounts </Button>
         </div>
     )
 }
