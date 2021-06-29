@@ -1,11 +1,8 @@
 const basiqClient = require('../clients/basiqApiClient');
-
-const serverScope = "SERVER_ACCESS";
+const repository = require("../repositories/mongooseRepository")
 
 const createUser = (async (req, res) => {
-    let response = await basiqClient.getToken(serverScope)
-    let token = response.data.access_token
-
+    let token = await repository.getServerToken();
     basiqClient.createUser(req.body, token)
         .then((response) => {
             res.json(response.data)
@@ -16,9 +13,7 @@ const createUser = (async (req, res) => {
 })
 
 const getUserJobs = (async (req, res) => {
-    let response = await basiqClient.getToken(serverScope)
-    let token = response.data.access_token
-
+    let token = await repository.getServerToken();
     basiqClient.getUserJobs(req.params.id, token)
         .then((response) => {
             res.json(response.data)
@@ -29,9 +24,7 @@ const getUserJobs = (async (req, res) => {
 })
 
 const getUserAccounts = (async (req, res) => {
-    let response = await basiqClient.getToken(serverScope)
-    let token = response.data.access_token
-
+    let token = await repository.getServerToken();
     basiqClient.getUserAccounts(req.params.id, token)
         .then((response) => {
             res.json(response.data)

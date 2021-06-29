@@ -1,11 +1,13 @@
-var express = require("express");
-var app = express();
-var authenticationController = require("./controllers/authenticationController");
-var usersController = require("./controllers/usersController");
+const express = require("express");
+const app = express();
 
-const Token = require('./models/token');
+const authenticationController = require("./controllers/authenticationController");
+const usersController = require("./controllers/usersController");
+const mongooseRepository = require("./repositories/mongooseRepository")
+
 const url = 'mongodb://localhost/account-verification';
 const port = process.env.NODE_ENV === 'test' ? 4000 : 3001;
+const thirtyMinutes = 1800000;
 
 require('dotenv').config();
 
@@ -35,5 +37,8 @@ db.on('error', err => {
 })
 
 module.exports = app.listen(port, () => {
- console.log(`Port running at ${port}`);
+  mongooseRepository.saveServerToken()
+  setInterval(mongooseRepository.saveServerToken, thirtyMinutes)
+
+  console.log(`Port running at ${port}`);
 });
