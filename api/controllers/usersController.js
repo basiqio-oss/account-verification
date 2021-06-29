@@ -1,5 +1,5 @@
 const basiqClient = require('../clients/basiqApiClient');
-const repository = require("../repositories/mongooseRepository")
+const repository = require("../database/repositories/mongooseRepository")
 
 const createUser = (async (req, res) => {
     let token = await repository.getServerToken();

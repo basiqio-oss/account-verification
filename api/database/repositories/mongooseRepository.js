@@ -1,4 +1,4 @@
-const basiqClient = require("../clients/basiqApiClient");
+const basiqClient = require("../../clients/basiqApiClient");
 const token = require("../models/token");
 const Token = require('../models/token');
 

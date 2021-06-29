@@ -3,7 +3,7 @@ const app = express();
 
 const authenticationController = require("./controllers/authenticationController");
 const usersController = require("./controllers/usersController");
-const mongooseRepository = require("./repositories/mongooseRepository")
+const mongooseRepository = require("./database/repositories/mongooseRepository")
 
 const url = 'mongodb://localhost/account-verification';
 const port = process.env.NODE_ENV === 'test' ? 4000 : 3001;
