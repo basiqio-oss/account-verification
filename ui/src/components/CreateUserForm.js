@@ -4,13 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import { createUser } from '../clients/usersClient';
-import UserIdContext from "../context/userContext";
+import userContext from "../context/userContext";
 
 export const CreateUserForm = () => {
     const [mobile, setMobile] = useState("+614xxxxxxxx");
     const [email, setEmail] = useState("max@hooli.com");
 
-    const {setUserId } = useContext(UserIdContext);
+    const {setUserId } = useContext(userContext);
 
     const handleSubmit = (e) => {
         e.preventDefault()

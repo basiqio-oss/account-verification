@@ -1,8 +1,9 @@
 import React from 'react';
 
-const UserIdContext = React.createContext({
+const userContext = React.createContext({
     userId: "",
-    setuserId: () => {}
+    setuserId: () => {},
+    userAccounts: []
 });
 
-export default UserIdContext;
+export default userContext;

@@ -42,9 +42,16 @@ export async function getUserAccounts(userId) {
 }
 
 export async function getUserAccount(url) {
+    let body = JSON.stringify({
+        url: url
+      });
+
     let response = await fetch(`/api/account`, {
         method: 'POST',
-        body: url
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
     });
 
     if (response.status === 200) {

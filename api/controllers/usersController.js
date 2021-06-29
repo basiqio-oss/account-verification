@@ -36,7 +36,7 @@ const getUserAccounts = (async (req, res) => {
 
 const getUserAccount = (async (req, res) => {
     let token = await repository.getServerToken();
-    basiqClient.getUserAccount(req.body, token)
+    basiqClient.getUserAccount(req.body.url, token)
         .then((response) => {
             res.json(response.data)
         })

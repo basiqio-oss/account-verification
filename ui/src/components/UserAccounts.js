@@ -1,31 +1,23 @@
-import { useState } from "react"
-import { getUserAccounts } from "../clients/usersClient";
-import Button from "react-bootstrap/esm/Button";
-import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
+import { useContext } from "react"
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import userContext from '../context/userContext';
 
 export const UserAccounts = (userId) => {
-    const [userAccounts, setUserAccounts] = useState()
 
-    const getAccounts = () => {
-        getUserAccounts(userId).then((result) => {
-            let accountsArray = JSON.parse(result).data;
-            let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction")
-            setUserAccounts(userTransactionAccounts)
-        })
-    }
+    const { userAccounts } = useContext(userContext)
 
     return(
         <div>
-            { userAccounts ? 
+            { userAccounts.length !== 0 ? 
              <div>
              <h2>Your accounts: </h2>
              <br />
              </div>
              : null }
-            { userAccounts ? 
+            { userAccounts.length !== 0 ? 
                 userAccounts.map((account) => 
-                <div style={{width: '50%', margin: '0 auto'}}>
+                <div key={account.id} style={{width: '50%', margin: '0 auto'}}>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
                             <Card.Title>{account.name}</Card.Title>
@@ -41,7 +33,7 @@ export const UserAccounts = (userId) => {
                 )
             : 
             null }
-            <Button onClick={getAccounts}> Show my connected Accounts </Button>
+            {/* <Button onClick={getAccounts}> Show my connected Accounts </Button> */}
         </div>
     )
 }
