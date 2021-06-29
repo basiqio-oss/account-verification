@@ -26,18 +26,18 @@ export const UserAccounts = (userId) => {
             { userAccounts ? 
                 userAccounts.map((account) => 
                 <div style={{width: '50%', margin: '0 auto'}}>
-                <Card style={{ width: '18rem' }}>
-                    <Card.Body>
-                        <Card.Title>{account.name}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Product: {account.class.product}</Card.Subtitle>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>AC number: {account.accountNo}</ListGroup.Item>
-                            <ListGroup.Item>Balance: {account.balance}</ListGroup.Item>
-                        </ListGroup>
-                    </Card.Body>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Body>
+                            <Card.Title>{account.name}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Product: {account.class.product}</Card.Subtitle>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>AC number: {account.accountNo}</ListGroup.Item>
+                                <ListGroup.Item>Balance: {account.balance}</ListGroup.Item>
+                            </ListGroup>
+                        </Card.Body>
                     </Card>
-                    <br />
-                    </div>
+                <br />
+                </div>
                 )
             : 
             null }

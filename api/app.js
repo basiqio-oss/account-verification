@@ -21,8 +21,10 @@ app.get('/api/ping', (req, res) => {
 app.get("/api/token/:scope", authenticationController.getToken)
 
 app.post("/api/users", usersController.createUser);
+
 app.get("/api/users/:id/jobs", usersController.getUserJobs);
 app.get("/api/users/:id/accounts", usersController.getUserAccounts);
+app.post("/api/account", usersController.getUserAccount)
 
 var mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true })

@@ -75,9 +75,27 @@ const getUserAccounts = async function(userId, token) {
     }
 }
 
+const getUserAccount = async function(url, token) {
+    const standardHeaders = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'basiq-version': '2.0'
+            }
+        }
+
+    try {
+        const response = await axios.get(`${API_BASE_URL}/${url}`, standardHeaders);
+        return response;
+    } catch (error) {
+        return console.log(error)
+    }
+}
+
 module.exports = {
     createUser,
     getUserJobs,
     getUserAccounts,
-    getToken
+    getToken,
+    getUserAccount
 };

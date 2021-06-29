@@ -17,6 +17,7 @@ const saveServerToken = async () => {
         })
   
     updatedToken.save();
+    console.log(updatedToken)
   }
 
 const getServerToken = async () => {

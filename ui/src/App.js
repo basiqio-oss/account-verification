@@ -5,6 +5,7 @@ import { CreateUserForm } from './components/CreateUserForm';
 import UserIdContext from './context/userContext';
 import { BasiqConnectModal } from "../src/components/BasiqConnect";
 import { UserAccounts } from '../src/components/UserAccounts';
+import { getUserJobs, getJob, getUserAccount } from './clients/usersClient';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -14,7 +15,10 @@ function App() {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true)
+    pollJobs(userId)
+  };
 
   const thirtyMinutes = 1800000;
 
@@ -25,8 +29,44 @@ function App() {
     sessionStorage.setItem("session_token", parsedToken.access_token)
 }
 
-refreshToken()
+  refreshToken()
   window.setInterval(refreshToken, thirtyMinutes)
+
+  const pollJobs = async () => {
+    var jobsArray;
+    getUserJobs(userId).then((result) => {
+      jobsArray = JSON.parse(result).data;
+    }).then(() => {
+      if (jobsArray.length !== 0) {
+        jobsArray.forEach(job => {
+          pollJob(job.id)
+        });
+        }
+    }
+    )
+  }
+
+  const pollJob = async (jobId) => {
+    let job;
+    getJob(jobId).then((result) => {
+      job = JSON.parse(result);
+    }).then(() => {
+      let jobStatus = job.steps[1].status;
+      if (jobStatus === "success") {
+        getUserAccount(job.steps[1].result.url).then((result) => {
+          console.log(result)
+        })
+        return console.log(`jobstatus is ${jobStatus}`);
+      } else if (jobStatus === "failed") {
+        return console.log(`job has ${jobStatus}`)
+      }
+      else {
+        console.log("job is still pending")
+        return pollJob(jobId)
+      }
+    }
+    )
+  }
 
   return (
     <div className="App">

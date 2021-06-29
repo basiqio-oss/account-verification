@@ -10,7 +10,7 @@ export const CreateUserForm = () => {
     const [mobile, setMobile] = useState("+614xxxxxxxx");
     const [email, setEmail] = useState("max@hooli.com");
 
-    const { userId, setUserId } = useContext(UserIdContext);
+    const {setUserId } = useContext(UserIdContext);
 
     const handleSubmit = (e) => {
         e.preventDefault()

@@ -34,8 +34,20 @@ const getUserAccounts = (async (req, res) => {
         })
 })
 
+const getUserAccount = (async (req, res) => {
+    let token = await repository.getServerToken();
+    basiqClient.getUserAccount(req.body, token)
+        .then((response) => {
+            res.json(response.data)
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
+
 module.exports = {
     createUser, 
     getUserJobs,
-    getUserAccounts
+    getUserAccounts,
+    getUserAccount
 }

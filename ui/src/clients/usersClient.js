@@ -40,3 +40,35 @@ export async function getUserAccounts(userId) {
     
     return response.data;
 }
+
+export async function getUserAccount(url) {
+    let response = await fetch(`/api/account`, {
+        method: 'POST',
+        body: url
+    });
+
+    if (response.status === 200) {
+        let data = await response.text();
+        return data
+    }
+    
+    return response.data;
+}
+
+
+export async function getJob(jobId) {
+    let response = await fetch(`https://au-api.basiq.io/jobs/${jobId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem("session_token")}`
+        }
+    });
+    
+    if (response.status === 200) {
+        let data = await response.text();
+        return data
+    }
+    
+    return response.data;
+}
