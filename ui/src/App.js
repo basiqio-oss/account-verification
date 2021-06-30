@@ -16,9 +16,7 @@ function App() {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true);
-  };
+  const handleShow = () =>  setShow(true);
 
   const thirtyMinutes = 1800000;
 
@@ -29,8 +27,7 @@ function App() {
     sessionStorage.setItem("session_token", parsedToken.access_token)
 }
 
-  refreshToken()
-
+  // refreshToken()
   window.setInterval(refreshToken, thirtyMinutes)
 
 
@@ -49,7 +46,7 @@ function App() {
         <hr />
         </>
         : null }
-        <Modal animation={false} show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}>
             <BasiqConnectModal userId={userId} />
         </Modal>
         <UserAccounts />
