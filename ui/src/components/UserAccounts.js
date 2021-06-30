@@ -3,10 +3,8 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import userContext from '../context/userContext';
 
-export const UserAccounts = (userId) => {
-
+export const UserAccounts = () => {
     const { userAccounts } = useContext(userContext)
-
     return(
         <div>
             { userAccounts.length !== 0 ? 
@@ -33,7 +31,6 @@ export const UserAccounts = (userId) => {
                 )
             : 
             null }
-            {/* <Button onClick={getAccounts}> Show my connected Accounts </Button> */}
         </div>
     )
 }

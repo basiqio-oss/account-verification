@@ -12,25 +12,18 @@ export function BasiqConnectModal(userId) {
     var jobsAlreadyReceived = [];
 
 
-    const resultFilter = (firstArray, secondArray) => {
-        newJobs = firstArray.filter(firstArrayItem =>
-          !secondArray.some(
-            secondArrayItem => firstArrayItem.id === secondArrayItem.id
-          )
-        );
-        console.log("new jobs", newJobs)
-      };
+    const filterNewJobs = (jobsReturned, jobsAlreadySuccessful) => {
+        newJobs = jobsReturned.filter(firstArrayItem =>
+            !jobsAlreadySuccessful.some(
+                secondArrayItem => firstArrayItem.id === secondArrayItem.id
+                ));
+        };
 
   const pollJobs = async () => {
     getUserJobs(userId.userId).then((result) => {
       jobsReturned = JSON.parse(result).data
-      console.log("jobs returned ", jobsReturned)
-    
-    resultFilter(jobsReturned, jobsAlreadyReceived);
-      console.log("new jobs", newJobs)
+    filterNewJobs(jobsReturned, jobsAlreadyReceived);
       jobsAlreadyReceived = jobsReturned;
-
-      console.log("jobs received after setting state", jobsAlreadyReceived)
     }).then(async () => {
       if (newJobs.length !== 0) {
         newJobs.forEach(job => {
@@ -70,7 +63,11 @@ export function BasiqConnectModal(userId) {
             token: sessionStorage.getItem("session_token"),
             userID: userId.userId, 
             })
-        setInterval(() => (pollJobs()), 5000)
+
+        const interval = setInterval(() => {
+            pollJobs();
+            }, 1000);
+            return () => clearInterval(interval);
     }, [])
 
     return(
