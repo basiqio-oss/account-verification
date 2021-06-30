@@ -92,10 +92,33 @@ const getUserAccount = async function(url, token) {
     }
 }
 
+const refreshConnection = async function(userId, connectionId, token) {
+    const standardHeaders = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'basiq-version': '2.0'
+            }
+        }
+
+    let body = JSON.stringify({
+            "userId": userId,
+            "connectionId": connectionId
+        })
+
+    try {
+        const response = await axios.post(`${API_BASE_URL}/users/${userId}/connections/${connectionId}/refresh`, body, standardHeaders);
+        return response;
+    } catch (error) {
+        return console.log(error)
+    }
+}
+
 module.exports = {
     createUser,
     getUserJobs,
     getUserAccounts,
     getToken,
-    getUserAccount
+    getUserAccount,
+    refreshConnection
 };

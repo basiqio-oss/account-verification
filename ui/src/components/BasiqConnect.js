@@ -11,13 +11,12 @@ export function BasiqConnectModal(userId) {
     var allUserAccounts = [];
     var jobsAlreadyReceived = [];
 
-
-    const filterNewJobs = (jobsReturned, jobsAlreadySuccessful) => {
-        newJobs = jobsReturned.filter(firstArrayItem =>
-            !jobsAlreadySuccessful.some(
-                secondArrayItem => firstArrayItem.id === secondArrayItem.id
-                ));
-        };
+  const filterNewJobs = (jobsReturned, jobsAlreadySuccessful) => {
+      newJobs = jobsReturned.filter(firstArrayItem =>
+          !jobsAlreadySuccessful.some(
+              secondArrayItem => firstArrayItem.id === secondArrayItem.id
+              ));
+      };
 
   const pollJobs = async () => {
     getUserJobs(userId.userId).then((result) => {
@@ -67,8 +66,9 @@ export function BasiqConnectModal(userId) {
         const interval = setInterval(() => {
             pollJobs();
             }, 1000);
-            return () => clearInterval(interval);
-    }, [])
+        
+        return () => clearInterval(interval);
+    })
 
     return(
         <div id="basiq-control"></div>

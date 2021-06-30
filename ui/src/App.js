@@ -28,7 +28,7 @@ function App() {
 }
 
   // refreshToken()
-  window.setInterval(refreshToken, thirtyMinutes)
+  window.setInterval(() => refreshToken, thirtyMinutes)
 
 
   return (
@@ -37,7 +37,6 @@ function App() {
       <h1>Verify your account</h1>
       <hr />
       <userContext.Provider value={value}>
-        <CreateUserForm />
         { userId !== "" ? 
         <>        
         <Button variant="primary" onClick={handleShow}>
@@ -45,7 +44,9 @@ function App() {
         </Button>
         <hr />
         </>
-        : null }
+        : 
+        <CreateUserForm />
+        }
         <Modal show={show} onHide={handleClose}>
             <BasiqConnectModal userId={userId} />
         </Modal>

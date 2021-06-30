@@ -1,5 +1,5 @@
 const basiqClient = require('../clients/basiqApiClient');
-const repository = require("../database/repositories/mongooseRepository")
+const repository = require("../database/repositories/mongooseRepository");
 
 const createUser = (async (req, res) => {
     let token = await repository.getServerToken();
@@ -45,9 +45,21 @@ const getUserAccount = (async (req, res) => {
         })
 })
 
+const refreshConnection = (async (req, res) => {
+    let token = await repository.getServerToken();
+    basiqClient.refreshConnection(req.body.userId, req.body.connectionId, token)
+        .then((response) => {
+            res.json(response.data)
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
+
 module.exports = {
     createUser, 
     getUserJobs,
     getUserAccounts,
-    getUserAccount
+    getUserAccount,
+    refreshConnection
 }

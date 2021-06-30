@@ -79,3 +79,25 @@ export async function getJob(jobId) {
     
     return response.data;
 }
+
+export async function refreshConnection(userId, connectionId) {
+    let body = JSON.stringify({
+        userId: userId,
+        connectionId: connectionId
+      });
+
+    let response = await fetch(`/api/refresh-connection`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
+    });
+    
+    if (response.status === 200) {
+        let data = await response.text();
+        return data
+    }
+    
+    return response.data;
+}

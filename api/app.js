@@ -24,7 +24,10 @@ app.post("/api/users", usersController.createUser);
 
 app.get("/api/users/:id/jobs", usersController.getUserJobs);
 app.get("/api/users/:id/accounts", usersController.getUserAccounts);
+
 app.post("/api/account", usersController.getUserAccount)
+
+app.post("/api/refresh-connection", usersController.refreshConnection)
 
 var mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true })
