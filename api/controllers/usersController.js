@@ -47,7 +47,7 @@ const getUserAccount = (async (req, res) => {
 
 const refreshConnection = (async (req, res) => {
     let token = await repository.getServerToken();
-    basiqClient.refreshConnection(req.body.userId, req.body.connectionId, token)
+    basiqClient.refreshConnection(req.body.connectionUrl, token)
         .then((response) => {
             res.json(response.data)
         })

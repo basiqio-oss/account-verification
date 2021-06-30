@@ -92,7 +92,7 @@ const getUserAccount = async function(url, token) {
     }
 }
 
-const refreshConnection = async function(userId, connectionId, token) {
+const refreshConnection = async function(connectionUrl, token) {
     const standardHeaders = {
         headers: {
             'Content-Type': 'application/json',
@@ -101,13 +101,8 @@ const refreshConnection = async function(userId, connectionId, token) {
             }
         }
 
-    let body = JSON.stringify({
-            "userId": userId,
-            "connectionId": connectionId
-        })
-
     try {
-        const response = await axios.post(`${API_BASE_URL}/users/${userId}/connections/${connectionId}/refresh`, body, standardHeaders);
+        const response = await axios.post(`${connectionUrl}/refresh`, null, standardHeaders);
         return response;
     } catch (error) {
         return console.log(error)
