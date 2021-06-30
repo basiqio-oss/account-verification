@@ -3,7 +3,10 @@ import React from 'react';
 const userContext = React.createContext({
     userId: "",
     setuserId: () => {},
-    userAccounts: []
+    userAccounts: [],
+    setUserAccounts: () => {},
+    jobsAlreadyReceived: [], 
+    setJobsAlreadyReceived: []
 });
 
 export default userContext;
