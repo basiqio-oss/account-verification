@@ -37,7 +37,7 @@ function App() {
       <Header />
       <UserContext.Provider value={VALUE}>
         { userId !== "" &&         
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="dark" onClick={handleShow}>
             Connect { userAccounts.length !== 0 ? "more" : "your"} accounts
         </Button> }
         { userId === "" && <CreateUserForm />}

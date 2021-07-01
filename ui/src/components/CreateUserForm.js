@@ -7,8 +7,8 @@ import { createUser } from '../clients/usersClient';
 import userContext from "../context/userContext";
 
 export const CreateUserForm = () => {
-    const [mobile, setMobile] = useState("+614xxxxxxxx");
-    const [email, setEmail] = useState("max@hooli.com");
+    const [mobile, setMobile] = useState("+61");
+    const [email, setEmail] = useState("");
 
     const {setUserId } = useContext(userContext);
 
@@ -23,17 +23,16 @@ export const CreateUserForm = () => {
 
     return(
             <Form className="form" onSubmit={handleSubmit}>
+                <p>Enter your details to get started.</p>
                 <Form.Group>
-                    <Form.Label htmlFor="email">Email address</Form.Label>
                     <Form.Control onChange={((e) => setEmail(e.target.value))} type="email" value={email} placeholder="Enter email"/>
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label htmlFor="mobile">Phone Number</Form.Label>
                     <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="dark" type="submit">
                     Submit
                 </Button>
             </Form>

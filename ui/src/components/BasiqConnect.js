@@ -67,7 +67,7 @@ export function BasiqConnectModal(userId) {
       setTimeout(() => {
         refreshConnection(job.links.source)
       }, 300000)
-    } else if (job.result.code === "account-not-accessible-requires-user-action") {
+    } else if (job.steps[1].result.code === "account-not-accessible-requires-user-action") {
       console.log('account not accessible user action required')
     }
   }
