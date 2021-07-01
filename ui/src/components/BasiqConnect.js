@@ -92,7 +92,7 @@ export function BasiqConnectModal(userId) {
             }, 1000);
         
         return () => clearInterval(interval);
-    })
+    }, [])
 
     return(
         <div id="basiq-control"></div>
