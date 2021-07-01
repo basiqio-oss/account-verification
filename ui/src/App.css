@@ -1,5 +1,7 @@
 .App {
   padding: 10rem;
+  margin: 0 auto;
+  width: 80%;
 }
 
 h1 {
@@ -10,9 +12,9 @@ h1 {
   width: 40%;
   border-top: 1px solid black;
   margin-top: 2rem;  
-  padding: 2rem;
+  padding-top: 1rem;
 }
 
-.form {
-  width: 60%;
+.welcome {
+  margin-bottom: 1.5rem;
 }

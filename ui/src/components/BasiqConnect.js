@@ -4,19 +4,19 @@ import UserContext from '../context/userContext';
 import { getUserAccount, refreshConnection } from '../clients/usersClient';
 import { getAllUserJobs, getJob } from '../clients/jobsClient';
 
-export function BasiqConnectModal(userId) {
+export const BasiqConnectModal = (userId) => {
 
-    const { setUserAccounts } = useContext(UserContext)
-    var jobsReturned = [];
-    var newJobs = [];
-    var allUserAccounts = [];
-    var jobsAlreadyReceived = [];
+  const { setUserAccounts } = useContext(UserContext)
 
-  const filterNewJobs = (jobsReturned, jobsAlreadySuccessful) => {
-      newJobs = jobsReturned.filter(firstArrayItem =>
-          !jobsAlreadySuccessful.some(
-              secondArrayItem => firstArrayItem.id === secondArrayItem.id
-              ));
+  var jobsReturned = [];
+  var newJobs = [];
+  var allUserAccounts = [];
+  var jobsAlreadyReceived = [];
+
+  const filterNewJobs = (jobsReturned, oldJobs) => {
+      newJobs = jobsReturned.filter(
+          jobsReturned =>!oldJobs.some(oldJobs => jobsReturned.id === oldJobs.id)
+        );
       };
 
   const pollJobs = async () => {
@@ -40,25 +40,31 @@ export function BasiqConnectModal(userId) {
       job = JSON.parse(result);
     }).then(() => {
       let jobStatus = job.steps[1].status;
+
       if (jobStatus === "success") {
         console.log('successfully retrieved your account.')
         getUserAccount(job.steps[1].result.url).then((result) => {
           let accountsArray = JSON.parse(result).data;
           let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction");
+          
           Array.prototype.push.apply(allUserAccounts, userTransactionAccounts); 
+
           return setUserAccounts(allUserAccounts);
         })
-      } else if (jobStatus === "failed") {
+      } 
+      
+      else if (jobStatus === "failed") {
         manageFailedJob(job)
         return console.log(`job has ${jobStatus}`)
-      } else {
+      } 
+      
+      else {
         return setTimeout(() => {
           console.log("job is still processing")
           pollJob(jobId)
         }, 5000)
       }
-    }
-    )
+    })
   }
 
   const manageFailedJob = (job) => {
