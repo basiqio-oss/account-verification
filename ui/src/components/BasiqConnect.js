@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import BasiqConnect from "@basiq/basiq-connect-control";
 import UserContext from '../context/userContext';
-import { getUserJobs, getJob, getUserAccount, refreshConnection } from '../clients/usersClient';
+import { getUserAccount, refreshConnection } from '../clients/usersClient';
+import { getAllUserJobs, getJob } from '../clients/jobsClient';
 
 export function BasiqConnectModal(userId) {
 
@@ -19,7 +20,7 @@ export function BasiqConnectModal(userId) {
       };
 
   const pollJobs = async () => {
-    getUserJobs(userId.userId).then((result) => {
+    getAllUserJobs(userId.userId).then((result) => {
       jobsReturned = JSON.parse(result).data
     filterNewJobs(jobsReturned, jobsAlreadyReceived);
       jobsAlreadyReceived = jobsReturned;
@@ -40,7 +41,7 @@ export function BasiqConnectModal(userId) {
     }).then(() => {
       let jobStatus = job.steps[1].status;
       if (jobStatus === "success") {
-        console.log('successfully retrieved your job.')
+        console.log('successfully retrieved your account.')
         getUserAccount(job.steps[1].result.url).then((result) => {
           let accountsArray = JSON.parse(result).data;
           let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction");
