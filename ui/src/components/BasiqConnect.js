@@ -40,6 +40,7 @@ export function BasiqConnectModal(userId) {
     }).then(() => {
       let jobStatus = job.steps[1].status;
       if (jobStatus === "success") {
+        console.log('successfully retrieved your job.')
         getUserAccount(job.steps[1].result.url).then((result) => {
           let accountsArray = JSON.parse(result).data;
           let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction");
@@ -61,16 +62,15 @@ export function BasiqConnectModal(userId) {
 
   const manageFailedJob = (job) => {
     if (job.steps[1].result.code === "service-unavailable") {
-      // alert(
-      //   `Unfortunately we were unable to retrieve your accounts from {BANK}. 
-      //   We will keep trying in the background and let you know how we go!`
-      //   )
-      console.log("Unfortunately we were unable to retrieve your accounts from {BANK}. We will keep trying in the background and let you know how we go!")
+      console.log(
+        `Unfortunately we were unable to retrieve your accounts from {BANK}. 
+        We will keep trying in the background and let you know how we go!`
+      )
       setTimeout(() => {
         refreshConnection(job.links.source)
       }, 300000)
     } else if (job.result.code === "account-not-accessible-requires-user-action") {
-      console.log('account not accessible')
+      console.log('account not accessible user action required')
         // alert(
         //   `Unfortunately we are unable to retrieve your account details
         //   as the bank is waiting for you to perform an action. 

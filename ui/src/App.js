@@ -28,7 +28,7 @@ function App() {
 }
 
   // refreshToken()
-  window.setInterval(() => refreshToken, thirtyMinutes)
+  window.setInterval(refreshToken, thirtyMinutes)
 
 
   return (
