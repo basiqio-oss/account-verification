@@ -80,10 +80,9 @@ export async function getJob(jobId) {
     return response.data;
 }
 
-export async function refreshConnection(userId, connectionId) {
+export async function refreshConnection(jobUrl) {
     let body = JSON.stringify({
-        userId: userId,
-        connectionId: connectionId
+        jobUrl: jobUrl,
       });
 
     let response = await fetch(`/api/refresh-connection`, {
