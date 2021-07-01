@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import BasiqConnect from "@basiq/basiq-connect-control";
-import userContext from '../context/userContext';
+import UserContext from '../context/userContext';
 import { getUserJobs, getJob, getUserAccount, refreshConnection } from '../clients/usersClient';
 
 export function BasiqConnectModal(userId) {
 
-    const { setUserAccounts } = useContext(userContext)
+    const { setUserAccounts } = useContext(UserContext)
     var jobsReturned = [];
     var newJobs = [];
     var allUserAccounts = [];
@@ -62,21 +62,13 @@ export function BasiqConnectModal(userId) {
 
   const manageFailedJob = (job) => {
     if (job.steps[1].result.code === "service-unavailable") {
-      console.log(
-        `Unfortunately we were unable to retrieve your accounts from {BANK}. 
-        We will keep trying in the background and let you know how we go!`
+      console.log(`Unfortunately we were unable to retrieve your accounts from {BANK}. We will keep trying in the background and let you know how we go!`
       )
       setTimeout(() => {
         refreshConnection(job.links.source)
       }, 300000)
     } else if (job.result.code === "account-not-accessible-requires-user-action") {
       console.log('account not accessible user action required')
-        // alert(
-        //   `Unfortunately we are unable to retrieve your account details
-        //   as the bank is waiting for you to perform an action. 
-        //   Please login to your internet banking, navigate to 
-        //   accounts and transactions, and address any popups requiring 
-        //   action from the bank. Hit try again below and we will continue.`)
     }
   }
 

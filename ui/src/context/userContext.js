@@ -1,6 +1,6 @@
 import React from 'react';
 
-const userContext = React.createContext({
+const UserContext = React.createContext({
     userId: "",
     setuserId: () => {},
     userAccounts: [],
@@ -9,4 +9,4 @@ const userContext = React.createContext({
     setJobsAlreadyReceived: () => {}
 });
 
-export default userContext;
+export default UserContext;

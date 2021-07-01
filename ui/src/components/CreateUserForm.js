@@ -22,24 +22,21 @@ export const CreateUserForm = () => {
     }
 
     return(
-        <div>
-        <Form onSubmit={handleSubmit}>
-            <Form.Group>
-                <Form.Label htmlFor="email">Email address</Form.Label>
-                <Form.Control onChange={((e) => setEmail(e.target.value))} type="email" value={email} placeholder="Enter email"/>
-            </Form.Group>
+            <Form className="form" onSubmit={handleSubmit}>
+                <Form.Group>
+                    <Form.Label htmlFor="email">Email address</Form.Label>
+                    <Form.Control onChange={((e) => setEmail(e.target.value))} type="email" value={email} placeholder="Enter email"/>
+                </Form.Group>
 
-            <Form.Group>
-                <Form.Label htmlFor="mobile">Phone Number</Form.Label>
-                <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
-            </Form.Group>
-            
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-            <hr />
-        </Form>
-        </div>
+                <Form.Group>
+                    <Form.Label htmlFor="mobile">Phone Number</Form.Label>
+                    <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
+                </Form.Group>
+
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
     )
 
 }
