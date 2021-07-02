@@ -1,6 +1,7 @@
 const basiqClient = require('../clients/basiqApiClient');
 const repository = require("../database/repositories/mongooseRepository");
 const { successResponse, errorResponse } = require('../common/response')
+const { accountDTO } = require('../DTOs/accountDto') 
 
 const createUser = (async (req, res) => {
     let token = await repository.getServerToken();
@@ -39,7 +40,7 @@ const getUserAccount = (async (req, res) => {
     let token = await repository.getServerToken();
     basiqClient.getUserAccount(req.body.url, token)
         .then((response) => {
-            successResponse(res, response.data)
+            successResponse(res, accountDTO(response.data));
         })
         .catch((error) => {
             errorResponse(res, error)

@@ -85,7 +85,7 @@ const getUserAccount = async function(url, token) {
         }
 
     try {
-        const response = await axios.get(`${API_BASE_URL}${url}`, standardHeaders);
+        const response = await axios.get(`${API_BASE_URL}/${url}`, standardHeaders);
         return response;
     } catch (error) {
         return console.log(error)
