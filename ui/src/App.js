@@ -23,6 +23,7 @@ function App() {
   const VALUE = { userId, setUserId, userAccounts, setUserAccounts, jobsAlreadyReceived, setJobsAlreadyReceived };
   const THIRTY_MINUTES = 1800000;
 
+  refreshToken()
   useEffect(() => {
     setInterval(refreshToken, THIRTY_MINUTES)
   })

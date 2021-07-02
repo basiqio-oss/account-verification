@@ -4,7 +4,8 @@ const accountDTO = (account) => {
         id: account.id,
         balance: account.balance,
         product: account.class.product,
-        accountNumber: account.accountNo
+        accountNumber: account.accountNo,
+        type: account.class.type
     }
   }
 

@@ -11,7 +11,7 @@ export const UserAccounts = () => {
                 userAccounts.map((account) => 
                 <div className="account" key={account.id}>
                     <h6 className="account-name">{account.name}</h6>
-                    <p>{account.class.product}: ${account.balance}</p>
+                    <p>{account.product}: ${account.balance}</p>
                     <p>AC number: {account.accountNo}</p>
                 </div>
                 )

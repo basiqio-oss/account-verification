@@ -1,3 +1,4 @@
+
 export async function createUser(email, phone) {
     let body = JSON.stringify({
         email: email,
@@ -19,24 +20,12 @@ export async function createUser(email, phone) {
     return response.data;
 }
 
-export async function getUserAccounts(userId) {
-    
-    let response = await fetch(`/api/users/${userId.userId}/accounts`);
-
-    if (response.status === 200) {
-        let data = await response.text();
-        return data
-    }
-    
-    return response.data;
-}
-
-export async function getUserAccount(url) {
+export async function getUserAccounts(url) {
     let body = JSON.stringify({
         url: url
       });
 
-    let response = await fetch(`/api/account`, {
+    let response = await fetch(`/api/accounts`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

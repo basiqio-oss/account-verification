@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import BasiqConnect from "@basiq/basiq-connect-control";
 import UserContext from '../context/userContext';
-import { getUserAccount, refreshConnection } from '../clients/usersClient';
+import { getUserAccounts as getUserAccounts, refreshConnection } from '../clients/usersClient';
 import { getAllUserJobs, getJob } from '../clients/jobsClient';
 
 export const BasiqConnectModal = (userId) => {
@@ -21,7 +21,7 @@ export const BasiqConnectModal = (userId) => {
 
   const pollJobs = async () => {
     getAllUserJobs(userId.userId).then((result) => {
-      jobsReturned = JSON.parse(result).data
+      jobsReturned = JSON.parse(result).data.data
     filterNewJobs(jobsReturned, jobsAlreadyReceived);
       jobsAlreadyReceived = jobsReturned;
     }).then(async () => {
@@ -43,12 +43,13 @@ export const BasiqConnectModal = (userId) => {
 
       if (jobStatus === "success") {
         console.log('successfully retrieved your account.')
-        getUserAccount(job.steps[1].result.url).then((result) => {
+        getUserAccounts(job.steps[1].result.url).then((result) => {
           let accountsArray = JSON.parse(result).data;
-          let userTransactionAccounts = accountsArray.filter(account => account.class.type === "transaction");
-          
+          console.log(accountsArray)
+          let userTransactionAccounts = accountsArray.filter(account => account.type === "transaction");
+          console.log(userTransactionAccounts)         
           Array.prototype.push.apply(allUserAccounts, userTransactionAccounts); 
-
+          console.log(allUserAccounts)
           return setUserAccounts(allUserAccounts);
         })
       } 

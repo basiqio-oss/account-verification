@@ -15,7 +15,7 @@ export const CreateUserForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         createUser(email, mobile).then( async (result) => {
-            let userId = await JSON.parse(result).id
+            let userId = await JSON.parse(result).data.id
             setUserId(userId)
         })
     }

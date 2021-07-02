@@ -58,7 +58,7 @@ const getUserJobs = async function(userId, token) {
     }
 }
 
-const getUserAccounts = async function(userId, token) {
+const getUserAccounts = async function(url, token) {
     const standardHeaders = {
         headers: {
             'Content-Type': 'application/json',
@@ -68,24 +68,7 @@ const getUserAccounts = async function(userId, token) {
         }
 
     try {
-        const response = await axios.get(`${API_BASE_URL}/users/${userId}/accounts`, standardHeaders);
-        return response;
-    } catch (error) {
-        return console.log(error)
-    }
-}
-
-const getUserAccount = async function(url, token) {
-    const standardHeaders = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'basiq-version': '2.0'
-            }
-        }
-
-    try {
-        const response = await axios.get(`${API_BASE_URL}/${url}`, standardHeaders);
+        const response = await axios.get(`${API_BASE_URL}${url}`, standardHeaders);
         return response;
     } catch (error) {
         return console.log(error)
@@ -112,8 +95,7 @@ const refreshConnection = async function(connectionUrl, token) {
 module.exports = {
     createUser,
     getUserJobs,
-    getUserAccounts,
     getToken,
-    getUserAccount,
+    getUserAccounts,
     refreshConnection
 };
