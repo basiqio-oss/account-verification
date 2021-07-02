@@ -10,17 +10,41 @@ import { Header } from './components/Header';
 import { CreateUserForm } from './components/CreateUserForm';
 import { refreshToken } from './helpers/helpers';
 import UserContext from './context/userContext';
+import NotificationToast from './components/NotificationToast';
 
 function App() {
   const [userId, setUserId] = useState("");
   const [userAccounts, setUserAccounts] = useState([])
   const [jobsAlreadyReceived, setJobsAlreadyReceived] = useState([])
+  const [notificationMessage, setNotificationMessage] = useState([])
   const [show, setShow] = useState(false)
+  const [notify, setNotify] = useState(false)
 
+  // BasiqConnect
   const handleClose = () => setShow(false);
   const handleShow = () =>  setShow(true);
 
-  const VALUE = { userId, setUserId, userAccounts, setUserAccounts, jobsAlreadyReceived, setJobsAlreadyReceived };
+  // Toast Notifications
+  const handleDismiss = () => setNotify(false);
+  const handleNotify = (message, delay) =>  {
+    setNotificationMessage(message)
+    setNotify(true)
+  };
+
+  const APP_SHARED_STATE = { 
+    userId, 
+    setUserId, 
+    userAccounts, 
+    setUserAccounts, 
+    jobsAlreadyReceived, 
+    setJobsAlreadyReceived, 
+    setNotificationMessage,
+    notificationMessage,
+    handleNotify,
+    handleDismiss,
+    notify
+  };
+
   const THIRTY_MINUTES = 1800000;
 
   refreshToken()
@@ -31,16 +55,19 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <UserContext.Provider value={VALUE}>
+      <UserContext.Provider value={APP_SHARED_STATE}>
         { userId !== "" &&         
         <Button variant="dark" onClick={handleShow}>
             Connect { userAccounts.length !== 0 ? "more" : "your"} accounts
         </Button> }
         { userId === "" && <CreateUserForm />}
         <UserAccounts />
+
         <Modal show={show} onHide={handleClose}>
             <BasiqConnectModal userId={userId} />
         </Modal>
+        
+        <NotificationToast />
       </UserContext.Provider>
     </div>
   );

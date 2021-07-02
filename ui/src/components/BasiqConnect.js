@@ -8,7 +8,7 @@ import { getAllUserJobs, getJob } from '../clients/jobsClient';
 
 export const BasiqConnectModal = (userId) => {
 
-  const { setUserAccounts } = useContext(UserContext)
+  const { setUserAccounts, handleNotify } = useContext(UserContext)
 
   var jobsReturned = [];
   var newJobs = [];
@@ -69,14 +69,23 @@ export const BasiqConnectModal = (userId) => {
 
   const manageFailedJob = (job) => {
     if (job.steps[1].result.code === "service-unavailable") {
-      console.log(`Unfortunately we were unable to retrieve your accounts from {BANK}. We will keep trying in the background and let you know how we go!`
+      handleNotify(
+        `Unfortunately we were unable to retrieve your accounts from {BANK}. 
+        We will keep trying in the background.`
       )
       setTimeout(() => {
         refreshConnection(job.links.source)
       }, 300000)
-    } else if (job.steps[1].result.code === "account-not-accessible-requires-user-action") {
-      console.log('account not accessible user action required')
-    } else if (job.steps[1].result.code === "invalid-credentials") {
+    } 
+    
+    else if (job.steps[1].result.code === "account-not-accessible-requires-user-action") {
+      handleNotify(
+        `Couls not connect your accounts from {BANK} as user action is required. 
+        Please log in to your internet banking portal, take action, and try again.`
+        )
+    } 
+    
+    else if (job.steps[1].result.code === "invalid-credentials") {
       console.log("invalid credentials")
     }
   }
