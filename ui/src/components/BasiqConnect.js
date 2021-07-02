@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import BasiqConnect from "@basiq/basiq-connect-control";
 import UserContext from '../context/userContext';
-import { getUserAccounts as getUserAccounts, refreshConnection } from '../clients/usersClient';
+import { getUserAccounts, refreshConnection } from '../clients/usersClient';
 import { getAllUserJobs, getJob } from '../clients/jobsClient';
 
 export const BasiqConnectModal = (userId) => {
@@ -45,11 +45,8 @@ export const BasiqConnectModal = (userId) => {
         console.log('successfully retrieved your account.')
         getUserAccounts(job.steps[1].result.url).then((result) => {
           let accountsArray = JSON.parse(result).data;
-          console.log(accountsArray)
-          let userTransactionAccounts = accountsArray.filter(account => account.type === "transaction");
-          console.log(userTransactionAccounts)         
+          let userTransactionAccounts = accountsArray.filter(account => account.type === "transaction");         
           Array.prototype.push.apply(allUserAccounts, userTransactionAccounts); 
-          console.log(allUserAccounts)
           return setUserAccounts(allUserAccounts);
         })
       } 

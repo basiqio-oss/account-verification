@@ -1,9 +1,7 @@
 const express = require("express");
 const app = express();
-
-const authenticationController = require("./controllers/authenticationController");
-const usersController = require("./controllers/usersController");
 const mongooseRepository = require("./database/repositories/mongooseRepository")
+const routes = require("./common/routes")
 
 const url = 'mongodb://localhost/account-verification';
 const port = process.env.NODE_ENV === 'test' ? 4000 : 3001;
@@ -13,20 +11,7 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(express.urlencoded());
-
-app.get('/api/ping', (req, res) => {
-    res.send('pong')
-  })
-
-app.get("/api/token/:scope", authenticationController.getToken)
-
-app.post("/api/users", usersController.createUser);
-
-app.get("/api/users/:id/jobs", usersController.getUserJobs);
-
-app.post("/api/accounts", usersController.getUserAccounts)
-
-app.post("/api/refresh-connection", usersController.refreshConnection)
+app.use('/', routes)
 
 var mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true })
