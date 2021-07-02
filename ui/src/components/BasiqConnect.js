@@ -57,7 +57,7 @@ export const BasiqConnectModal = (userId) => {
         manageFailedJob(job)
         return console.log(`job has ${jobStatus}`)
       } 
-      
+
       else {
         return setTimeout(() => {
           console.log("job is still processing")
@@ -76,6 +76,8 @@ export const BasiqConnectModal = (userId) => {
       }, 300000)
     } else if (job.steps[1].result.code === "account-not-accessible-requires-user-action") {
       console.log('account not accessible user action required')
+    } else if (job.steps[1].result.code === "invalid-credentials") {
+      console.log("invalid credentials")
     }
   }
 
