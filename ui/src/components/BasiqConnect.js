@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
+
 import BasiqConnect from "@basiq/basiq-connect-control";
 import UserContext from '../context/userContext';
+
 import { getUserAccounts, refreshConnection } from '../clients/usersClient';
 import { getAllUserJobs, getJob } from '../clients/jobsClient';
 

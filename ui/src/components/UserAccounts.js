@@ -7,7 +7,7 @@ export const UserAccounts = () => {
 
     return(
         <div className="accounts">
-            { userAccounts.length !== 0 ? 
+            { userAccounts.length !== 0 && 
                 userAccounts.map((account) => 
                 <div className="account" key={account.id}>
                     <h6 className="account-name">{account.name}</h6>
@@ -15,8 +15,7 @@ export const UserAccounts = () => {
                     <p>AC number: {account.accountNo}</p>
                 </div>
                 )
-            : 
-            null }
+            }
         </div>
     )
 }
