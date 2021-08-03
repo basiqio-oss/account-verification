@@ -1,7 +1,7 @@
 .App {
   padding: 10rem;
   margin: 0 auto;
-  width: 80%;
+  max-width: 80%;
 }
 
 h1 {

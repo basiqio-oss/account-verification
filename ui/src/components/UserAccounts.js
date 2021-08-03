@@ -12,7 +12,7 @@ export const UserAccounts = () => {
                 <div className="account" key={account.id}>
                     <h6 className="account-name">{account.name}</h6>
                     <p>{account.product}: ${account.balance}</p>
-                    <p>AC number: {account.accountNo}</p>
+                    <p>AC number: {account.accountNumber}</p>
                 </div>
                 )
             }

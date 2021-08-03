@@ -1,1 +1,0 @@
-// Implement helper functions for polling here

@@ -1,4 +1,3 @@
-
 export async function createUser(email, phone) {
     let body = JSON.stringify({
         email: email,
