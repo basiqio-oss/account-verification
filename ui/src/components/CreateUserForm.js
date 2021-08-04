@@ -31,7 +31,7 @@ export const CreateUserForm = () => {
                 <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
             </Form.Group>
 
-            <Button variant="dark" type="submit">
+            <Button style={{color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold"}} variant="custom" type="submit">
                 Submit
             </Button>
         </Form>

@@ -11,6 +11,8 @@ import { CreateUserForm } from './components/CreateUserForm';
 import { refreshToken } from './utils/authentication';
 import UserContext from './context/userContext';
 import { NotificationToast } from './components/NotificationToast';
+import Steps from './images/hooli-bank-steps.svg';
+
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -51,12 +53,11 @@ function App() {
     console.log("new job");
     console.log("data", event.data)
   }
-
   refreshToken()
   useEffect(() => {
     window.addEventListener('jobCreated', handleNewJob);
     setInterval(refreshToken, THIRTY_MINUTES)
-    
+
   }, [])
 
   return (
@@ -64,9 +65,15 @@ function App() {
       <Header />
       <UserContext.Provider value={APP_SHARED_STATE}>
         { userId !== "" &&         
-        <Button variant="dark" onClick={handleShow}>
-            Connect { userAccounts.length !== 0 ? "more" : "your"} accounts
-        </Button> }
+        <>
+          <img className="steps" src={Steps} />
+          <p className="approval">
+            For faster approval, please advise us of all financial institutions where you have accounts - including credit cards and loans.
+          </p>
+          <Button style={{color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold"}} onClick={handleShow}>
+              Connect { userAccounts.length !== 0 ? "more" : "your"} accounts
+          </Button> 
+        </>}
         { userId === "" && <CreateUserForm />}
         <UserAccounts />
 

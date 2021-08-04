@@ -1,7 +1,8 @@
 .App {
-  padding: 10rem;
   margin: 0 auto;
   max-width: 80%;
+  text-align: center;
+  color: #3920AC;
 }
 
 h1 {
@@ -9,12 +10,32 @@ h1 {
 }
 
 .account {
-  width: 40%;
-  border-top: 1px solid black;
   margin-top: 2rem;  
   padding-top: 1rem;
 }
 
+.logo {
+  text-align: left;
+  margin-top: 10vh;
+}
+
 .welcome {
   margin-bottom: 1.5rem;
+}
+
+.form {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.steps {
+  padding: 50px 0 50px 0;
+  display: block;
+  margin: 0 auto;
+}
+
+.approval {
+  width: 70%;
+  margin: 0 auto;
+  padding: 50px;
 }

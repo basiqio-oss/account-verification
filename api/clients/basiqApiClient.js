@@ -1,13 +1,14 @@
 const axios = require('axios');
 
 const API_BASE_URL = 'https://au-api.basiq.io';
+const BASIQ_API_VERSION = '2.1'
 
 const getToken = async (scope) => {
     const config = {
         headers: {
             'Content-Type': `application/x-www-form-urlencoded;scope=${scope}`,
             'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
-            'basiq-version': '2.0'
+            'basiq-version': BASIQ_API_VERSION
           }
     }
 
@@ -24,7 +25,7 @@ const createUser = async function(user, token) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-            'basiq-version': '2.0'
+            'basiq-version': BASIQ_API_VERSION
             }
         }
 
@@ -46,7 +47,7 @@ const getUserJobs = async function(userId, token) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-            'basiq-version': '2.0'
+            'basiq-version': BASIQ_API_VERSION
             }
         }
 
@@ -63,7 +64,7 @@ const getUserAccounts = async function(url, token) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-            'basiq-version': '2.0'
+            'basiq-version': BASIQ_API_VERSION
             }
         }
 
@@ -80,7 +81,7 @@ const refreshConnection = async function(connectionUrl, token) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-            'basiq-version': '2.0'
+            'basiq-version': BASIQ_API_VERSION
             }
         }
 
