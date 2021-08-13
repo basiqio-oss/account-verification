@@ -1,19 +1,26 @@
 const axios = require('axios');
+const qs = require('qs')
 
 const API_BASE_URL = 'https://au-api.basiq.io';
 const BASIQ_API_VERSION = '2.1'
 
 const getToken = async (scope) => {
+    var data = qs.stringify({
+        'scope': scope 
+      })
+
     const config = {
         headers: {
-            'Content-Type': `application/x-www-form-urlencoded;scope=${scope}`,
+            'Content-Type': `application/x-www-form-urlencoded`,
             'Authorization': `Basic ${process.env.BASIQ_API_KEY}`,
             'basiq-version': BASIQ_API_VERSION
-          }
+          },
     }
 
+
+
     try {
-        const response = await axios.post(`${API_BASE_URL}/token`, null, config);
+        const response = await axios.post(`${API_BASE_URL}/token`, data , config);
         return response;
     } catch (error) {
         return console.log(`this is the error response ${error}`);
