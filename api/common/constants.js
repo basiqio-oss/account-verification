@@ -1,0 +1,7 @@
+const SERVER_ACCESS = "SERVER_ACCESS";
+const CLIENT_ACCESS = "CLIENT_ACCESS";
+
+module.exports = {
+    SERVER_ACCESS,
+    CLIENT_ACCESS    
+}

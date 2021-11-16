@@ -1,11 +1,12 @@
 const basiqClient = require('../clients/basiqApiClient');
-const repository = require("../database/repositories/mongooseRepository");
 const { successResponse, errorResponse } = require('../common/response')
-const { accountDTO } = require('../DTOs/accountDto') 
+const { accountDTO } = require('../DTOs/accountDto'); 
+const { SERVER_ACCESS } = require("../common/constants");
+const { getCurrentToken } = require('../common/helpers');
 
 const createUser = (async (req, res) => {
-    let token = await repository.getServerToken();
-    basiqClient.createUser(req.body, token)
+    let token = await getCurrentToken(SERVER_ACCESS)
+    basiqClient.createUser(req.body, token.access_token)
         .then((response) => {
             successResponse(res, response.data)
         })
@@ -15,8 +16,8 @@ const createUser = (async (req, res) => {
 })
 
 const getUserJobs = (async (req, res) => {
-    let token = await repository.getServerToken();
-    basiqClient.getUserJobs(req.params.id, token)
+    let token = await getCurrentToken(SERVER_ACCESS)
+    basiqClient.getUserJobs(req.params.id, token.access_token)
         .then((response) => {
             successResponse(res, response.data)
         })
@@ -26,8 +27,8 @@ const getUserJobs = (async (req, res) => {
 })
 
 const getUserAccounts = (async (req, res) => {
-    let token = await repository.getServerToken();
-    basiqClient.getUserAccounts(req.body.url, token)
+    let token = await getCurrentToken(SERVER_ACCESS)
+    basiqClient.getUserAccounts(req.body.url, token.access_token)
         .then((response) => {
             let accounts = [];
             response.data.data.forEach(account => accounts.push(accountDTO(account)))
@@ -40,8 +41,8 @@ const getUserAccounts = (async (req, res) => {
 })
 
 const refreshConnection = (async (req, res) => {
-    let token = await repository.getServerToken();
-    basiqClient.refreshConnection(req.body.connectionUrl, token)
+    let token = await getCurrentToken(SERVER_ACCESS)
+    basiqClient.refreshConnection(req.body.connectionUrl, token.access_token)
         .then((response) => {
             successResponse(res, response.data)
         })

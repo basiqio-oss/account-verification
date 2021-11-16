@@ -5,6 +5,7 @@ const API_BASE_URL = 'https://au-api.basiq.io';
 const BASIQ_API_VERSION = '2.1'
 
 const getToken = async (scope) => {
+    // build body of request to include correct scope either SERVER or CLIENT _ACCESS
     var data = qs.stringify({
         'scope': scope 
       })
@@ -16,8 +17,6 @@ const getToken = async (scope) => {
             'basiq-version': BASIQ_API_VERSION
           },
     }
-
-
 
     try {
         const response = await axios.post(`${API_BASE_URL}/token`, data , config);
