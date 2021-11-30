@@ -20,6 +20,7 @@ const getToken = async (scope) => {
 
     try {
         const response = await axios.post(`${API_BASE_URL}/token`, data , config);
+        console.log(response)
         return response;
     } catch (error) {
         return console.log(`this is the error response ${error}`);

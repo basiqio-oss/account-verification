@@ -13,6 +13,7 @@ const getCurrentToken = async (scope) => {
 
     if (!token) {
         let tokenResponse = await basiqApiClient.getToken(scope)
+        console.log(scope)
         cache.setToken(scope, tokenResponse.data) 
 
         return tokenResponse.data;

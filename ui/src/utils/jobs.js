@@ -1,20 +1,27 @@
 import { refreshConnection } from "../clients/usersClient";
 
-export const manageFailedJob = (job, handleNotify, institution) => {
-  const accountsStepStatus = job.steps[1].result.code;
+export const manageFailedJob = (job, handleNotify) => {
+  let retrieveAccountsStepStatus = job.steps.filter(step => step.title === "retrieve-accounts")[0].result.code;
+  
+  if (retrieveAccountsStepStatus === "account-not-accessible-requires-user-action") {
+    handleNotify(
+      `We had an issue retrieving your accounts, due to user action being required on your internet banking portal. 
+      Please log in to your internet banking portal, follow the prompts on your accounts and 
+      transactions page, and try again.`
+      )
+  } 
 
-    if (accountsStepStatus === "service-unavailable") {
-      // check status of the institution 
-      if (institution.status === "major-outage") {
+    if (retrieveAccountsStepStatus === "service-unavailable") {
+      if ("hello" === "major-outage") {
         handleNotify(
-          `Unfortunately, we are unable to retrieve your accounts from ${institution.name} 
+          `Unfortunately, we are unable to retrieve your accounts from your bank 
           due to a major outage with their services. Please try again later.`
         )
       }
       else {
         // if status !== major outage
         handleNotify(
-          `Unfortunately we were unable to retrieve your accounts from ${institution.name}. 
+          `Unfortunately we were unable to retrieve your accounts from your bank. 
           We will keep trying in the background.`
         )
         setTimeout(() => {
@@ -23,13 +30,6 @@ export const manageFailedJob = (job, handleNotify, institution) => {
       }
     } 
     
-    else if (accountsStepStatus === "account-not-accessible-requires-user-action") {
-      handleNotify(
-        `Could not retrieve your accounts from ${institution.name} as user action is required. 
-        Please log in to your internet banking portal, follow the prompts on your accounts and 
-        transactions page, and try again.`
-        )
-    } 
     
     return;
 }

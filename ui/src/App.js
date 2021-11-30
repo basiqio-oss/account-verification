@@ -13,8 +13,9 @@ import UserContext from './context/userContext';
 import { NotificationToast } from './components/NotificationToast';
 import Steps from './images/hooli-bank-steps.svg';
 
-
 function App() {
+  const buttonStyle = { color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold" };
+
   const [userId, setUserId] = useState("");
   const [userAccounts, setUserAccounts] = useState([])
   const [jobsAlreadyReceived, setJobsAlreadyReceived] = useState([])
@@ -48,29 +49,26 @@ function App() {
   };
 
   const THIRTY_MINUTES = 1800000;
-
-  const handleNewJob = (event) => {
-    console.log("new job");
-    console.log("data", event.data)
-  }
+  
   refreshToken()
-  useEffect(() => {
-    window.addEventListener('jobCreated', handleNewJob);
-    setInterval(refreshToken, THIRTY_MINUTES)
 
+  useEffect(() => {
+      setInterval(refreshToken, THIRTY_MINUTES)
   }, [])
 
   return (
     <div className="App">
       <Header />
       <UserContext.Provider value={APP_SHARED_STATE}>
+        
         { userId !== "" &&         
         <>
           <img className="steps" src={Steps} />
+          {/* Value exchange below to be improved */}
           <p className="approval">
             For faster approval, please advise us of all financial institutions where you have accounts - including credit cards and loans.
           </p>
-          <Button style={{color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold"}} onClick={handleShow}>
+          <Button style={buttonStyle} onClick={handleShow}>
               Connect { userAccounts.length !== 0 ? "more" : "your"} accounts
           </Button> 
         </>}
