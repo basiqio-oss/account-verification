@@ -8,28 +8,20 @@ const isTokenExpiring = (expiryDate) => {
     }
 }
 
-const getCurrentToken = async (scope) => {
+const getValidToken = async (scope) => {
     let token = cache.getToken(scope);
 
-    if (!token) {
+    if (!token || isTokenExpiring(token.valid_to)) {
         let tokenResponse = await basiqApiClient.getToken(scope)
-        console.log(scope)
         cache.setToken(scope, tokenResponse.data) 
 
         return tokenResponse.data;
-
-    } else if (isTokenExpiring(token.valid_to)) {
-        let tokenResponse = await basiqApiClient.getToken(scope);
-        cache.setToken(scope, tokenResponse.data);
-        
-        return tokenResponse.data;
-
-    } else {
-        return token;
     }
+       
+    return token;
 
 }
 
 module.exports = {
-    getCurrentToken
+   getValidToken
 }

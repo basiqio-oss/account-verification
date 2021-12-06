@@ -2,10 +2,10 @@ const basiqClient = require('../clients/basiqApiClient');
 const { successResponse, errorResponse } = require('../common/response')
 const { accountDTO } = require('../DTOs/accountDto'); 
 const { SERVER_ACCESS } = require("../common/constants");
-const { getCurrentToken } = require('../common/helpers');
+const { getValidToken } = require('../common/helpers');
 
 const createUser = (async (req, res) => {
-    let token = await getCurrentToken(SERVER_ACCESS)
+    let token = await getValidToken(SERVER_ACCESS)
     basiqClient.createUser(req.body, token.access_token)
         .then((response) => {
             successResponse(res, response.data)
@@ -16,7 +16,7 @@ const createUser = (async (req, res) => {
 })
 
 const getUserJobs = (async (req, res) => {
-    let token = await getCurrentToken(SERVER_ACCESS)
+    let token = await getValidToken(SERVER_ACCESS)
     basiqClient.getUserJobs(req.params.id, token.access_token)
         .then((response) => {
             successResponse(res, response.data)
@@ -27,7 +27,7 @@ const getUserJobs = (async (req, res) => {
 })
 
 const getUserAccounts = (async (req, res) => {
-    let token = await getCurrentToken(SERVER_ACCESS)
+    let token = await getValidToken(SERVER_ACCESS)
     basiqClient.getUserAccounts(req.body.url, token.access_token)
         .then((response) => {
             let accounts = [];
@@ -41,7 +41,7 @@ const getUserAccounts = (async (req, res) => {
 })
 
 const refreshConnection = (async (req, res) => {
-    let token = await getCurrentToken(SERVER_ACCESS)
+    let token = await getValidToken(SERVER_ACCESS)
     basiqClient.refreshConnection(req.body.connectionUrl, token.access_token)
         .then((response) => {
             successResponse(res, response.data)

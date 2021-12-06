@@ -3,18 +3,18 @@ module.exports = function () {
     var nowInSeconds = Date.now() / 1000;
 
     return {
-        getToken: (key) => { 
-            return cache[key]; 
+        getToken: (scope) => { 
+            return cache[scope]; 
         },
 
-        setToken: (key, val) => {
+        setToken: (scope, token) => {
             // set new token and add the calculated expiry time
-            cache[key] = {
-                ...val, 
-                valid_to: nowInSeconds + val.expires_in 
+            cache[scope] = {
+                ...token, 
+                valid_to: nowInSeconds + token.expires_in 
             }
 
-            return cache[key];
+            return cache[scope];
         }
     }
 }();
