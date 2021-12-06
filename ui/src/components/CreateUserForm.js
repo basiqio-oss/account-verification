@@ -26,11 +26,9 @@ export const CreateUserForm = () => {
             <Form.Group>
                 <Form.Control onChange={((e) => setEmail(e.target.value))} type="email" value={email} placeholder="Enter email"/>
             </Form.Group>
-
             <Form.Group>
                 <Form.Control onChange={((e) => setMobile(e.target.value))} type="phone" value={mobile} placeholder="Phone number"/>
             </Form.Group>
-
             <Button style={{color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold"}} variant="custom" type="submit">
                 Submit
             </Button>

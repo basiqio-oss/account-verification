@@ -6,11 +6,13 @@ import UserContext from '../context/userContext';
 import { getUserAccounts } from '../clients/usersClient';
 import { getJob } from '../clients/jobsClient';
 import  { manageFailedJob } from '../utils/jobs'
+import { getValidToken } from '../utils/authentication';
 
 export const BasiqConnectModal = (userId) => {
   const { setUserAccounts, handleNotify } = useContext(UserContext)
 
   let allUserAccounts = [];
+  let token = getValidToken();
 
   const pollJob = async (jobId) => {
     let job;
@@ -53,7 +55,7 @@ export const BasiqConnectModal = (userId) => {
       // Renders the "BasiqConnect Simple UI" (bank picker)
         BasiqConnect({
             containerId: "basiq-control",
-            token: sessionStorage.getItem("session_token"),
+            token: token.access_token,
             userID: userId.userId, 
             })
         

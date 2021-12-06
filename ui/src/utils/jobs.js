@@ -1,5 +1,3 @@
-import { refreshConnection } from "../clients/usersClient";
-
 export const manageFailedJob = (job, handleNotify) => {
   let retrieveAccountsStepStatus = job.steps.filter(step => step.title === "retrieve-accounts")[0].result.code;
   
@@ -11,25 +9,11 @@ export const manageFailedJob = (job, handleNotify) => {
       )
   } 
 
-    if (retrieveAccountsStepStatus === "service-unavailable") {
-      if ("hello" === "major-outage") {
-        handleNotify(
-          `Unfortunately, we are unable to retrieve your accounts from your bank 
-          due to a major outage with their services. Please try again later.`
-        )
-      }
-      else {
-        // if status !== major outage
-        handleNotify(
-          `Unfortunately we were unable to retrieve your accounts from your bank. 
-          We will keep trying in the background.`
-        )
-        setTimeout(() => {
-          refreshConnection(job.links.source)
-        }, 300000)
-      }
-    } 
-    
+  if (retrieveAccountsStepStatus === "service-unavailable") {
+      handleNotify(
+        `Unfortunately, we were unable to retrieve your accounts due to an issue with your bank, please try again later.`
+      )
+  } 
     
     return;
 }

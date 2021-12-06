@@ -5,6 +5,6 @@ export async function getClientToken() {
         let data = await response.text();
         return data
     }
-
+    
     return response.data;
 }

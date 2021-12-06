@@ -1,24 +1,23 @@
 import './App.css';
 
-import React, { useState, useEffect }from 'react';
+import React, { useState }from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+
+import UserContext from './context/userContext';
+import Steps from './images/hooli-bank-steps.svg';
 
 import { BasiqConnectModal } from "../src/components/BasiqConnect";
 import { UserAccounts } from '../src/components/UserAccounts';
 import { Header } from './components/Header';
 import { CreateUserForm } from './components/CreateUserForm';
-import { refreshToken } from './utils/authentication';
-import UserContext from './context/userContext';
 import { NotificationToast } from './components/NotificationToast';
-import Steps from './images/hooli-bank-steps.svg';
 
 function App() {
   const buttonStyle = { color: "#3920AC", backgroundColor: "#3FF8CF", border: "0px", fontWeight: "bold" };
 
   const [userId, setUserId] = useState("");
   const [userAccounts, setUserAccounts] = useState([])
-  const [jobsAlreadyReceived, setJobsAlreadyReceived] = useState([])
   const [notificationMessage, setNotificationMessage] = useState([])
   const [show, setShow] = useState(false)
   const [notify, setNotify] = useState(false)
@@ -39,22 +38,12 @@ function App() {
     setUserId, 
     userAccounts, 
     setUserAccounts, 
-    jobsAlreadyReceived, 
-    setJobsAlreadyReceived, 
     setNotificationMessage,
     notificationMessage,
     handleNotify,
     handleDismiss,
     notify
   };
-
-  const THIRTY_MINUTES = 1800000;
-  
-  refreshToken()
-
-  useEffect(() => {
-      setInterval(refreshToken, THIRTY_MINUTES)
-  }, [])
 
   return (
     <div className="App">
@@ -63,7 +52,7 @@ function App() {
         
         { userId !== "" &&         
         <>
-          <img className="steps" src={Steps} />
+          <img className="steps" src={Steps} alt="Static steps graphic" />
           {/* Value exchange below to be improved */}
           <p className="approval">
             For faster approval, please advise us of all financial institutions where you have accounts - including credit cards and loans.
@@ -75,10 +64,7 @@ function App() {
         { userId === "" && <CreateUserForm />}
         <UserAccounts />
 
-        <Modal 
-          show={show} 
-          onHide={handleClose}
-          >
+        <Modal show={show} onHide={handleClose}>
             <BasiqConnectModal userId={userId} />
         </Modal>
         

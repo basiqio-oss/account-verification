@@ -5,8 +5,6 @@ const UserContext = React.createContext({
     setuserId: () => {},
     userAccounts: [],
     setUserAccounts: () => {},
-    jobsAlreadyReceived: [], 
-    setJobsAlreadyReceived: () => {}
 });
 
 export default UserContext;
