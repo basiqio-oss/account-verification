@@ -1,9 +1,0 @@
-{
-    "short_name": "Account Verification",
-    "name": "Basiq Account Verification App",
-    "icons": [],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-  }
