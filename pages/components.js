@@ -1,9 +1,9 @@
-import { Button } from '../components/Button';
 import Head from 'next/head';
+import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { ProgressBar } from '../components/ProgressBar';
 
-export default function Components(x) {
+export default function Components() {
   // TODO: This file to be removed, for internal dev use only
   return (
     <>
