@@ -5,13 +5,18 @@ module.exports = {
   theme: {
     colors: {
       transparent: 'transparent',
-      black: '#000',
+      black: '#000217',
       white: '#fff',
       brand: {
         100: '#F1F0FF',
         500: '#4737FF',
       },
       critical: { 500: '#E00033' },
+      gray: {
+        base: '#000217',
+        muted: '#BECBD0',
+        dim: '#DDE2E4',
+      },
     },
     extend: {},
   },

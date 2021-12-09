@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
+import { ProgressBar } from '../components/ProgressBar';
 
 export default function Components() {
   // TODO: This file to be removed, for internal dev use only
@@ -14,6 +15,7 @@ export default function Components() {
         <h1 className="text-4xl mb-5">Components</h1>
         <SectionButtons />
         <SectionTextField />
+        <SectionProgressBar />
       </main>
       <footer></footer>
     </>
@@ -62,6 +64,10 @@ function SectionButtons() {
           Critical
         </Button>
       </div>
+
+      <div>
+        <Button block>Block</Button>
+      </div>
     </section>
   );
 }
@@ -74,4 +80,8 @@ function SectionTextField() {
       <TextField label="Label" error="Something went wrong" />
     </div>
   );
+}
+
+function SectionProgressBar() {
+  return <ProgressBar value={20} />;
 }
