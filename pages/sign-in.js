@@ -11,7 +11,6 @@ export default function SignIn() {
       <main>
         <AccountVerificationForm />
       </main>
-      <footer></footer>
     </>
   );
 }
