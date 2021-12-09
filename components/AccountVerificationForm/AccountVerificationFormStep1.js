@@ -1,11 +1,8 @@
-import { useFormState } from 'react-use-form-state';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { Button } from '../Button';
 
 export function AccountVerificationFormStep1() {
   const { goForward } = useAccountVerificationForm();
-  const [formState, { email }] = useFormState();
-
   return (
     <div>
       <div className="text-center space-y-6">
@@ -21,7 +18,7 @@ export function AccountVerificationFormStep1() {
         <Button variant="bold" block onClick={goForward}>
           Continue
         </Button>
-        <Button variant="subtle" block>
+        <Button as="a" href="https://basiq.io/" target="_blank" rel="noreferrer" variant="subtle" block>
           Learn more
         </Button>
       </div>

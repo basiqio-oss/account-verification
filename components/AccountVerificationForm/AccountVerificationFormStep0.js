@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import { TextField } from '../TextField';
 
 export function AccountVerificationFormStep0() {
-  const { goForward } = useAccountVerificationForm();
+  const { goForward, cancel } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
 
   function handleSubmit(e) {
@@ -25,7 +25,7 @@ export function AccountVerificationFormStep0() {
             <Button type="submit" variant="bold" block>
               Continue
             </Button>
-            <Button type="button" variant="subtle" block>
+            <Button type="button" variant="subtle" block onClick={cancel}>
               Cancel
             </Button>
           </div>
