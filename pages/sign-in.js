@@ -8,7 +8,7 @@ export default function SignIn() {
         <title>Basiq account verification</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto px-3 py-3">
+      <main>
         <AccountVerificationForm />
       </main>
       <footer></footer>
