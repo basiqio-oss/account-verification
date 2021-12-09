@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Button } from '../components/Button';
+import { TextField } from '../components/TextField';
 
 export default function Components() {
   // TODO: This file to be removed, for internal dev use only
@@ -12,6 +13,7 @@ export default function Components() {
       <main className="container mx-auto px-3 py-3">
         <h1 className="text-4xl mb-5">Components</h1>
         <SectionButtons />
+        <SectionTextField />
       </main>
       <footer></footer>
     </>
@@ -61,5 +63,15 @@ function SectionButtons() {
         </Button>
       </div>
     </section>
+  );
+}
+
+function SectionTextField() {
+  return (
+    <div className="space-y-4">
+      <TextField label="Label" />
+      <TextField label="Label" placeholder="Placeholder" />
+      <TextField label="Label" error="Something went wrong" />
+    </div>
   );
 }
