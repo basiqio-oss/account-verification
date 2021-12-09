@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { Button } from '../Button';
-import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep4() {
@@ -9,6 +8,8 @@ export function AccountVerificationFormStep4() {
   const [submitting, setSubmitting] = useState(false);
   const [account, setAccount] = useState(EXAMPLE_ACCOUNTS[0]);
 
+  // Example submit to show off loading state / success state
+  // TODO what if something goes wrong?
   function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
@@ -18,6 +19,7 @@ export function AccountVerificationFormStep4() {
     }, 2000);
   }
 
+  // TODO It may be better to move this into it's own step instead of internal state
   if (success) {
     return <AccountVerificationFormStep4Success />;
   }
@@ -34,27 +36,27 @@ export function AccountVerificationFormStep4() {
       <form onSubmit={handleSubmit}>
         {EXAMPLE_ACCOUNTS.length ? (
           <RadioGroup value={account} onChange={setAccount}>
-            <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
+            <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
             <div className="space-y-2">
-              {EXAMPLE_ACCOUNTS.map(bank => (
+              {EXAMPLE_ACCOUNTS.map((acc, idx) => (
                 <RadioGroup.Option
-                  key={bank.value}
-                  value={bank}
+                  key={idx}
+                  value={acc}
                   className={`relative rounded-lg shadow-md px-5 py-4 flex focus:outline-none ${
-                    bank.disabled ? 'cursor-not-allowed opacity-20' : 'cursor-pointer'
+                    acc.disabled ? 'cursor-not-allowed opacity-20' : 'cursor-pointer'
                   }`}
-                  disabled={bank.disabled}
+                  disabled={acc.disabled}
                 >
                   {({ checked }) => (
                     <div className="flex justify-between w-full">
-                      <span>{bank.disabled ? 'Disabled' : checked ? 'Check' : ''}</span>
+                      <span>{acc.disabled ? 'Disabled' : checked ? 'Check' : ''}</span>
                       <div className="flex-1 pl-4">
-                        <RadioGroup.Label as="p">{bank.title}</RadioGroup.Label>
+                        <RadioGroup.Label as="p">{acc.title}</RadioGroup.Label>
                         <dl className="grid grid-cols-2">
                           <dt className="flex-1">Available:</dt>
-                          <dd>{bank.available}</dd>
+                          <dd>{acc.available}</dd>
                           <dt className="flex-1">Balance</dt>
-                          <dd>{bank.balance}</dd>
+                          <dd>{acc.balance}</dd>
                         </dl>
                       </div>
                     </div>
@@ -74,6 +76,7 @@ export function AccountVerificationFormStep4() {
   );
 }
 
+// TODO this will come from an API
 const EXAMPLE_ACCOUNTS = [
   {
     title: 'Smart access',

@@ -4,7 +4,6 @@ import { Button } from '../Button';
 
 export function AccountVerificationFormStep3() {
   const { goForward } = useAccountVerificationForm();
-
   return (
     <div>
       <div className="text-center space-y-6">
