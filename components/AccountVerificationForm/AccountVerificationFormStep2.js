@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export function AccountVerificationFormStep2() {
   const { goForward } = useAccountVerificationForm();
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState('');
 
   function onChange() {
     goForward();
