@@ -5,7 +5,7 @@ import { Button } from '../Button';
 export function AccountVerificationFormCancellationModal({ isOpen, onClose, onConfirm }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto antialiased" onClose={onClose}>
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -16,7 +16,7 @@ export function AccountVerificationFormCancellationModal({ isOpen, onClose, onCo
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0" />
+            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
           </Transition.Child>
           {/* This element is to trick the browser into centering the modal contents. */}
           <span className="inline-block h-screen align-middle" aria-hidden="true">
@@ -31,14 +31,15 @@ export function AccountVerificationFormCancellationModal({ isOpen, onClose, onCo
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-2xl text-center space-y-8">
-              <Dialog.Title as="h3" className="text-3xl font-bold">
-                Cancel connecting bank account?
+            <div className="inline-block w-full max-w-sm p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg text-center space-y-6">
+              <Dialog.Title as="h3" className="text-2xl font-semibold tracking-tight leading-tight">
+                Cancel connecting
+                <br />
+                bank account?
               </Dialog.Title>
-              <div className="space-y-2">
-                <p>Any information you have provided will be deleted permanently.</p>
-                <p>This action can not be undone.</p>
-              </div>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                Any information you have provided so far will be deleted permanently. This action can not be undone.
+              </p>
               <div className="space-y-2">
                 <Button onClick={onConfirm} variant="critical" block>
                   Yes, cancel
