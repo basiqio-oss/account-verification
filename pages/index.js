@@ -20,13 +20,13 @@ export default function Home() {
           </div>
 
           {/* Product heading */}
-          <h1 className="text-white text-3xl font-semibold tracking-tight">
+          <h1 className="text-white text-2xl sm:text-3xl font-semibold tracking-tight">
             Start optimising <br />
             your savings
           </h1>
 
           {/* Product short description */}
-          <p className="text-white text-opacity-90 leading-relaxed">
+          <p className="text-white text-sm sm:text-base text-opacity-90 leading-relaxed">
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
