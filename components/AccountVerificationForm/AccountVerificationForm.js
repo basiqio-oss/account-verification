@@ -42,32 +42,39 @@ export function AccountVerificationForm() {
 
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
-      {/** Header (progress bar / controls)  */}
-      <div className="absolute top-0 right-0 left-0 space-y-4">
+      {/** Form progress indicators / Cancel control  */}
+      <div className="fixed top-0 right-0 left-0">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
-        <div className="flex items-center justify-between px-4">
-          <span>
-            Step {currentStep + 1} of {totalSteps}
-          </span>
-          {currentStep > 0 ? (
-            <button className="text-brand-500" onClick={openCancellationModal}>
-              Cancel
-            </button>
-          ) : null}
-        </div>
       </div>
+      <div className="absolute flex justify-between px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed w-full">
+        <span className="text-xs sm:text-sm text-gray-600">
+          {currentStep + 1} of {totalSteps}
+        </span>
+        {/* TODO: change tabindex so Cancel doesn't get focused first */}
+        {currentStep > 0 ? (
+          <button
+            className="text-xs sm:text-sm text-primary-600 rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            onClick={openCancellationModal}
+          >
+            Cancel
+          </button>
+        ) : null}
+      </div>
+
       {/** The UI of the form step */}
-      <div className="min-h-screen flex flex-col justify-center mx-auto max-w-md px-4 py-2">
+      <div className="min-h-screen flex flex-col justify-center mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-8">
         <FormComponent />
       </div>
+
       {/** Cancellation modal */}
       <AccountVerificationFormCancellationModal
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
         onConfirm={confirmCancel}
       />
+
       {/** Debugging */}
-      <div className="absolute bottom-4 left-4 space-x-4">
+      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-gray-300">
         <button onClick={goBack}>Prev</button>
         <button onClick={goForward}>Next</button>
       </div>
