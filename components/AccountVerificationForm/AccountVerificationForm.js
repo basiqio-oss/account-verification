@@ -57,7 +57,7 @@ export function AccountVerificationForm() {
         </div>
       </div>
       {/** The UI of the form step */}
-      <div className="min-h-screen flex flex-col justify-center mx-auto max-w-md py-2">
+      <div className="min-h-screen flex flex-col justify-center mx-auto max-w-md px-4 py-2">
         <FormComponent />
       </div>
       {/** Cancellation modal */}
