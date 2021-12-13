@@ -21,8 +21,8 @@ module.exports = {
         800: '#0B008E',
         900: '#070056',
       },
-      secondary: '#0DE2BC', // primary bg gradients
-      accent: '#9C4EFF', // accent bg gradients, icons
+      secondary: '#10EDC5', // bg gradients, icons
+      accent: '#9C4EFF', // bg gradients, icons
 
       // FUNCTIONAL COLOURS
       // Colours that are neutral and not necessarily tied to your products brand.
@@ -30,7 +30,7 @@ module.exports = {
       current: 'currentColor',
       black: '#000217',
       white: colors.white,
-      gray: colors.blueGray,
+      gray: colors.blueGray, // text-gray-600 for muted text e.g.
       red: colors.red,
       green: colors.green,
     },
