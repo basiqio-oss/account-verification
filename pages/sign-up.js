@@ -6,6 +6,7 @@ export default function SignUp() {
     <>
       <Head>
         <title>Piper</title>
+        {/* TODO: Add favicon image */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
