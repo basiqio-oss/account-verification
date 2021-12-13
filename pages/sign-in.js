@@ -5,10 +5,11 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>Basiq account verification</title>
+        <title>Piper</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
-      <main>
+      <main className="antialiased">
         <AccountVerificationForm />
       </main>
     </>
