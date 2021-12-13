@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { AccountVerificationForm } from '../components/AccountVerificationForm';
 
-export default function SignIn() {
+export default function SignUp() {
   return (
     <>
       <Head>
