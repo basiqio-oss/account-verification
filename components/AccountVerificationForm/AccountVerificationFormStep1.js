@@ -11,7 +11,6 @@ export function AccountVerificationFormStep1() {
   const [isLearnMoreModalOpen, setLearnMoreModalOpen] = useState(false);
   const openLearnMoreModal = () => setLearnMoreModalOpen(true);
   const closeLearnMoreModal = () => setLearnMoreModalOpen(false);
-  // const confirmCancel = () => router.push('/');
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -145,7 +144,6 @@ export function AccountVerificationFormStep1() {
             Continue
           </Button>
 
-          {/* TODO: Hook up Learn more dialog */}
           <Button variant="subtle" block onClick={openLearnMoreModal}>
             Learn more
           </Button>
