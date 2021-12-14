@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '../Button';
 import { useAccountVerificationForm } from './AccountVerificationForm';
+import { AccountVerificationFormLearnMoreModal } from './AccountVerificationFormLearnMoreModal';
 
 export function AccountVerificationFormStep1() {
   const { goForward } = useAccountVerificationForm();
+
+  // State for managing hiding/showing of the cancellation model
+  const [isLearnMoreModalOpen, setLearnMoreModalOpen] = useState(false);
+  const openLearnMoreModal = () => setLearnMoreModalOpen(true);
+  const closeLearnMoreModal = () => setLearnMoreModalOpen(false);
+  // const confirmCancel = () => router.push('/');
+
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
       {/* Logo */}
@@ -33,10 +42,10 @@ export function AccountVerificationFormStep1() {
 
         {/* Build trust */}
         {/* Present the user with valid arguments for why it's 100% secure to connect to their bank through the app. */}
-        <ul className="bg-gray-50 rounded-lg">
+        <ul className="bg-gray-50 rounded-lg border divide-y">
           {/* Secure argument 1 */}
-          <li className="px-4 sm:px-6 py-4 bg-gradient-to-tr from-primary-500 to-secondary rounded-lg space-x-4 flex items-center">
-            <div className="flex flex-grow sm:text-lg text-white font-medium sm:leading-snug">
+          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-500 to-secondary rounded-t-lg space-x-4 flex items-center scale-100">
+            <div className="flex flex-grow text-white font-medium leading-snug">
               Bank grade 256-bit <br />
               SSL encryption
             </div>
@@ -63,8 +72,8 @@ export function AccountVerificationFormStep1() {
           </li>
 
           {/* Secure argument 2 */}
-          <li className="mx-4 sm:mx-6 py-4 flex items-center border-b">
-            <div className="flex flex-grow text-sm sm:text-base leading-relaxed">
+          <li className="px-4 sm:px-6 py-3 flex items-center">
+            <div className="flex flex-grow text-sm">
               We never save your bank <br />
               login credentials in the app
             </div>
@@ -89,10 +98,10 @@ export function AccountVerificationFormStep1() {
           </li>
 
           {/* Secure argument 3 */}
-          <li className="mx-4 sm:mx-6 py-4 space-x-4 flex items-center">
-            <div className="flex flex-grow text-sm sm:text-base leading-relaxed">
-              We can not transact <br />
-              on your behalf
+          <li className="px-4 sm:px-6 py-3 space-x-4 flex items-center">
+            <div className="flex flex-grow text-sm">
+              We can not make <br />
+              transactions on your behalf
             </div>
 
             {/* Icon: credit-card */}
@@ -137,10 +146,17 @@ export function AccountVerificationFormStep1() {
           </Button>
 
           {/* TODO: Hook up Learn more dialog */}
-          <Button variant="subtle" block>
+          <Button variant="subtle" block onClick={openLearnMoreModal}>
             Learn more
           </Button>
         </div>
+
+        {/** Cancellation modal */}
+        <AccountVerificationFormLearnMoreModal
+          isOpen={isLearnMoreModalOpen}
+          onClose={closeLearnMoreModal}
+          onConfirm={goForward}
+        />
       </div>
     </div>
   );

@@ -31,13 +31,14 @@ export function AccountVerificationFormCancellationModal({ isOpen, onClose, onCo
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-sm p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg text-center space-y-6">
+            <div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg text-center space-y-6">
+              {/* TODO: Add X close button */}
               <Dialog.Title as="h3" className="text-2xl font-semibold tracking-tight leading-tight">
                 Cancel connecting
                 <br />
                 bank account?
               </Dialog.Title>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Any information you have provided so far will be deleted permanently. This action can not be undone.
               </p>
               <div className="space-y-2">

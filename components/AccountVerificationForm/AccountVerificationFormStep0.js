@@ -39,6 +39,13 @@ export function AccountVerificationFormStep0() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
             <TextField {...email('email')} label="Email" placeholder="your@email.com" required />
+
+            {/* Terms and Conditions */}
+            {/* TODO: Write more */}
+            <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
+              By continuing you agree to the Terms and Conditions and our Privacy Policy.
+            </p>
+
             <div className="space-y-2">
               <Button type="submit" variant="bold" block>
                 Continue
@@ -49,12 +56,6 @@ export function AccountVerificationFormStep0() {
             </div>
           </div>
         </form>
-
-        {/* Terms and Conditions */}
-        {/* TODO: Write more */}
-        <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
-          By continuing you agree to the Terms and Conditions and our Privacy Policy.
-        </p>
       </div>
     </div>
   );

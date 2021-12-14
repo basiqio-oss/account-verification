@@ -12,6 +12,7 @@ export default function AccountVerification() {
       </Head>
       <main className="antialiased">
         <AccountVerificationForm />
+        {/* TODO: Add background image */}
       </main>
     </>
   );
