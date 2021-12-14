@@ -149,7 +149,7 @@ export function AccountVerificationFormStep1() {
           </Button>
         </div>
 
-        {/** Cancellation modal */}
+        {/** Learn more modal */}
         <AccountVerificationFormLearnMoreModal
           isOpen={isLearnMoreModalOpen}
           onClose={closeLearnMoreModal}
