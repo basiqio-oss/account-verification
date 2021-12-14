@@ -8,11 +8,12 @@ export default function Components() {
   return (
     <>
       <Head>
-        <title>Basiq account verification</title>
+        <title>Components</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
-      <main className="container mx-auto px-3 py-3">
-        <h1 className="text-4xl mb-5">Components</h1>
+      <main className="container mx-auto px-6 py-6 antialiased space-y-10">
+        <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
         <SectionTextField />
         <SectionProgressBar />
@@ -24,7 +25,8 @@ export default function Components() {
 
 function SectionButtons() {
   return (
-    <section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">Button</h2>
       <div className="space-x-4">
         <Button>Default</Button>
         <Button variant="bold">Bold</Button>
@@ -74,14 +76,20 @@ function SectionButtons() {
 
 function SectionTextField() {
   return (
-    <div className="space-y-4">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">TextField</h2>
       <TextField label="Label" />
       <TextField label="Label" placeholder="Placeholder" />
       <TextField label="Label" error="Something went wrong" />
-    </div>
+    </section>
   );
 }
 
 function SectionProgressBar() {
-  return <ProgressBar value={20} />;
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">ProgressBar</h2>
+      <ProgressBar value={100} />
+    </section>
+  );
 }

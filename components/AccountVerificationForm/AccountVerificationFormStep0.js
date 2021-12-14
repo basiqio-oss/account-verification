@@ -1,7 +1,7 @@
 import { useFormState } from 'react-use-form-state';
-import { useAccountVerificationForm } from './AccountVerificationForm';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep0() {
   const { goForward, cancel } = useAccountVerificationForm();

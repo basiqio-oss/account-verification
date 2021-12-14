@@ -1,5 +1,5 @@
-import { useAccountVerificationForm } from './AccountVerificationForm';
 import { Button } from '../Button';
+import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep1() {
   const { goForward } = useAccountVerificationForm();
