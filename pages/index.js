@@ -33,7 +33,7 @@ export default function Home() {
 
           {/* CTA to Account Verification flow */}
           <div className="mx-auto w-56">
-            <Link href="/sign-up" passHref>
+            <Link href="/account-verification" passHref>
               <Button as="a" variant="inverted" block>
                 Get started
               </Button>
