@@ -10,6 +10,7 @@ module.exports = {
       // To create your own palette from a brand colour, you can use a tool like https://www.tailwindshades.com/.
       primary: {
         DEFAULT: '#4737FF',
+        accent: '#9C4EFF', // bg gradients, icons
         50: '#F1F0FF', // subtle button bg,
         100: '#E8E5FF', // subtle button :hover bg,
         200: '#DEDBFF', // subtle button :active bg,
@@ -21,8 +22,19 @@ module.exports = {
         800: '#0B008E',
         900: '#070056',
       },
-      secondary: '#10EDC5', // bg gradients, icons
-      accent: '#9C4EFF', // bg gradients, icons
+      secondary: {
+        DEFAULT: '#10EDC5', // bg gradients, icons
+        50: '#BAFAEF',
+        100: '#A7F9EA',
+        200: '#81F6E1',
+        300: '#5BF4D8',
+        400: '#34F1CF',
+        500: '#10EDC5',
+        600: '#0FD7B3',
+        700: '#0DBF9F',
+        800: '#0BA78B',
+        900: '#0A8F77',
+      },
 
       // FUNCTIONAL COLOURS
       // Colours that are neutral and not necessarily tied to your products brand.
