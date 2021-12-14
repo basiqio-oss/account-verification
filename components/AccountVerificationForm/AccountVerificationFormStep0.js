@@ -38,7 +38,7 @@ export function AccountVerificationFormStep0() {
         {/* TODO: Write more */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
-            <TextField {...email('email')} label="Email" placeholder="your@email.com" required />
+            <TextField {...email('email')} id="email" label="Email" placeholder="your@email.com" required />
 
             {/* Terms and Conditions */}
             {/* TODO: Write more */}
