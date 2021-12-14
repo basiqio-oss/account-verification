@@ -1,7 +1,7 @@
-import { RadioGroup } from '@headlessui/react';
-import { useAccountVerificationForm } from './AccountVerificationForm';
-import { TextField } from '../TextField';
 import { useState } from 'react';
+import { RadioGroup } from '@headlessui/react';
+import { TextField } from '../TextField';
+import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep2() {
   const { goForward } = useAccountVerificationForm();
