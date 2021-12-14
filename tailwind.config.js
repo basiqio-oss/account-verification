@@ -50,7 +50,7 @@ module.exports = {
 
     // FONT
     fontFamily: {
-      sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
     extend: {},
   },
