@@ -12,6 +12,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
       <main className="bg-gradient-to-tr from-primary-500 to-primary-accent min-h-screen flex flex-col justify-center antialiased">
+        {/* TODO: add decorative blurry circles */}
         <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
           {/* Logo and divider */}
           <div className="inline-block space-y-6">
