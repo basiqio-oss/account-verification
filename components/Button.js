@@ -5,20 +5,27 @@ const VARIANT_MAP = {
   critical: 'bg-critical-500 text-white',
 };
 
-export function Button({ variant = 'bold', block, children, loading, disabled: disabledProp, ...props }) {
+export function Button({
+  as: Tag = 'button',
+  variant = 'bold',
+  block,
+  children,
+  loading,
+  disabled: disabledProp,
+  ...props
+}) {
   const variantClasses = VARIANT_MAP[variant];
   const disabled = loading || disabledProp;
-
   return (
-    <button
+    <Tag
       disabled={disabled}
-      className={`px-8 h-12 rounded-lg text-center ${block ? 'block w-full' : 'inline-block'} ${variantClasses} ${
-        disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-      }`}
+      className={`px-8 h-12 rounded-lg ${
+        block ? 'w-full flex' : 'inline-flex'
+      } items-center justify-center ${variantClasses} ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
       {...props}
     >
       {loading ? <ButtonSpinner /> : children}
-    </button>
+    </Tag>
   );
 }
 

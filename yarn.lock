@@ -107,6 +107,11 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.1.tgz#9551142a1980503752536b5050fd99f4a7f13b17"
   integrity sha512-gfta+H8aziZsm8pZa0vj04KO6biEiisppNgA1kbJvFrrWu9Vm7eaUEy76DIxsuTaWvti5fkJVhllWc6ZTE+Mdw==
 
+"@headlessui/react@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.4.2.tgz#87e264f190dbebbf8dfdd900530da973dad24576"
+  integrity sha512-N8tv7kLhg9qGKBkVdtg572BvKvWhmiudmeEpOCyNwzOsZHCXBtl8AazGikIfUS+vBoub20Fse3BjawXDVPPdug==
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.2.tgz#68be55c737023009dfc5fe245d51181bb6476914"
@@ -2964,6 +2969,11 @@ react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-use-form-state@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/react-use-form-state/-/react-use-form-state-0.13.2.tgz#907327a2479b07e51fe4f58df93fc19767cf6261"
+  integrity sha512-bP2H5V6bBFZCJIrbpUcahvJX/f5rGueOvIjg818sq3wg0aX6BFz70u81yhaSg2aCZq0aF3R8eMc2MRWIjr5yhw==
 
 react@^17.0.2:
   version "17.0.2"
