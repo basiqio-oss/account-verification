@@ -10,9 +10,8 @@ export default function Components() {
       <Head>
         <title>Components</title>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
-      <main className="container mx-auto px-6 py-6 antialiased space-y-10">
+      <main className="container mx-auto px-6 py-6 space-y-10">
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
         <SectionTextField />
