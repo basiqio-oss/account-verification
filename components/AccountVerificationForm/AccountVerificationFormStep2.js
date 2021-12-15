@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { TextField } from '../TextField';
