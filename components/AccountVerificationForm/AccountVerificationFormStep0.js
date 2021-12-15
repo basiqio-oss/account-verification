@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useFormState } from 'react-use-form-state';
+import { useRouter } from 'next/router';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
@@ -8,10 +9,15 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
 export function AccountVerificationFormStep0() {
-  const { goForward, cancel, updateAccountVerificationFormState } = useAccountVerificationForm();
+  const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const router = useRouter();
+
+  // Cancelling at the first step (before user has submitted any form data)
+  // doesn't require a confirmation modal. It should take them straight back to where they were.
+  const cancel = () => router.push('/');
 
   function handleSubmit(e) {
     e.preventDefault();
