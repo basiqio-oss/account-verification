@@ -6,11 +6,13 @@ import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep2() {
-  const { goForward } = useAccountVerificationForm();
+  const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
   const { data, error, loading } = useInstitutionsData();
 
-  function onChange() {
+  // When a user selects a bank, update the form state and push the user to the next step
+  function onChange(selectedInstitution) {
+    updateAccountVerificationFormState({ selectedInstitution });
     goForward();
   }
 
@@ -62,7 +64,7 @@ export function AccountVerificationFormStep2() {
                 {filteredInstitutions.map(institution => (
                   <RadioGroup.Option
                     key={institution.id}
-                    value={institution.id}
+                    value={institution}
                     className="relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none"
                   >
                     <div className="flex items-center justify-between w-full">

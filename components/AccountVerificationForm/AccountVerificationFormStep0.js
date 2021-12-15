@@ -7,7 +7,7 @@ import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep0() {
-  const { goForward, cancel } = useAccountVerificationForm();
+  const { goForward, cancel, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -17,7 +17,8 @@ export function AccountVerificationFormStep0() {
     setSubmitting(true);
     axios
       .post('/api/create-user', formState.values)
-      .then(data => {
+      .then(res => {
+        updateAccountVerificationFormState({ user: res.data });
         goForward();
       })
       .catch(error => setErrorMessage(error.message))
@@ -64,11 +65,11 @@ export function AccountVerificationFormStep0() {
                 Cancel
               </Button>
             </div>
+
+            {/** Error state */}
+            {errorMessage && <div className="bg-red-100 text-red-500 p-5">{errorMessage}</div>}
           </div>
         </form>
-
-        {/** Error state */}
-        {errorMessage && <div className="bg-red-100 text-red-500 p-5">{errorMessage}</div>}
       </div>
     </div>
   );
