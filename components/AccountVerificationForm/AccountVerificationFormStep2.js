@@ -3,6 +3,8 @@ import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
 import { useAccountVerificationForm } from './AccountVerificationForm';
+import { StepLogo } from './StepLogo';
+import { StepHeading } from './StepHeading';
 
 export function AccountVerificationFormStep2() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
@@ -45,68 +47,68 @@ export function AccountVerificationFormStep2() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* Logo */}
-      {/* This helps the user keep context. */}
-      <div className="flex justify-center">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
-          <Image src="/logo-on-white.svg" alt="Piper logo" layout="fill" />
-        </div>
-      </div>
+      {/* STEP LOGO */}
+      {/* To help the user keep context of what product they're using, */}
+      {/* and what bank they're about to connect to. */}
+      <StepLogo src="/logo-on-white.svg" alt="Piper logo" />
 
-      {/* Step 3 - Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">Find your bank</h1>
-      </div>
+      {/* STEP CONTENT */}
+      <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+        {/* STEP HEADING */}
+        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+        <StepHeading>Find your bank</StepHeading>
 
-      {/* Form content */}
-      <div className="flex flex-col flex-grow space-y-3">
-        <SearchInput
-          labelScreenReader="Search"
-          placeholder="Search"
-          value={searchValue}
-          onChange={e => setSearchValue(e.target.value)}
-        />
-        <form>
-          {filteredInstitutions.length ? (
-            // TODO: Fix keyboard navigation when switching between radio options
-            <RadioGroup onChange={onChange}>
-              <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
-              <div className="space-y-3">
-                {filteredInstitutions.map(institution => (
-                  <RadioGroup.Option
-                    key={institution.id}
-                    value={institution}
-                    className="relative rounded-lg p-3 cursor-pointer flex border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
-                  >
-                    <div className="flex items-center w-full space-x-3">
-                      {/* Institution logo */}
-                      <img
-                        className="w-12 h-12 rounded overflow-hidden"
-                        src={institution.logo.links.square}
-                        alt={`Logo of ${institution.name}`}
-                      />
-
-                      {/* Institution shortName */}
-                      <RadioGroup.Label as="p">{institution.name}</RadioGroup.Label>
-                      {/* Chevron icon */}
-                      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          className="stroke-current text-gray-500"
-                          d="M7.5 4.167 13.333 10 7.5 15.833"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+        {/* INSTITUTIONS */}
+        <div className="space-y-3">
+          <SearchInput
+            labelScreenReader="Search"
+            placeholder="Search"
+            value={searchValue}
+            onChange={e => setSearchValue(e.target.value)}
+          />
+          <form>
+            {filteredInstitutions.length ? (
+              // TODO: Fix keyboard navigation when switching between radio options
+              <RadioGroup onChange={onChange}>
+                <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
+                <div className="space-y-3">
+                  {filteredInstitutions.map(institution => (
+                    <RadioGroup.Option
+                      key={institution.id}
+                      value={institution}
+                      className="relative rounded-lg p-3 cursor-pointer flex border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                    >
+                      <div className="flex items-center w-full space-x-3">
+                        {/* Institution logo */}
+                        <img
+                          className="w-12 h-12 rounded overflow-hidden"
+                          src={institution.logo.links.square}
+                          alt={`Logo of ${institution.name}`}
                         />
-                      </svg>
-                    </div>
-                  </RadioGroup.Option>
-                ))}
-              </div>
-            </RadioGroup>
-          ) : (
-            <span>No results found</span>
-          )}
-        </form>
+
+                        {/* Institution shortName */}
+                        <RadioGroup.Label as="p">{institution.name}</RadioGroup.Label>
+
+                        {/* Chevron icon */}
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            className="stroke-current text-gray-500"
+                            d="M7.5 4.167 13.333 10 7.5 15.833"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </RadioGroup.Option>
+                  ))}
+                </div>
+              </RadioGroup>
+            ) : (
+              <span>No results found</span>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );

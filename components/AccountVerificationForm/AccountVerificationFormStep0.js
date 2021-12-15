@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import axios from 'axios';
 import { useFormState } from 'react-use-form-state';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
+import { StepLogo } from './StepLogo';
+import { StepHeading } from './StepHeading';
 
 export function AccountVerificationFormStep0() {
   const { goForward, cancel, updateAccountVerificationFormState } = useAccountVerificationForm();
@@ -27,32 +28,33 @@ export function AccountVerificationFormStep0() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* Logo */}
-      {/* This helps the user keep context. */}
-      <div className="flex justify-center">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
-          <Image src="/logo-on-white.svg" alt="Piper logo" layout="fill" />
-        </div>
-      </div>
+      {/* STEP LOGO */}
+      {/* To help the user keep context of what product they're using, */}
+      {/* and what bank they're about to connect to. */}
+      <StepLogo src="/logo-on-white.svg" alt="Piper logo" />
 
-      {/* Form content */}
+      {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
-        {/* Step header */}
-        {/* A short as possible heading. TODO: Write more */}
-        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-center">
+        {/* STEP HEADING */}
+        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+        <StepHeading>
           We need your email
+          {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
+          Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
           <br />
           to get started
-        </h1>
+        </StepHeading>
 
-        {/* Form */}
-        {/* TODO: Write more */}
+        {/* CREATE USER FORM */}
+        {/* This form is just a fake sign up form, with the purpose of creating a user in Basiq's API 
+        (needed to Create Connections). If your app needs to have users, it's a great idea to replace 
+        or build out this form, and then use the email address from your app's user to Create User in the API.
+        PS. You can also use mobile number to Create User in the API */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
             <TextField {...email('email')} id="email" label="Email" placeholder="your@email.com" required />
 
             {/* Terms and Conditions */}
-            {/* TODO: Write more */}
             <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
