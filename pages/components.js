@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
+import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 
 export default function Components() {
@@ -15,6 +16,7 @@ export default function Components() {
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
         <SectionTextField />
+        <SectionSearchInput />
         <SectionProgressBar />
       </main>
       <footer></footer>
@@ -80,6 +82,15 @@ function SectionTextField() {
       <TextField label="Label" />
       <TextField label="Label" placeholder="Placeholder" />
       <TextField label="Label" error="Something went wrong" />
+    </section>
+  );
+}
+
+function SectionSearchInput() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">SearchInput</h2>
+      <SearchInput placeholder="Search" />
     </section>
   );
 }
