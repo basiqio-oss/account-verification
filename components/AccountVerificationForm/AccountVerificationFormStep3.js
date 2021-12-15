@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import { useFormState } from 'react-use-form-state';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
+import { StepLogo } from './StepLogo';
+import { StepHeading } from './StepHeading';
+import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep3() {
-  const { goForward, accountVerificationFormState } = useAccountVerificationForm();
+  const { goForward, goBack, accountVerificationFormState } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -26,40 +28,79 @@ export function AccountVerificationFormStep3() {
   }
 
   return (
-    <div>
-      <div className="text-center space-y-6">
-        <h1>Bank login</h1>
-        <div className="flex flex-col items-center space-y-2">
-          <Image
-            width={40}
-            height={40}
-            layout="fixed"
-            src={selectedInstitution.logo.links.square}
-            alt={`Logo of ${selectedInstitution.name}`}
-          />
-          <span>
-            {selectedInstitution.name} {selectedInstitution.serviceName}
-          </span>
+    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+      {/* STEP LOGO */}
+      {/* To help the user keep context of what product they're using, */}
+      {/* and what bank they're about to connect to. */}
+      <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
+
+      {/* STEP CONTENT */}
+      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+        <div className="space-y-3">
+          {/* STEP HEADING */}
+          {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+          <StepHeading>{selectedInstitution.shortName}</StepHeading>
+          <StepDescription>
+            Safely connect to {selectedInstitution.name} using your {selectedInstitution.serviceName} credentials.
+          </StepDescription>
         </div>
-      </div>
-      <div>
-        {/* Form */}
+
+        {/* CREDENTIALS FORM */}
         {/* TODO: Write more */}
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-6 sm:space-y-8">
-            <TextField {...text('username')} id="username" label={selectedInstitution.loginIdCaption} required />
-            <TextField {...password('password')} id="password" label={selectedInstitution.passwordCaption} required />
-            <Button type="submit" loading={submitting} variant="bold" block>
-              Continue
-            </Button>
-            {/** Error state */}
-            {errorMessage && (
-              <div className="bg-red-100 text-red-500 p-5">
-                <span>{errorMessage}</span>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-6 sm:space-y-8">
+              {/* Login ID */}
+              <TextField
+                {...text('username')}
+                id="username"
+                label={selectedInstitution.loginIdCaption}
+                placeholder={selectedInstitution.loginIdCaption}
+                required
+              />
+
+              {/* Password */}
+              <div className="space-y-2">
+                <TextField
+                  {...password('password')}
+                  id="password"
+                  label={selectedInstitution.passwordCaption}
+                  placeholder={selectedInstitution.passwordCaption}
+                  required
+                />
+
+                {/* Forgotten password */}
+                <a
+                  href={selectedInstitution.forgottenPasswordUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs text-primary-600 underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                >
+                  Forgot password?
+                </a>
               </div>
-            )}
-          </div>
-        </form>
+
+              {/* TODO: securityCodeCaption if exists */}
+
+              {/* Actions */}
+              <div className="space-y-2">
+                <Button type="submit" loading={submitting} variant="bold" block>
+                  Connect
+                </Button>
+                <Button type="button" variant="subtle" block onClick={goBack}>
+                  Pick another bank
+                </Button>
+              </div>
+
+              {/** Error state */}
+              {errorMessage && (
+                <div className="bg-red-100 text-red-500 p-5">
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

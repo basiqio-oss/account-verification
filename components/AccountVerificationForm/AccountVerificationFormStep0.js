@@ -59,6 +59,7 @@ export function AccountVerificationFormStep0() {
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
 
+            {/* Actions */}
             <div className="space-y-2">
               <Button type="submit" loading={submitting} variant="bold" block>
                 Continue
