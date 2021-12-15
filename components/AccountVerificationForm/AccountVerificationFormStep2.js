@@ -22,7 +22,7 @@ export function AccountVerificationFormStep2() {
     return <p>Loading institutions</p>;
   }
 
-  // Something went wrong while fetching rhe lost of institutions
+  // Something went wrong while fetching the institutions
   if (error) {
     return <p>Something went wrong</p>;
   }
@@ -87,7 +87,9 @@ export function AccountVerificationFormStep2() {
                         />
 
                         {/* Institution shortName */}
-                        <RadioGroup.Label as="p">{institution.name}</RadioGroup.Label>
+                        <RadioGroup.Label as="p" className="flex flex-grow font-medium">
+                          {institution.shortName}
+                        </RadioGroup.Label>
 
                         {/* Chevron icon */}
                         <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
