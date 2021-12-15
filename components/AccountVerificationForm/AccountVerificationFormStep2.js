@@ -17,6 +17,7 @@ export function AccountVerificationFormStep2() {
     goForward();
   }
 
+  // TODO: style loading and error layout, potentially break out into an InstitutionPickerForm (its own component)
   // The list of institutions is loading
   if (loading) {
     return <p>Loading institutions</p>;
@@ -81,7 +82,7 @@ export function AccountVerificationFormStep2() {
                       <div className="flex items-center w-full space-x-3">
                         {/* Institution logo */}
                         <img
-                          className="w-12 h-12 rounded overflow-hidden"
+                          className="w-12 h-12 rounded-md"
                           src={institution.logo.links.square}
                           alt={`Logo of ${institution.name}`}
                         />
