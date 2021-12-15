@@ -58,8 +58,10 @@ export function AccountVerificationForm() {
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
       {/** Form progress indicators / Cancel control  */}
-      <div className="fixed top-0 right-0 left-0">
+      <div className="fixed top-0 right-0 left-0 z-10">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
+        {/* Fade to blend form content nicely when scrolling down the page */}
+        <div className="bg-gradient-to-b from-white to-transparent h-4 block" />
       </div>
       <div className="absolute flex justify-between px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed w-full">
         <span className="text-xs sm:text-sm text-gray-600">
