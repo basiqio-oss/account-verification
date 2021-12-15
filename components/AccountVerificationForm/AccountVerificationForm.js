@@ -22,6 +22,11 @@ export const useAccountVerificationForm = () => useContext(AccountVerificationFo
 export function AccountVerificationForm() {
   const router = useRouter();
 
+  const [accountVerificationFormState, setAccountVerificationFormState] = useState({});
+  const updateAccountVerificationFormState = newState => {
+    setAccountVerificationFormState(oldState => ({ ...oldState, ...newState }));
+  };
+
   // State for managing which step of the form to display
   const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = FORM_COMPONENTS.length;
@@ -37,7 +42,16 @@ export function AccountVerificationForm() {
   // Called when the user has successfully finished all seteps
   const finish = () => router.push('/');
 
-  const contextValue = { currentStep, totalSteps, goBack, goForward, cancel: openCancellationModal, finish };
+  const contextValue = {
+    currentStep,
+    totalSteps,
+    goBack,
+    goForward,
+    cancel: openCancellationModal,
+    finish,
+    accountVerificationFormState,
+    updateAccountVerificationFormState,
+  };
   const FormComponent = FORM_COMPONENTS[currentStep];
 
   return (
