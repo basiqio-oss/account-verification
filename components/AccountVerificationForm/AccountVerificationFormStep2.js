@@ -30,18 +30,14 @@ export function AccountVerificationFormStep2() {
     return <p>No institutions found</p>;
   }
 
-  // TODO should this be sorted alphabetically ? Or just use the order that comes back from the basiq API?
-  const filteredInstitutions = data.filter(item => {
-    // Filter out any institutions which are currently not operational
-    // TODO confirm this logic is correct
-    if (item.stage !== 'live' || item.status !== 'operational') return false;
-    // If the user is searching, filter out any institutions which do not match the search term
-    if (!searchValue) return true;
-    return (
-      item.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-      item.shortName.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    );
-  });
+  // If the user is searching, filter out any institutions which do not match the search term
+  // We use the "name" and "shortName" attributes for searching
+  const filteredInstitutions = searchValue
+    ? data
+    : data.filter(({ name, shortName }) => {
+        const val = searchValue.toLocaleLowerCase();
+        return name.toLocaleLowerCase().includes(val) || shortName.toLocaleLowerCase().includes(val);
+      });
 
   return (
     <div>
@@ -93,11 +89,10 @@ function useInstitutionsData() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  // TODO check if this should a call directly to the Basiq API server
   useEffect(() => {
     axios
       .get('/api/institutions')
-      .then(res => setData(res.data.data))
+      .then(res => setData(res.data))
       .catch(setError)
       .finally(() => setLoading(false));
   }, []);
