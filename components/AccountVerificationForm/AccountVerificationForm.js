@@ -57,16 +57,28 @@ export function AccountVerificationForm() {
 
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
-      {/** Form progress indicators / Cancel control  */}
+      {/* PROGRESS BAR */}
+      {/* Delightful indication of the progress the user has made, to be 
+      displayed in conjunction with a Step Count */}
       <div className="fixed top-0 right-0 left-0 z-10">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
         <div className="bg-gradient-to-b from-white to-transparent h-4 block" />
       </div>
-      <div className="absolute flex justify-between px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed w-full">
+
+      {/* STEP COUNT */}
+      {/* Helps the user feel like they have an overview of their progress, 
+      indicating how long it's going to take, and how many steps are left. */}
+      <div className="absolute left-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
         <span className="text-xs sm:text-sm text-gray-600">
           {currentStep + 1} of {totalSteps}
         </span>
+      </div>
+
+      {/* CANCEL BANK CONNECTION */}
+      {/* Important to not lock the user in. They should be able to regret 
+      their decision to connect with a bank at any point. */}
+      <div className="absolute right-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
         {/* TODO: change tabindex so Cancel doesn't get focused first */}
         {currentStep > 0 ? (
           <button
