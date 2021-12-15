@@ -68,10 +68,8 @@ export function AccountVerificationFormStep2() {
                     className="relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none"
                   >
                     <div className="flex items-center justify-between w-full">
-                      <Image
-                        width={40}
-                        height={40}
-                        layout="fixed"
+                      <img
+                        className="w-12 h-12"
                         src={institution.logo.links.square}
                         alt={`Logo of ${institution.name}`}
                       />
