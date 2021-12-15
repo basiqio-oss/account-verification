@@ -40,6 +40,8 @@ export function AccountVerificationFormStep3() {
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
           <StepHeading>{selectedInstitution.shortName}</StepHeading>
+
+          {/* STEP DESCRIPTION */}
           <StepDescription>
             Safely connect to {selectedInstitution.name} using your {selectedInstitution.serviceName} credentials.
           </StepDescription>
@@ -50,20 +52,36 @@ export function AccountVerificationFormStep3() {
         <div>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
+              {/* TODO: 
+              The best way to approach this is to look for attributes with the "Caption" suffix to know what to render
+              Pass these additional login parameters as optional arguments when you create any connection. 
+              
+              Can we map over all the attributes ending in Caption for a neater solution? */}
               {/* Login ID */}
               <TextField
-                {...text('username')}
-                id="username"
+                {...text(`${selectedInstitution.loginIdCaption}`)}
+                id={selectedInstitution.loginIdCaption}
                 label={selectedInstitution.loginIdCaption}
                 placeholder={selectedInstitution.loginIdCaption}
                 required
               />
 
+              {/* securityCodeCaption (if exists, St George Bank e.g.) */}
+              {selectedInstitution.securityCodeCaption && (
+                <TextField
+                  {...text(`${selectedInstitution.securityCodeCaption}`)}
+                  id={selectedInstitution.securityCodeCaption}
+                  label={selectedInstitution.securityCodeCaption}
+                  placeholder={selectedInstitution.securityCodeCaption}
+                  required
+                />
+              )}
+
               {/* Password */}
               <div className="space-y-2">
                 <TextField
-                  {...password('password')}
-                  id="password"
+                  {...password(`${selectedInstitution.loginIdCaption}`)}
+                  id={selectedInstitution.loginIdCaption}
                   label={selectedInstitution.passwordCaption}
                   placeholder={selectedInstitution.passwordCaption}
                   required
@@ -79,8 +97,6 @@ export function AccountVerificationFormStep3() {
                   Forgot password?
                 </a>
               </div>
-
-              {/* TODO: securityCodeCaption if exists */}
 
               {/* Actions */}
               <div className="space-y-2">
