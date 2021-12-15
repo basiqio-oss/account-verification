@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import { useFormState } from 'react-use-form-state';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
@@ -30,10 +29,8 @@ export function AccountVerificationFormStep3() {
       <div className="text-center space-y-6">
         <h1>Bank login</h1>
         <div className="flex flex-col items-center space-y-2">
-          <Image
-            width={40}
-            height={40}
-            layout="fixed"
+          <img
+            className="w-12 h-12"
             src={selectedInstitution.logo.links.square}
             alt={`Logo of ${selectedInstitution.name}`}
           />
