@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
@@ -6,21 +8,44 @@ import { useAccountVerificationForm } from './AccountVerificationForm';
 export function AccountVerificationFormStep2() {
   const { goForward } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
+  const { data, error, loading } = useInstitutionsData();
 
   function onChange() {
     goForward();
   }
 
-  // Filter the list of banks based on the search input
-  const filteredBanks = EXAMPLE_BANKS.filter(item => {
+  // The list of institutions is loading
+  if (loading) {
+    return <p>Loading institutions</p>;
+  }
+
+  // Something went wrong while fetching rhe lost of institutions
+  if (error) {
+    return <p>Something went wrong</p>;
+  }
+
+  // The list of institutions loaded, but no data was returned from the server
+  if (!data || data.length === 0) {
+    return <p>No institutions found</p>;
+  }
+
+  // TODO should this be sorted alphabetically ? Or just use the order that comes back from the basiq API?
+  const filteredInstitutions = data.filter(item => {
+    // Filter out any institutions which are currently not operational
+    // TODO confirm this logic is correct
+    if (item.stage !== 'live' || item.status !== 'operational') return false;
+    // If the user is searching, filter out any institutions which do not match the search term
     if (!searchValue) return true;
-    return item.value.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+    return (
+      item.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      item.shortName.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    );
   });
 
   return (
     <div>
       <div className="text-center space-y-6">
-        <h1>Find your bank</h1>
+        <h1>Find your institution</h1>
       </div>
       <div className="space-y-4">
         <TextField
@@ -30,18 +55,25 @@ export function AccountVerificationFormStep2() {
           onChange={e => setSearchValue(e.target.value)}
         />
         <form>
-          {filteredBanks.length ? (
+          {filteredInstitutions.length ? (
             <RadioGroup onChange={onChange}>
-              <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
+              <RadioGroup.Label className="sr-only">Select institution</RadioGroup.Label>
               <div className="space-y-2">
-                {filteredBanks.map(bank => (
+                {filteredInstitutions.map(institution => (
                   <RadioGroup.Option
-                    key={bank.value}
-                    value={bank.value}
+                    key={institution.id}
+                    value={institution.id}
                     className="relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none"
                   >
                     <div className="flex items-center justify-between w-full">
-                      <RadioGroup.Label as="p">{bank.label}</RadioGroup.Label>
+                      <Image
+                        width={40}
+                        height={40}
+                        layout="fixed"
+                        src={institution.logo.links.square}
+                        alt={`Logo of ${institution.name}`}
+                      />
+                      <RadioGroup.Label as="p">{institution.name}</RadioGroup.Label>
                       <span>&rarr;</span>
                     </div>
                   </RadioGroup.Option>
@@ -57,21 +89,18 @@ export function AccountVerificationFormStep2() {
   );
 }
 
-const EXAMPLE_BANKS = [
-  {
-    label: 'CBA',
-    value: 'cba',
-  },
-  {
-    label: 'ANZ',
-    value: 'anz',
-  },
-  {
-    label: 'NAB',
-    value: 'nab',
-  },
-  {
-    label: 'Westpac',
-    value: 'westpac',
-  },
-];
+function useInstitutionsData() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    axios
+      .get('/api/institutions')
+      .then(res => setData(res.data.data))
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
