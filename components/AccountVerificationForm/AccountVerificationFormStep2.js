@@ -96,6 +96,7 @@ function useInstitutionsData() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
+  // TODO check if this should a call directly to the Basiq API server
   useEffect(() => {
     axios
       .get('/api/institutions')
