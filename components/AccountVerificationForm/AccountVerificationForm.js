@@ -37,6 +37,7 @@ export function AccountVerificationForm() {
   const [isCancellationModalOpen, setCancellationModalOpen] = useState(false);
   const openCancellationModal = () => setCancellationModalOpen(true);
   const closeCancellationModal = () => setCancellationModalOpen(false);
+  // TODO: What do we need to do in terms of API here, ie delete user, stop job polling, remove any connection etc?
   const confirmCancel = () => router.push('/');
 
   // Called when the user has successfully finished all seteps
