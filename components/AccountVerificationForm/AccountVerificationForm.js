@@ -76,7 +76,7 @@ export function AccountVerificationForm() {
       </div>
 
       {/** The UI of the form step */}
-      <div className="min-h-screen flex flex-col mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-8">
+      <div className="min-h-screen flex flex-col mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
         <FormComponent />
       </div>
 
