@@ -58,7 +58,14 @@ export function AccountVerificationFormStep0() {
         PS. You can also use mobile number to Create User in the API */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
-            <TextField {...email('email')} id="email" label="Email" placeholder="your@email.com" required />
+            <TextField
+              {...email('email')}
+              id="email"
+              label="Email"
+              placeholder="your@email.com"
+              disabled={submitting}
+              required
+            />
 
             {/* Terms and Conditions */}
             <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
