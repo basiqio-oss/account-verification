@@ -1,17 +1,28 @@
+import { useState } from 'react';
 import Image from 'next/image';
+import axios from 'axios';
 import { useFormState } from 'react-use-form-state';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 
 export function AccountVerificationFormStep0() {
-  const { goForward, cancel } = useAccountVerificationForm();
+  const { goForward, cancel, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formState.values);
-    goForward();
+    setSubmitting(true);
+    axios
+      .post('/api/create-user', formState.values)
+      .then(res => {
+        updateAccountVerificationFormState({ user: res.data });
+        goForward();
+      })
+      .catch(error => setErrorMessage(error.message))
+      .finally(() => setSubmitting(false));
   }
 
   return (
@@ -47,13 +58,16 @@ export function AccountVerificationFormStep0() {
             </p>
 
             <div className="space-y-2">
-              <Button type="submit" variant="bold" block>
+              <Button type="submit" loading={submitting} variant="bold" block>
                 Continue
               </Button>
-              <Button type="button" variant="subtle" block onClick={cancel}>
+              <Button type="button" disabled={submitting} variant="subtle" block onClick={cancel}>
                 Cancel
               </Button>
             </div>
+
+            {/** Error state */}
+            {errorMessage && <div className="bg-red-100 text-red-500 p-5">{errorMessage}</div>}
           </div>
         </form>
       </div>
