@@ -2,11 +2,11 @@ import { useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
-import { AccountVerificationFormStep0 } from './AccountVerificationFormStep0';
-import { AccountVerificationFormStep1 } from './AccountVerificationFormStep1';
-import { AccountVerificationFormStep2 } from './AccountVerificationFormStep2';
-import { AccountVerificationFormStep3 } from './AccountVerificationFormStep3';
-import { AccountVerificationFormStep4 } from './AccountVerificationFormStep4';
+import { AccountVerificationFormStep0 } from './AccountVerificationFormStep0-SignUp';
+import { AccountVerificationFormStep1 } from './AccountVerificationFormStep1-PreConsent';
+import { AccountVerificationFormStep2 } from './AccountVerificationFormStep2-InstitutionPicker';
+import { AccountVerificationFormStep3 } from './AccountVerificationFormStep3-InstitutionLogin';
+import { AccountVerificationFormStep4 } from './AccountVerificationFormStep4-SelectAccount';
 
 const FORM_COMPONENTS = [
   AccountVerificationFormStep0,
