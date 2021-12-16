@@ -2,20 +2,20 @@ import { useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
-import { AccountVerificationFormStep0 } from './AccountVerificationFormStep0-SignUp';
-import { AccountVerificationFormStep1 } from './AccountVerificationFormStep1-PreConsent';
-import { AccountVerificationFormStep2 } from './AccountVerificationFormStep2-InstitutionPicker';
-import { AccountVerificationFormStep3 } from './AccountVerificationFormStep3-InstitutionLogin';
-import { AccountVerificationFormStep4 } from './AccountVerificationFormStep4-SelectAccount';
-import { AccountVerificationFormStep5 } from './AccountVerificationFormStep5-Summary';
+import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
+import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
+import { AccountVerificationFormStep2InstitutionPicker } from './AccountVerificationFormStep2InstitutionPicker';
+import { AccountVerificationFormStep3InstitutionLogin } from './AccountVerificationFormStep3InstitutionLogin';
+import { AccountVerificationFormStep4SelectAccount } from './AccountVerificationFormStep4SelectAccount';
+import { AccountVerificationFormStep5Summary } from './AccountVerificationFormStep5Summary';
 
 const FORM_COMPONENTS = [
-  AccountVerificationFormStep0, // SignUp
-  AccountVerificationFormStep1, // PreConsent
-  AccountVerificationFormStep2, // InstitutionPicker
-  AccountVerificationFormStep3, // InstitutionLogin
-  AccountVerificationFormStep4, // SelectAccount
-  AccountVerificationFormStep5, // Summary
+  AccountVerificationFormStep0SignUp,
+  AccountVerificationFormStep1PreConsent,
+  AccountVerificationFormStep2InstitutionPicker,
+  AccountVerificationFormStep3InstitutionLogin,
+  AccountVerificationFormStep4SelectAccount,
+  AccountVerificationFormStep5Summary,
 ];
 
 const AccountVerificationFormContext = createContext({});

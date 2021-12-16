@@ -6,7 +6,7 @@ import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
-export function AccountVerificationFormStep2() {
+export function AccountVerificationFormStep2InstitutionPicker() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
   const { data, error, loading } = useInstitutionsData();

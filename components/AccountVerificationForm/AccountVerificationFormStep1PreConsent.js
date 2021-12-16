@@ -6,7 +6,7 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
-export function AccountVerificationFormStep1() {
+export function AccountVerificationFormStep1PreConsent() {
   const { goForward } = useAccountVerificationForm();
 
   // State for managing hiding/showing of the cancellation model

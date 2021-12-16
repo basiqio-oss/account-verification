@@ -4,7 +4,7 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 import { StepLogo } from './StepLogo';
 
-export function AccountVerificationFormStep5() {
+export function AccountVerificationFormStep5Summary() {
   const { finish, accountVerificationFormState } = useAccountVerificationForm();
 
   const { selectedInstitution } = accountVerificationFormState;
@@ -12,7 +12,8 @@ export function AccountVerificationFormStep5() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* SUCCESS ICON ANIMATION */}
+      {/* SUCCESS ICON */}
+      {/* TODO: add animation for extra delight */}
       <div className="flex justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -6,7 +6,7 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
-export function AccountVerificationFormStep4() {
+export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState } = useAccountVerificationForm();
   // const [setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);

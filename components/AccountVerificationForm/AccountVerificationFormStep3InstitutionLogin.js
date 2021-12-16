@@ -7,7 +7,7 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
-export function AccountVerificationFormStep3() {
+export function AccountVerificationFormStep3InstitutionLogin() {
   const { goForward, goBack, accountVerificationFormState } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
