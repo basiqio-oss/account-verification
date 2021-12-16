@@ -48,7 +48,7 @@ export function AccountVerificationFormStep1() {
         for why it's 100% secure to connect to their bank through the app. */}
         <ul role="list" className="bg-gray-50 rounded-lg border divide-y">
           {/* Secure argument 1 */}
-          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-500 to-secondary rounded-t-lg space-x-4 flex items-center scale-100">
+          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-500 to-secondary rounded-t-lg space-x-4 flex items-center">
             <div className="flex flex-grow text-white font-medium leading-snug">
               Bank grade 256-bit <br />
               SSL encryption
