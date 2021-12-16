@@ -80,8 +80,8 @@ export function AccountVerificationFormStep3() {
               {/* Password */}
               <div className="space-y-2">
                 <TextField
-                  {...password(`${selectedInstitution.loginIdCaption}`)}
-                  id={selectedInstitution.loginIdCaption}
+                  {...password(`${selectedInstitution.passwordCaption}`)}
+                  id={selectedInstitution.passwordCaption}
                   label={selectedInstitution.passwordCaption}
                   placeholder={selectedInstitution.passwordCaption}
                   required
