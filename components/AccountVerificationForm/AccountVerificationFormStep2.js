@@ -17,6 +17,25 @@ export function AccountVerificationFormStep2() {
     goForward();
   }
 
+  // LOADING INSTITUTIONS SKELETON
+  // Keeps the user visually occupied whilst institutions are loading,
+  // making the experience seem quicker than it might be
+  function InstitutionsLoadingSkeleton() {
+    return (
+      <div className="space-y-3">
+        {Array.apply(null, { length: 10 }).map((e, i) => (
+          <div key={i} className="rounded-lg p-3 flex border border-gray-100 animate-pulse">
+            <div className="flex items-center w-full space-x-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-gray-100" />
+              <div className="bg-gray-100 rounded h-4 w-48" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // FILTERING INSTITUTIONS
   // If the user is searching, filter out any institutions which do not match the search term
   // We use both the "name" and "shortName" attributes for searching
   const filteredInstitutions =
@@ -56,10 +75,12 @@ export function AccountVerificationFormStep2() {
             onChange={e => setSearchValue(e.target.value)}
           />
           {loading ? (
-            <p>Loading</p>
+            <InstitutionsLoadingSkeleton />
           ) : error ? (
+            // TODO
             <p>Error</p>
           ) : !data || data.length === 0 ? (
+            // TODO
             <p>No institutions found</p>
           ) : (
             <form>
