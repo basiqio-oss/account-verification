@@ -7,6 +7,7 @@ import { AccountVerificationFormStep1 } from './AccountVerificationFormStep1-Pre
 import { AccountVerificationFormStep2 } from './AccountVerificationFormStep2-InstitutionPicker';
 import { AccountVerificationFormStep3 } from './AccountVerificationFormStep3-InstitutionLogin';
 import { AccountVerificationFormStep4 } from './AccountVerificationFormStep4-SelectAccount';
+import { AccountVerificationFormStep5 } from './AccountVerificationFormStep5-Summary';
 
 const FORM_COMPONENTS = [
   AccountVerificationFormStep0, // SignUp
@@ -14,6 +15,7 @@ const FORM_COMPONENTS = [
   AccountVerificationFormStep2, // InstitutionPicker
   AccountVerificationFormStep3, // InstitutionLogin
   AccountVerificationFormStep4, // SelectAccount
+  AccountVerificationFormStep5, // Summary
 ];
 
 const AccountVerificationFormContext = createContext({});
@@ -75,8 +77,9 @@ export function AccountVerificationForm() {
       {/* Important to not lock the user in. They should be able to regret 
       their decision to connect with a bank at any point. */}
       <div className="absolute right-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
-        {/* TODO: change tabindex so Cancel doesn't get focused first */}
-        {currentStep > 0 ? (
+        {/* Show Cancel button unless the user is on the first or last step */}
+        {currentStep > 0 && currentStep !== totalSteps - 1 ? (
+          // TODO: change tabindex so Cancel doesn't get focused first
           <button
             className="text-xs sm:text-sm text-primary-600 rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
             onClick={openCancellationModal}
