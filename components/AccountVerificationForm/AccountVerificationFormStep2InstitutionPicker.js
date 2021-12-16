@@ -5,6 +5,7 @@ import { SearchInput } from '../SearchInput';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
+import { Button } from '../Button';
 
 export function AccountVerificationFormStep2InstitutionPicker() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
@@ -73,15 +74,64 @@ export function AccountVerificationFormStep2InstitutionPicker() {
             placeholder="Search"
             value={searchValue}
             onChange={e => setSearchValue(e.target.value)}
+            disabled={loading || error || !data || data.length === 0}
           />
           {loading ? (
             <InstitutionsLoadingSkeleton />
           ) : error ? (
-            // TODO
-            <p>Error</p>
-          ) : !data || data.length === 0 ? (
-            // TODO
-            <p>No institutions found</p>
+            // If error
+            <>
+              <div className="flex flex-col items-center space-y-6 bg-red-50 rounded-lg border border-red-200 p-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-16 w-16 text-red-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1}
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+
+                <h2 role="alert" className="font-semibold text-center text-lg">
+                  Something went wrong
+                </h2>
+                <p className="text-sm text-center">
+                  An error occurred whilst trying to fetch the list of banks. If the problem persists, contact support.
+                </p>
+              </div>
+              {/* TODO: Hook up button to try and reload list of institutions */}
+              <Button block>Try again</Button>
+            </>
+          ) : data || data.length === 0 ? (
+            // If no data
+            <>
+              <div className="flex flex-col items-center space-y-6 bg-gray-50 rounded-lg border  p-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-16 w-16 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1}
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+
+                <h2 className="font-semibold text-center text-lg">No institutions found..</h2>
+                <p className="text-sm text-center">If the problem persists, contact support.</p>
+              </div>
+              {/* TODO: Hook up button to try and reload list of institutions */}
+              <Button block>Try again</Button>
+            </>
           ) : (
             <form>
               {filteredInstitutions.length ? (
