@@ -7,8 +7,8 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4() {
-  const { accountVerificationFormState } = useAccountVerificationForm();
-  const [success, setSuccess] = useState(false);
+  const { goForward, accountVerificationFormState } = useAccountVerificationForm();
+  // const [setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [account, setAccount] = useState(EXAMPLE_ACCOUNTS[0]);
 
@@ -22,13 +22,9 @@ export function AccountVerificationFormStep4() {
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
-      setSuccess(true);
+      // setSuccess(true);
+      goForward();
     }, 2000);
-  }
-
-  // TODO It may be better to move this into it's own step instead of internal state
-  if (success) {
-    return <AccountVerificationFormStep4Success />;
   }
 
   return (
@@ -165,19 +161,3 @@ const EXAMPLE_ACCOUNTS = [
     disabled: true,
   },
 ];
-
-function AccountVerificationFormStep4Success() {
-  const { finish } = useAccountVerificationForm();
-  return (
-    <div>
-      <div className="text-center space-y-6">
-        <h1>You&apos;re all set</h1>
-        <p>We have verified the details of the bank account below, and you’re good to go.</p>
-      </div>
-      <p>You can manage your bank connections in the app settings later.</p>
-      <Button variant="bold" block onClick={finish}>
-        Finish
-      </Button>
-    </div>
-  );
-}
