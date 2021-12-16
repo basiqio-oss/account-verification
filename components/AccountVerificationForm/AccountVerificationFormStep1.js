@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import { Button } from '../Button';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { AccountVerificationFormLearnMoreModal } from './AccountVerificationFormLearnMoreModal';
+import { StepLogo } from './StepLogo';
+import { StepHeading } from './StepHeading';
+import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep1() {
   const { goForward } = useAccountVerificationForm();
@@ -14,34 +16,37 @@ export function AccountVerificationFormStep1() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* Logo */}
-      {/* This helps the user keep context. */}
-      <div className="flex justify-center">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
-          <Image src="/logo-on-white.svg" alt="Piper logo" layout="fill" />
-        </div>
-      </div>
+      {/* STEP LOGO */}
+      {/* To help the user keep context of what product they're using, */}
+      {/* and what bank they're about to connect to. */}
+      <StepLogo src="/logo-on-white.svg" alt="Piper logo" />
 
-      {/* Form content */}
+      {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
-        {/* Step 2 - Header */}
-        {/* A short as possible heading. It's important to communicate the value exchange, i.e. what will the product be able to do once the user has connected their bank. */}
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+        <div className="space-y-3">
+          {/* STEP HEADING */}
+          {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+          <StepHeading>
             Let’s connect your
+            {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
+            Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
             <br />
             bank account
-          </h1>
+          </StepHeading>
 
-          {/* Value exchange, e.g. a paragraph that answers the question "Why should I connect my bank account?" */}
-          <p className="text-sm sm:text-base text-gray-600">
+          {/* STEP DESCRIPTION */}
+          {/* Value exchange, e.g. a paragraph that answers the question "Why should I connect my bank account?" 
+          It's important to communicate the value exchange, i.e. what will the product be able to do once 
+          the user has connected their bank. */}
+          <StepDescription>
             We need to verify the details of the account to deduct the nominated regular fee from.
-          </p>
+          </StepDescription>
         </div>
 
-        {/* Build trust */}
-        {/* Present the user with valid arguments for why it's 100% secure to connect to their bank through the app. */}
-        <ul className="bg-gray-50 rounded-lg border divide-y">
+        {/* PRE-CONSENT */}
+        {/* This section aims to build trust. It's super important to clearly state valid and truthful arguments
+        for why it's 100% secure to connect to their bank through the app. */}
+        <ul role="list" className="bg-gray-50 rounded-lg border divide-y">
           {/* Secure argument 1 */}
           <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-500 to-secondary rounded-t-lg space-x-4 flex items-center scale-100">
             <div className="flex flex-grow text-white font-medium leading-snug">
