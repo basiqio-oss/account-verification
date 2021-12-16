@@ -9,11 +9,11 @@ import { AccountVerificationFormStep3 } from './AccountVerificationFormStep3-Ins
 import { AccountVerificationFormStep4 } from './AccountVerificationFormStep4-SelectAccount';
 
 const FORM_COMPONENTS = [
-  AccountVerificationFormStep0,
-  AccountVerificationFormStep1,
-  AccountVerificationFormStep2,
-  AccountVerificationFormStep3,
-  AccountVerificationFormStep4,
+  AccountVerificationFormStep0, // SignUp
+  AccountVerificationFormStep1, // PreConsent
+  AccountVerificationFormStep2, // InstitutionPicker
+  AccountVerificationFormStep3, // InstitutionLogin
+  AccountVerificationFormStep4, // SelectAccount
 ];
 
 const AccountVerificationFormContext = createContext({});
@@ -60,11 +60,7 @@ export function AccountVerificationForm() {
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
-      <div className="fixed top-0 right-0 left-0 z-10">
-        <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
-        {/* Fade to blend form content nicely when scrolling down the page */}
-        <div className="bg-gradient-to-b from-white to-transparent h-4 block" />
-      </div>
+      <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
 
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
