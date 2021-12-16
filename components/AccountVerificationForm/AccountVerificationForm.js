@@ -57,6 +57,11 @@ export function AccountVerificationForm() {
   };
   const FormComponent = FORM_COMPONENTS[currentStep];
 
+  // Reset scroll position when navigating between steps
+  if (typeof window !== 'undefined') {
+    window.scrollTo(0, 0);
+  }
+
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
       {/* PROGRESS BAR */}
