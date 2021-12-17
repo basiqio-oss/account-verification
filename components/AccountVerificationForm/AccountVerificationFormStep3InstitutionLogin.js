@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useFormState } from 'react-use-form-state';
+import axios from 'axios';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
@@ -7,24 +8,99 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
+const selectedInstitution = {
+  type: 'institution',
+  id: 'AU04301',
+  name: 'Commonwealth Bank Australia',
+  shortName: 'CBA',
+  institutionType: 'Bank',
+  country: 'Australia',
+  serviceName: 'NetBank',
+  serviceType: 'Personal Banking',
+  loginIdCaption: 'NetBank client number',
+  passwordCaption: 'Password',
+  tier: '1',
+  authorization: 'user',
+  features: {
+    login: ['web'],
+    accounts: {
+      accountNo: ['web', 'pdf', 'csv'],
+      name: ['web', 'pdf', 'csv'],
+      currency: ['web', 'pdf', 'csv'],
+      balance: ['web', 'pdf', 'csv'],
+      availableFunds: ['web', 'pdf', 'csv'],
+      lastUpdated: ['web', 'pdf', 'csv'],
+      accountHolder: ['web', 'pdf', 'csv'],
+      meta: ['web', 'pdf'],
+    },
+    transactions: {
+      status: ['web', 'pdf', 'csv'],
+      description: ['web', 'pdf', 'csv'],
+      date: ['web', 'pdf', 'csv'],
+      amount: ['web', 'pdf', 'csv'],
+      balance: ['web', 'pdf', 'csv'],
+      class: ['web', 'pdf', 'csv'],
+    },
+    profile: {
+      fullName: ['web'],
+      firstName: ['web'],
+      lastName: ['web'],
+      middleName: [],
+      phoneNumbers: ['web'],
+      emailAddresses: ['web'],
+      physicalAddresses: ['web', 'pdf'],
+    },
+  },
+  forgottenPasswordUrl:
+    'https://www2.my.commbank.com.au/netbank/UserMaintenance/Mixed/ForgotLogonDetails/FLDYourLogonDetails.aspx?RID=qDwlIjSTxUegatgUii17ow&SID=m7CHkGqm4XI%3d',
+  stage: 'live',
+  status: 'operational',
+  stats: {
+    averageDurationMs: {
+      verifyCredentials: 22715,
+      retrieveAccounts: 25827,
+      retrieveTransactions: 36538,
+      retrieveMeta: 4426,
+      total: 89506,
+    },
+  },
+  logo: {
+    type: 'image',
+    colors: null,
+    links: {
+      square: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301.svg',
+      full: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301-full.svg',
+    },
+  },
+  links: {
+    self: 'https://au-api.basiq.io/institutions/AU04301',
+  },
+};
+
 export function AccountVerificationFormStep3InstitutionLogin() {
   const { goForward, goBack, accountVerificationFormState } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
-  const { selectedInstitution } = accountVerificationFormState;
-  if (!selectedInstitution) return null;
+  const institutionId = selectedInstitution.id;
 
-  function handleSubmit(e) {
+  // const { selectedInstitution } = accountVerificationFormState;
+  // if (!selectedInstitution) return null;
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log({ formState });
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setErrorMessage('Something went wrong');
-      goForward();
-    }, 1000);
+    console.log({ accountVerificationFormState });
+    const jobId = await createConnection({
+      userId: accountVerificationFormState.user.id,
+    });
+    setSubmitting(false);
+    goForward();
+    // setTimeout(() => {
+    //   setSubmitting(false);
+    //   setErrorMessage('Something went wrong');
+    //   goForward();
   }
 
   return (
@@ -59,7 +135,7 @@ export function AccountVerificationFormStep3InstitutionLogin() {
               Can we map over all the attributes ending in Caption for a neater solution? */}
               {/* Login ID */}
               <TextField
-                {...text(`${selectedInstitution.loginIdCaption}`)}
+                {...text('username')}
                 id={selectedInstitution.loginIdCaption}
                 label={selectedInstitution.loginIdCaption}
                 placeholder={selectedInstitution.loginIdCaption}
@@ -69,8 +145,8 @@ export function AccountVerificationFormStep3InstitutionLogin() {
               {/* securityCodeCaption (if exists, St George Bank e.g.) */}
               {selectedInstitution.securityCodeCaption && (
                 <TextField
-                  {...text(`${selectedInstitution.securityCodeCaption}`)}
-                  id={selectedInstitution.securityCodeCaption}
+                  {...password('securityCode')}
+                  id="username"
                   label={selectedInstitution.securityCodeCaption}
                   placeholder={selectedInstitution.securityCodeCaption}
                   required
@@ -80,8 +156,8 @@ export function AccountVerificationFormStep3InstitutionLogin() {
               {/* Password */}
               <div className="space-y-2">
                 <TextField
-                  {...password(`${selectedInstitution.passwordCaption}`)}
-                  id={selectedInstitution.passwordCaption}
+                  {...password('password')}
+                  id="password"
                   label={selectedInstitution.passwordCaption}
                   placeholder={selectedInstitution.passwordCaption}
                   required
@@ -97,7 +173,6 @@ export function AccountVerificationFormStep3InstitutionLogin() {
                   Forgot password?
                 </a>
               </div>
-
               {/* Actions */}
               <div className="space-y-2">
                 <Button type="submit" loading={submitting} variant="bold" block>
@@ -107,7 +182,6 @@ export function AccountVerificationFormStep3InstitutionLogin() {
                   Pick another bank
                 </Button>
               </div>
-
               {/** Error state */}
               {errorMessage && (
                 <div className="bg-red-100 text-red-500 p-5">
@@ -120,4 +194,47 @@ export function AccountVerificationFormStep3InstitutionLogin() {
       </div>
     </div>
   );
+}
+
+async function checkConnectionStatus({ userId, jobId }) {
+  const token = await getToken();
+  const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  console.log({ response });
+}
+
+async function createConnection({ userId }) {
+  const token = await getToken();
+  console.log({ token });
+  const jobId = await getJobId({ token, userId });
+  console.log({ jobId });
+  return jobId;
+}
+
+async function getToken() {
+  const res = await axios.get('/api/client-token');
+  return res.data;
+}
+
+async function getJobId({ token, userId }) {
+  var data = JSON.stringify({
+    loginId: 'Wentworth-Smith',
+    password: 'Whistler',
+    institution: {
+      id: 'AU00000',
+    },
+  });
+  const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data.id;
 }
