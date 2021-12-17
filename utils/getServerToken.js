@@ -17,3 +17,17 @@ export async function getServerToken() {
   });
   return data.access_token;
 }
+
+export async function getClientToken() {
+  const { data } = await axios({
+    method: 'post',
+    url: 'https://au-api.basiq.io/token',
+    headers: {
+      Authorization: `Basic ${process.env.BASIQ_API_KEY}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'basiq-version': '2.0',
+    },
+    data: qs.stringify({ scope: 'CLIENT_ACCESS' }),
+  });
+  return data.access_token;
+}
