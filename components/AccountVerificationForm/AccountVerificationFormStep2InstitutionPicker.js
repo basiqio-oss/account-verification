@@ -36,6 +36,38 @@ export function AccountVerificationFormStep2InstitutionPicker() {
     );
   }
 
+  // INSTITUTION ERROR SCENE
+  // If institutions could not be fetched, let the user know and provide ability to try fetching the list again
+  function InstitutionsErrorScene() {
+    return (
+      <div className="space-y-6 sm:space-y-8 py-3">
+        <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-16 w-16 text-red-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
+          </svg>
+
+          <div className="space-y-3">
+            <h2 className="font-semibold text-center text-xl tracking-tight">Banks couldn’t be fetched</h2>
+            <p className="text-sm text-center text-gray-600">
+              Something went wrong whilst fetching the list of banks. If the problem persists, please contact support.
+            </p>
+          </div>
+        </div>
+        {/* TODO: Hook up button to try and reload list of institutions */}
+        <Button block>Try again</Button>
+      </div>
+    );
+  }
+
   // FILTERING INSTITUTIONS
   // If the user is searching, filter out any institutions which do not match the search term
   // We use both the "name" and "shortName" attributes for searching
@@ -77,61 +109,11 @@ export function AccountVerificationFormStep2InstitutionPicker() {
             disabled={loading || error || !data || data.length === 0}
           />
           {loading ? (
+            // Whilst loading
             <InstitutionsLoadingSkeleton />
-          ) : error ? (
-            // If error
-            <>
-              <div className="flex flex-col items-center space-y-6 bg-red-50 rounded-lg border border-red-200 p-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-16 w-16 text-red-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-
-                <h2 role="alert" className="font-semibold text-center text-lg">
-                  Something went wrong
-                </h2>
-                <p className="text-sm text-center">
-                  An error occurred whilst trying to fetch the list of banks. If the problem persists, contact support.
-                </p>
-              </div>
-              {/* TODO: Hook up button to try and reload list of institutions */}
-              <Button block>Try again</Button>
-            </>
-          ) : data || data.length === 0 ? (
-            // If no data
-            <>
-              <div className="flex flex-col items-center space-y-6 bg-gray-50 rounded-lg border  p-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-16 w-16 text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-
-                <h2 className="font-semibold text-center text-lg">No institutions found..</h2>
-                <p className="text-sm text-center">If the problem persists, contact support.</p>
-              </div>
-              {/* TODO: Hook up button to try and reload list of institutions */}
-              <Button block>Try again</Button>
-            </>
+          ) : !error || !data || data.length === 0 ? (
+            // Error or no
+            <InstitutionsErrorScene />
           ) : (
             <form>
               {filteredInstitutions.length ? (
