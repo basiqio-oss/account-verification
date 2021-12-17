@@ -38,20 +38,14 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   // FILTERING INSTITUTIONS
   // If the user is searching, filter out any institutions which do not match the search term
   // We use both the "name" and "shortName" attributes for searching
-  const filteredInstitutions =
-    // If there is data
-    data
-      ? // If there is a search value
-        searchValue
-        ? // Filter the data by search value
-          data.filter(({ name, shortName }) => {
-            const val = searchValue.toLocaleLowerCase();
-            return name.toLocaleLowerCase().includes(val) || shortName.toLocaleLowerCase().includes(val);
-          })
-        : // Otherwise, use the data
-          data
-      : // If no data, fallback to empty array
-        [];
+  const filteredInstitutions = data
+    ? searchValue
+      ? data.filter(({ name, shortName }) => {
+          const val = searchValue.toLocaleLowerCase();
+          return name.toLocaleLowerCase().includes(val) || shortName.toLocaleLowerCase().includes(val);
+        })
+      : data
+    : [];
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">

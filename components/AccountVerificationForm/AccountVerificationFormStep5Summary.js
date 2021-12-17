@@ -7,8 +7,8 @@ import { StepLogo } from './StepLogo';
 export function AccountVerificationFormStep5Summary() {
   const { finish, accountVerificationFormState } = useAccountVerificationForm();
 
-  const { selectedInstitution } = accountVerificationFormState;
-  if (!selectedInstitution) return null;
+  const { selectedInstitution, selectedAccount } = accountVerificationFormState;
+  if (!selectedInstitution || !selectedAccount) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -45,9 +45,9 @@ export function AccountVerificationFormStep5Summary() {
         <ul role="list" className="divide-y border-t border-b">
           <li className="py-3 space-x-4 flex items-center">
             <div className="flex flex-col flex-grow">
-              <span className="text-xs text-gray-600">Commonwealth Bank Australia</span>
-              <span className="font-medium">Smart Access</span>
-              <span className="text-xs font-medium">$1,000.00</span>
+              <span className="text-xs text-gray-600">{selectedInstitution.name}</span>
+              <span className="font-medium">{selectedAccount.name}</span>
+              <span className="text-xs font-medium">{selectedAccount.balance}</span>
             </div>
 
             {/* Connected bank logo */}

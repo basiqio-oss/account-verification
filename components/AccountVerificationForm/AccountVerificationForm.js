@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
@@ -8,6 +8,7 @@ import { AccountVerificationFormStep2InstitutionPicker } from './AccountVerifica
 import { AccountVerificationFormStep3InstitutionLogin } from './AccountVerificationFormStep3InstitutionLogin';
 import { AccountVerificationFormStep4SelectAccount } from './AccountVerificationFormStep4SelectAccount';
 import { AccountVerificationFormStep5Summary } from './AccountVerificationFormStep5Summary';
+import axios from 'axios';
 
 const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
@@ -23,6 +24,7 @@ export const useAccountVerificationForm = () => useContext(AccountVerificationFo
 
 export function AccountVerificationForm() {
   const router = useRouter();
+  const token = useGetTokenData();
 
   const [accountVerificationFormState, setAccountVerificationFormState] = useState({});
   const updateAccountVerificationFormState = newState => {
@@ -54,8 +56,11 @@ export function AccountVerificationForm() {
     finish,
     accountVerificationFormState,
     updateAccountVerificationFormState,
+    token,
   };
   const FormComponent = FORM_COMPONENTS[currentStep];
+
+  console.log({ token });
 
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
@@ -112,4 +117,14 @@ export function AccountVerificationForm() {
       </div>
     </AccountVerificationFormContext.Provider>
   );
+}
+
+function useGetTokenData() {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    axios.get('/api/client-token').then(response => setToken(response.data));
+  }, []);
+
+  return token;
 }

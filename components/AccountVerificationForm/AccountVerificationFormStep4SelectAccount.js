@@ -7,26 +7,90 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
+const selectedInstitution = {
+  type: 'institution',
+  id: 'AU04301',
+  name: 'Commonwealth Bank Australia',
+  shortName: 'CBA',
+  institutionType: 'Bank',
+  country: 'Australia',
+  serviceName: 'NetBank',
+  serviceType: 'Personal Banking',
+  loginIdCaption: 'NetBank client number',
+  passwordCaption: 'Password',
+  tier: '1',
+  authorization: 'user',
+  features: {
+    login: ['web'],
+    accounts: {
+      accountNo: ['web', 'pdf', 'csv'],
+      name: ['web', 'pdf', 'csv'],
+      currency: ['web', 'pdf', 'csv'],
+      balance: ['web', 'pdf', 'csv'],
+      availableFunds: ['web', 'pdf', 'csv'],
+      lastUpdated: ['web', 'pdf', 'csv'],
+      accountHolder: ['web', 'pdf', 'csv'],
+      meta: ['web', 'pdf'],
+    },
+    transactions: {
+      status: ['web', 'pdf', 'csv'],
+      description: ['web', 'pdf', 'csv'],
+      date: ['web', 'pdf', 'csv'],
+      amount: ['web', 'pdf', 'csv'],
+      balance: ['web', 'pdf', 'csv'],
+      class: ['web', 'pdf', 'csv'],
+    },
+    profile: {
+      fullName: ['web'],
+      firstName: ['web'],
+      lastName: ['web'],
+      middleName: [],
+      phoneNumbers: ['web'],
+      emailAddresses: ['web'],
+      physicalAddresses: ['web', 'pdf'],
+    },
+  },
+  forgottenPasswordUrl:
+    'https://www2.my.commbank.com.au/netbank/UserMaintenance/Mixed/ForgotLogonDetails/FLDYourLogonDetails.aspx?RID=qDwlIjSTxUegatgUii17ow&SID=m7CHkGqm4XI%3d',
+  stage: 'live',
+  status: 'operational',
+  stats: {
+    averageDurationMs: {
+      verifyCredentials: 22715,
+      retrieveAccounts: 25827,
+      retrieveTransactions: 36538,
+      retrieveMeta: 4426,
+      total: 89506,
+    },
+  },
+  logo: {
+    type: 'image',
+    colors: null,
+    links: {
+      square: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301.svg',
+      full: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301-full.svg',
+    },
+  },
+  links: {
+    self: 'https://au-api.basiq.io/institutions/AU04301',
+  },
+};
+
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goForward, accountVerificationFormState } = useAccountVerificationForm();
-  const [account, setAccount] = useState(EXAMPLE_ACCOUNTS[0]);
+  const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
+  const [selectedAccount, setSelectedAccount] = useState(EXAMPLE_ACCOUNTS[0]);
 
-  const { data, error, loading } = useAccountsData({ userId: accountVerificationFormState.user.id });
-  console.log({ data, error, loading });
+  const { data, error, loading } = useAccountsData();
 
-  const { selectedInstitution } = accountVerificationFormState;
-  if (!selectedInstitution) return null;
+  // const { selectedInstitution } = accountVerificationFormState;
+  // if (!selectedInstitution) return null;
 
   // Example submit to show off loading state / success state
   // TODO what if something goes wrong?
   function handleSubmit(e) {
     e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      // setSuccess(true);
-      goForward();
-    }, 2000);
+    goForward();
+    updateAccountVerificationFormState({ selectedAccount });
   }
 
   return (
@@ -57,73 +121,76 @@ export function AccountVerificationFormStep4SelectAccount() {
           <span>Loading</span>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-            {EXAMPLE_ACCOUNTS.length ? (
-              <RadioGroup value={account} onChange={setAccount}>
+            {data.length ? (
+              <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
                 <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
                 <div className="space-y-3">
-                  {EXAMPLE_ACCOUNTS.map((acc, idx) => (
-                    <RadioGroup.Option
-                      key={idx}
-                      value={acc}
-                      disabled={acc.disabled}
-                      className={`rounded-lg outline-none ${
-                        !acc.disabled &&
-                        'focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
-                      }`}
-                    >
-                      {({ checked }) => (
-                        <div
-                          className={`relative rounded-lg p-3 flex  ${
-                            acc.disabled
-                              ? 'bg-gray-100 cursor-not-allowed opacity-50'
-                              : 'cursor-pointer border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 transition-colors'
-                          } ${checked && 'bg-primary-50 border-primary-500'}`}
-                        >
-                          <div className="flex flex-grow space-x-3">
-                            {acc.disabled ? (
-                              // Lock icon
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                />
-                              </svg>
-                            ) : (
-                              // Radio circle
-                              <span
-                                className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
-                                  checked ? 'border-primary-500' : 'border-gray-300'
-                                }`}
-                              >
-                                {checked && <span className={`w-2 h-2 rounded-full bg-primary-500`} />}
-                              </span>
-                            )}
+                  {data.map((acc, idx) => {
+                    const disabled = acc.status !== 'available';
+                    return (
+                      <RadioGroup.Option
+                        key={idx}
+                        value={acc}
+                        disabled={disabled}
+                        className={`rounded-lg outline-none ${
+                          !disabled &&
+                          'focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
+                        }`}
+                      >
+                        {({ checked }) => (
+                          <div
+                            className={`relative rounded-lg p-3 flex  ${
+                              disabled
+                                ? 'bg-gray-100 cursor-not-allowed opacity-50'
+                                : 'cursor-pointer border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 transition-colors'
+                            } ${checked && 'bg-primary-50 border-primary-500'}`}
+                          >
+                            <div className="flex flex-grow space-x-3">
+                              {disabled ? (
+                                // Lock icon
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-6 w-6"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                  />
+                                </svg>
+                              ) : (
+                                // Radio circle
+                                <span
+                                  className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
+                                    checked ? 'border-primary-500' : 'border-gray-300'
+                                  }`}
+                                >
+                                  {checked && <span className={`w-2 h-2 rounded-full bg-primary-500`} />}
+                                </span>
+                              )}
 
-                            <div className="flex-grow space-y-2">
-                              <RadioGroup.Label as="p" className="font-medium">
-                                {acc.title}
-                              </RadioGroup.Label>
-                              <span className="text-gray-600 text-xs">XXX-XXX XXXX 4435</span>
-                              <dl className="grid grid-cols-2 gap-y-0.5 text-gray-600 text-xs">
-                                <dt className="flex-1">Available:</dt>
-                                <dd className="text-right text-black font-medium">{acc.available}</dd>
-                                <dt className="flex-1">Balance:</dt>
-                                <dd className="text-right">{acc.balance}</dd>
-                              </dl>
+                              <div className="flex-grow space-y-2">
+                                <RadioGroup.Label as="p" className="font-medium">
+                                  {acc.name}
+                                </RadioGroup.Label>
+                                <span className="text-gray-600 text-xs">{acc.accountNo}</span>
+                                <dl className="grid grid-cols-2 gap-y-0.5 text-gray-600 text-xs">
+                                  <dt className="flex-1">Available:</dt>
+                                  <dd className="text-right text-black font-medium">{acc.availableFunds}</dd>
+                                  <dt className="flex-1">Balance:</dt>
+                                  <dd className="text-right">{acc.balance}</dd>
+                                </dl>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </RadioGroup.Option>
-                  ))}
+                        )}
+                      </RadioGroup.Option>
+                    );
+                  })}
                 </div>
               </RadioGroup>
             ) : (
@@ -140,32 +207,18 @@ export function AccountVerificationFormStep4SelectAccount() {
   );
 }
 
-function useAccountsData({ userId }) {
+function useAccountsData() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
-    async function getTokenAndAccounts() {
-      try {
-        // TODO get this from storage
-        const { data: token } = await axios.get('/api/client-token');
-        const { data } = await axios.get(`https://au-api.basiq.io/users/${userId}/accounts`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
-        setData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getTokenAndAccounts();
-  }, [userId]);
+    axios
+      .get('/api/accounts')
+      .then(res => setData(res.data))
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
 
   return { data, loading, error };
 }

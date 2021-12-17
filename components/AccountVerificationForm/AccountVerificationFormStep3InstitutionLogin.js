@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-use-form-state';
 import axios from 'axios';
 import { Button } from '../Button';
@@ -78,29 +78,38 @@ const selectedInstitution = {
 };
 
 export function AccountVerificationFormStep3InstitutionLogin() {
-  const { goForward, goBack, accountVerificationFormState } = useAccountVerificationForm();
+  const [jobId, setJobId] = useState();
+
+  function onSubmit({ jobId }) {
+    setJobId(jobId);
+  }
+
+  if (!jobId) {
+    return <AccountVerificationFormStep3InstitutionLoginForm onSubmit={onSubmit} />;
+  }
+  return <AccountVerificationFormStep3InstitutionLoginProgress jobId={jobId} />;
+}
+
+function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
+  const { token, goBack, accountVerificationFormState } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
-  const institutionId = selectedInstitution.id;
-
-  // const { selectedInstitution } = accountVerificationFormState;
-  // if (!selectedInstitution) return null;
-
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
-    console.log({ accountVerificationFormState });
-    const jobId = await createConnection({
-      userId: accountVerificationFormState.user.id,
-    });
-    setSubmitting(false);
-    goForward();
-    // setTimeout(() => {
-    //   setSubmitting(false);
-    //   setErrorMessage('Something went wrong');
-    //   goForward();
+    try {
+      const jobId = await createConnection({
+        token,
+        userId: accountVerificationFormState.user.id,
+      });
+      onSubmit({ jobId });
+      setSubmitting(false);
+    } catch (error) {
+      setErrorMessage(error.message);
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -196,8 +205,71 @@ export function AccountVerificationFormStep3InstitutionLogin() {
   );
 }
 
-async function checkConnectionStatus({ userId, jobId }) {
-  const token = await getToken();
+function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
+  const { token, goForward } = useAccountVerificationForm();
+  const [progress, setProgress] = useState(0);
+
+  const estimatedTime =
+    (selectedInstitution.stats.averageDurationMs.verifyCredentials +
+      selectedInstitution.stats.averageDurationMs.retrieveAccounts) /
+    1000;
+
+  // TODO use something like `ms`
+  const formattedEstimatedTime = estimatedTime + ' seconds';
+
+  useEffect(
+    () => {
+      let timer1 = setTimeout(async () => {
+        const response = await checkConnectionStatus({ token, jobId });
+        console.log({ response }, 'ff');
+        const steps = response.data.steps.filter(
+          i => i.title === 'verify-credentials' || i.title === 'retrieve-accounts'
+        );
+        let progress = 0;
+        for (const step of steps) {
+          console.log(step);
+          if (step.status === 'success') {
+            progress = progress + 50;
+          }
+        }
+        setProgress(progress);
+      }, 3000);
+
+      // this will clear Timeout
+      // when component unmount like in willComponentUnmount
+      // and show will not change to true
+      return () => {
+        clearTimeout(timer1);
+      };
+    },
+    // useEffect will run only one time with empty []
+    // if you pass a value to array,
+    // like this - [data]
+    // than clearTimeout will run every time
+    // this value changes (useEffect re-run)
+    [jobId]
+  );
+
+  if (progress === 100) {
+    return (
+      <div>
+        Woo
+        <Button onClick={goForward}>Next</Button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <p>Verifying credentials...</p>
+      <p>Usually takes takes {formattedEstimatedTime}</p>
+      <p>{jobId}</p>
+      <div>{progress}/100</div>
+    </div>
+  );
+}
+
+async function checkConnectionStatus({ token, jobId }) {
   const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -205,26 +277,18 @@ async function checkConnectionStatus({ userId, jobId }) {
       'Content-Type': 'application/json',
     },
   });
-  console.log({ response });
+  return response;
 }
 
-async function createConnection({ userId }) {
-  const token = await getToken();
-  console.log({ token });
+async function createConnection({ token, userId }) {
   const jobId = await getJobId({ token, userId });
-  console.log({ jobId });
   return jobId;
-}
-
-async function getToken() {
-  const res = await axios.get('/api/client-token');
-  return res.data;
 }
 
 async function getJobId({ token, userId }) {
   var data = JSON.stringify({
-    loginId: 'Wentworth-Smith',
-    password: 'Whistler',
+    loginId: 'gavinBelson',
+    password: 'hooli2016',
     institution: {
       id: 'AU00000',
     },
