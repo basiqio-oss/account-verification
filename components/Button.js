@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 const VARIANT_MAP = {
   bold: 'bg-primary-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   subtle:
@@ -8,20 +10,16 @@ const VARIANT_MAP = {
     'bg-red-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-red-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
 };
 
-export function Button({
-  as: Tag = 'button',
-  variant = 'bold',
-  block,
-  children,
-  loading,
-  disabled: disabledProp,
-  ...props
-}) {
+export const Button = forwardRef(function Button(
+  { as: Tag = 'button', variant = 'bold', block, children, loading, disabled: disabledProp, ...props },
+  ref
+) {
   const variantClasses = VARIANT_MAP[variant];
   const disabled = loading || disabledProp;
   return (
     <Tag
-      disabled={disabled}
+      ref={ref}
+      disabled={Tag === 'button' ? disabled : undefined}
       className={`px-8 h-12 rounded-lg ${
         block ? 'w-full flex' : 'inline-flex'
       } items-center justify-center font-sans font-medium ${variantClasses} ${
@@ -32,7 +30,7 @@ export function Button({
       {loading ? <ButtonSpinner /> : children}
     </Tag>
   );
-}
+});
 
 function ButtonSpinner() {
   return (
