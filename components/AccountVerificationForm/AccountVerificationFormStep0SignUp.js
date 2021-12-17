@@ -8,7 +8,7 @@ import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
-export function AccountVerificationFormStep0() {
+export function AccountVerificationFormStep0SignUp() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
