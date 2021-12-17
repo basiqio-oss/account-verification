@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
@@ -57,10 +57,10 @@ export function AccountVerificationForm() {
   };
   const FormComponent = FORM_COMPONENTS[currentStep];
 
-  // Reset scroll position when navigating between steps
-  if (typeof window !== 'undefined') {
+  // Scroll to top when currentStep changes
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }
+  }, [currentStep]);
 
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
