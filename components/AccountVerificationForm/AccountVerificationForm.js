@@ -62,7 +62,11 @@ export function AccountVerificationForm() {
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
-      <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
+      <div className="fixed top-0 right-0 left-0 z-10">
+        <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
+        {/* Fade to blend form content nicely when scrolling down the page */}
+        <div className="bg-gradient-to-b from-white to-transparent h-4 block" />
+      </div>
 
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
