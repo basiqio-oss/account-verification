@@ -1,11 +1,13 @@
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../Button';
 
 export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfirm }) {
+  let connectButtonRef = useRef(null);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose} initialFocus={connectButtonRef}>
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -39,13 +41,15 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
 
               {/* Illustration to communicate secure bank connection using Basiq */}
               <div className="space-y-2">
+                {/* Dashed line - top */}
                 <div className="px-8">
                   <div className="h-4 rounded-t-lg border-t border-l border-r border-dashed border-gray-300"></div>
                 </div>
                 <div className="flex justify-between">
+                  {/* Product logo - square */}
                   <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
+                  {/* Security icon (shield-check) + Basiq logo */}
                   <div className="flex flex-col justify-center items-center space-y-1 -m-2">
-                    {/* Icon: shield-check */}
                     <svg
                       className="w-12 h-12 flex-no-shrink"
                       fill="none"
@@ -64,10 +68,12 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <img className="w-16 h-4" src="/basiq-logo.svg" alt="Basiq logo" layout="fill" />
+                    <img className="w-16 h-4" src="/basiq-logo.svg" alt="Basiq logo" />
                   </div>
-                  <img className="w-16 h-16" src="/bank.svg" alt="Bank illustration" layout="fill" />
+                  {/* Bank illustration */}
+                  <img className="w-16 h-16" src="/bank-illustration.svg" alt="Bank illustration" />
                 </div>
+                {/* Dashed line - bottom */}
                 <div className="px-8">
                   <div className="h-4 rounded-b-lg border-b border-l border-r border-dashed border-gray-300"></div>
                 </div>
@@ -77,7 +83,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
               <div className="space-y-2 text-left">
                 <h4 className="text-md font-semibold leading-snug">Bank grade 256-bit SSL encryption</h4>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  Powered by leading open banking platform{' '}
+                  Powered by leading open banking platform {/* TODO: remove auto-focus on link when opening modal */}
                   <a
                     target="_blank"
                     href="https://basiq.io"
@@ -121,7 +127,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
               </div>
 
               <div className="space-y-2">
-                <Button onClick={onConfirm} variant="bold" block>
+                <Button ref={connectButtonRef} onClick={onConfirm} variant="bold" block>
                   Securely connect my account
                 </Button>
                 <Button onClick={onClose} variant="subtle" block>
