@@ -25,11 +25,14 @@ export function AccountVerificationFormStep0SignUp() {
     axios
       .post('/api/create-user', formState.values)
       .then(res => {
+        setSubmitting(false);
         updateAccountVerificationFormState({ user: res.data });
         goForward();
       })
-      .catch(error => setErrorMessage(error.message))
-      .finally(() => setSubmitting(false));
+      .catch(error => {
+        setSubmitting(false);
+        setErrorMessage(error.message);
+      });
   }
 
   return (
