@@ -99,7 +99,7 @@ function SectionProgressBar() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">ProgressBar</h2>
-      <ProgressBar value={100} />
+      <ProgressBar value={75} />
     </section>
   );
 }
