@@ -156,7 +156,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                       <RadioGroup.Option
                         key={institution.id}
                         value={institution}
-                        className="relative rounded-lg p-3 cursor-pointer flex border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                        className="relative rounded-lg p-3 cursor-pointer flex border hover:bg-primary-subtle hover:border-primary-500 active:bg-primary-subtledarker focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
                       >
                         <div className="flex items-center w-full space-x-3">
                           {/* Institution logo */}

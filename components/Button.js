@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 const VARIANT_MAP = {
   bold: 'bg-primary-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   subtle:
-    'bg-primary-50 text-primary-500 hover:bg-primary-100 active:bg-primary-200 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
+    'bg-primary-subtle text-primary-500 hover:bg-primary-subtledarker active:bg-primary-subtledarkest focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   inverted:
     'bg-white text-primary-500 hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-white focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
   critical:
