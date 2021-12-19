@@ -122,7 +122,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
-      <StepLogo src="/logo-on-white.svg" alt="Piper logo" />
+      <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
       {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">

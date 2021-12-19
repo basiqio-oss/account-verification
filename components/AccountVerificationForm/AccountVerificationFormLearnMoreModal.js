@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../Button';
 
@@ -44,9 +43,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                   <div className="h-4 rounded-t-lg border-t border-l border-r border-dashed border-gray-300"></div>
                 </div>
                 <div className="flex justify-between">
-                  <div className="w-16 h-16 relative">
-                    <Image src="/logo-on-white.svg" alt="Piper logo" layout="fill" />
-                  </div>
+                  <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
                   <div className="flex flex-col justify-center items-center space-y-1 -m-2">
                     {/* Icon: shield-check */}
                     <svg
@@ -67,13 +64,9 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <div className="relative w-16 h-4">
-                      <Image src="/basiq-logo.svg" alt="Basiq logo" layout="fill" />
-                    </div>
+                    <img className="w-16 h-4" src="/basiq-logo.svg" alt="Basiq logo" layout="fill" />
                   </div>
-                  <div className="w-16 h-16 relative">
-                    <Image src="/bank.svg" alt="Bank illustration" layout="fill" />
-                  </div>
+                  <img className="w-16 h-16" src="/bank.svg" alt="Bank illustration" layout="fill" />
                 </div>
                 <div className="px-8">
                   <div className="h-4 rounded-b-lg border-b border-l border-r border-dashed border-gray-300"></div>

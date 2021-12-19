@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '../components/Button';
 
 export default function Home() {
@@ -12,9 +11,9 @@ export default function Home() {
       </Head>
       <main className="bg-gradient-to-tr from-primary-500 to-primary-accent min-h-screen flex flex-col justify-center">
         <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
-          {/* Logo and divider */}
+          {/* Product logo and divider */}
           <div className="inline-block space-y-6">
-            <Image src="/logo-on-dark.svg" alt="Piper logo" width={79} height={102} />
+            <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
             <div className="border-b mix-blend-soft-light"></div>
           </div>
 
