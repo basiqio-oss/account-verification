@@ -4,11 +4,11 @@ import axios from 'axios';
 import ms from 'ms';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { VerificationProgress } from '../VerificationProgress';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
-import { VerificationProgress } from './VerificationProgress';
 
 const selectedInstitution = {
   type: 'institution',
@@ -247,20 +247,26 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
     };
   }, [jobId, token]);
 
-  if (progress === 100) {
-    return (
-      <div>
-        Woo
-        <Button onClick={goForward}>Next</Button>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <p>Verifying credentials...</p>
-      <p>Usually takes takes {ms(estimatedTime)}</p>
-      <VerificationProgress value={progress} />
+    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+      <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
+      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center">
+        <VerificationProgress value={progress} />
+        {progress !== 100 ? (
+          <div className="space-y-2">
+            <h3 className="font-bold text-xl">Verifying credentials...</h3>
+            <p>Usually takes takes {ms(estimatedTime)}</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <h3 className="font-bold text-2xl">Connected 🎉</h3>
+            <p>One last step to go...</p>
+            <Button block onClick={goForward}>
+              Continue
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

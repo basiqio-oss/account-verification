@@ -128,6 +128,8 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   );
 }
 
+// Custom react hook for managing our fetch request to retrieves a list institutions
+// The code for this API route can be found in `pages/api/institutions`
 function useInstitutionsData() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();

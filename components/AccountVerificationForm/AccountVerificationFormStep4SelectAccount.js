@@ -8,90 +8,22 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
-const selectedInstitution = {
-  type: 'institution',
-  id: 'AU04301',
-  name: 'Commonwealth Bank Australia',
-  shortName: 'CBA',
-  institutionType: 'Bank',
-  country: 'Australia',
-  serviceName: 'NetBank',
-  serviceType: 'Personal Banking',
-  loginIdCaption: 'NetBank client number',
-  passwordCaption: 'Password',
-  tier: '1',
-  authorization: 'user',
-  features: {
-    login: ['web'],
-    accounts: {
-      accountNo: ['web', 'pdf', 'csv'],
-      name: ['web', 'pdf', 'csv'],
-      currency: ['web', 'pdf', 'csv'],
-      balance: ['web', 'pdf', 'csv'],
-      availableFunds: ['web', 'pdf', 'csv'],
-      lastUpdated: ['web', 'pdf', 'csv'],
-      accountHolder: ['web', 'pdf', 'csv'],
-      meta: ['web', 'pdf'],
-    },
-    transactions: {
-      status: ['web', 'pdf', 'csv'],
-      description: ['web', 'pdf', 'csv'],
-      date: ['web', 'pdf', 'csv'],
-      amount: ['web', 'pdf', 'csv'],
-      balance: ['web', 'pdf', 'csv'],
-      class: ['web', 'pdf', 'csv'],
-    },
-    profile: {
-      fullName: ['web'],
-      firstName: ['web'],
-      lastName: ['web'],
-      middleName: [],
-      phoneNumbers: ['web'],
-      emailAddresses: ['web'],
-      physicalAddresses: ['web', 'pdf'],
-    },
-  },
-  forgottenPasswordUrl:
-    'https://www2.my.commbank.com.au/netbank/UserMaintenance/Mixed/ForgotLogonDetails/FLDYourLogonDetails.aspx?RID=qDwlIjSTxUegatgUii17ow&SID=m7CHkGqm4XI%3d',
-  stage: 'live',
-  status: 'operational',
-  stats: {
-    averageDurationMs: {
-      verifyCredentials: 22715,
-      retrieveAccounts: 25827,
-      retrieveTransactions: 36538,
-      retrieveMeta: 4426,
-      total: 89506,
-    },
-  },
-  logo: {
-    type: 'image',
-    colors: null,
-    links: {
-      square: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301.svg',
-      full: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301-full.svg',
-    },
-  },
-  links: {
-    self: 'https://au-api.basiq.io/institutions/AU04301',
-  },
-};
-
 export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
-  const [selectedAccount, setSelectedAccount] = useState(EXAMPLE_ACCOUNTS[0]);
+  const [selectedAccount, setSelectedAccount] = useState();
 
-  const { data, error, loading } = useAccountsData();
+  const { data, error, loading } = useAccountsData({
+    userId: accountVerificationFormState.user.id,
+    institutionId: 'AU00000',
+  });
 
-  // const { selectedInstitution } = accountVerificationFormState;
-  // if (!selectedInstitution) return null;
+  const { selectedInstitution } = accountVerificationFormState;
+  if (!selectedInstitution) return null;
 
-  // Example submit to show off loading state / success state
-  // TODO what if something goes wrong?
   function handleSubmit(e) {
     e.preventDefault();
-    goForward();
     updateAccountVerificationFormState({ selectedAccount });
+    goForward();
   }
 
   return (
@@ -210,48 +142,21 @@ export function AccountVerificationFormStep4SelectAccount() {
   );
 }
 
-function useAccountsData() {
+// Custom react hook for managing our fetch request to retrieves a list of accounts for the current user
+// The code for this API route can be found in `pages/api/accounts`
+function useAccountsData({ userId, institutionId }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get('/api/accounts')
+      .get('/api/accounts', { params: { userId, institutionId } })
       .then(res => setData(res.data))
       .catch(setError)
       .finally(() => setLoading(false));
-  }, []);
+  }, [userId, institutionId]);
 
   return { data, loading, error };
 }
-
-// TODO this will come from an API
-const EXAMPLE_ACCOUNTS = [
-  {
-    title: 'Smart access',
-    accountNumber: 'XXX-XXX XXXX 4435',
-    available: '$1,488.43',
-    balance: '$1,523.24',
-  },
-  {
-    title: 'Smart access 2',
-    accountNumber: 'XXX-XXX XXXX 4435',
-    available: '$1,488.43',
-    balance: '$1,523.24',
-  },
-  {
-    title: 'Netbank saver',
-    accountNumber: 'XXX-XXX XXXX 4435',
-    available: '$1,488.43',
-    balance: '$1,523.24',
-    disabled: true,
-  },
-  {
-    title: 'CommSec shares',
-    accountNumber: 'XXX-XXX XXXX 4435',
-    available: '$1,488.43',
-    balance: '$1,523.24',
-    disabled: true,
-  },
-];
