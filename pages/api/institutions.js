@@ -1,16 +1,14 @@
 const axios = require('axios');
-const { getServerToken } = require('../../utils/basiqTokens');
+const { getBasiqAuthorizationHeader } = require('../../utils/serverAuthentication');
 
 // Retrieves a list of institutions. Each entry in the array is a separate institution object.
 // https://api.basiq.io/reference/list-all-institutions
 
 export default async function institutions(req, res) {
   try {
-    const token = await getServerToken();
-
     const { data } = await axios.get('https://au-api.basiq.io/institutions', {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: getBasiqAuthorizationHeader(req),
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },

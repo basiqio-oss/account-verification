@@ -1,7 +1,8 @@
-const { getClientToken } = require('../../utils/basiqTokens');
+const { getClientToken } = require('../../utils/serverAuthentication');
 
 // Returns a Basiq API token with the scope of `CLIENT_ACCESS`
 // https://api.basiq.io/reference/authentication
+
 export default async function clientToken(req, res) {
   try {
     const clientToken = await getClientToken();

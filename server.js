@@ -1,6 +1,6 @@
 const express = require('express');
 const next = require('next');
-const { setupTokenCache, getServerToken } = require('./utils/basiqTokens');
+const { setupTokenCache, attatchServerTokenToReq } = require('./utils/basiqTokens');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -12,7 +12,7 @@ app.prepare().then(() => {
     const server = express();
 
     server.all('*', (req, res) => {
-      req.basiqServerToken = getServerToken();
+      attatchServerTokenToReq(req);
       return handle(req, res);
     });
 

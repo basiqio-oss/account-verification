@@ -11,19 +11,25 @@ const qs = require('qs');
  * https://api.basiq.io/reference/authentication
  * */
 
+const SERVER_TOKEN_REQ_KEY = 'BASIQ_ACCESS_TOKEN';
+const REFRESH_INTERVAL = 1000 * 60 * 30; // 30 minutes
+
 let serverToken = undefined;
-const refreshInterval = 1000 * 60 * 30;
 
 async function setupTokenCache() {
   serverToken = await getNewServerToken();
 
   setInterval(async () => {
     serverToken = await getNewServerToken();
-  }, refreshInterval);
+  }, REFRESH_INTERVAL);
 }
 
-function getServerToken() {
-  return serverToken;
+async function attatchServerTokenToReq(req) {
+  req[SERVER_TOKEN_REQ_KEY] = serverToken;
+}
+
+async function getBasiqAuthorizationHeader(req) {
+  return `Bearer ${req[SERVER_TOKEN_REQ_KEY]}`;
 }
 
 async function getNewServerToken() {
@@ -56,6 +62,7 @@ async function getClientToken() {
 
 module.exports = {
   setupTokenCache,
-  getServerToken,
+  attatchServerTokenToReq,
+  getBasiqAuthorizationHeader,
   getClientToken,
 };
