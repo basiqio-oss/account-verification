@@ -1,4 +1,4 @@
-const { getClientToken } = require('../../utils/getServerToken');
+const { getClientToken } = require('../../utils/basiqTokens');
 
 export default async function clientToken(req, res) {
   try {

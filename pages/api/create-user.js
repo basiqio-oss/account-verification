@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { getServerToken } = require('../../utils/getServerToken');
+const { getServerToken } = require('../../utils/basiqTokens');
 
 // Creating a user gives you a "bucket" to store all your financial data.
 // https://api.basiq.io/reference/create-a-user

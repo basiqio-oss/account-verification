@@ -4,6 +4,7 @@ const qs = require('qs');
 // Returns an access token with server access
 // https://api.basiq.io/reference/authentication
 
+// TODO this should be not be fetched on every request
 export async function getServerToken() {
   const { data } = await axios({
     method: 'post',

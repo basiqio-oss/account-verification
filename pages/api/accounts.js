@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { getServerToken } = require('../../utils/getServerToken');
+const { getServerToken } = require('../../utils/basiqTokens');
 
 // Retrieves a list of institutions. Each entry in the array is a separate institution object.
 // https://api.basiq.io/reference/list-all-institutions
