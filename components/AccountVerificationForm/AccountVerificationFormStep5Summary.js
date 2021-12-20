@@ -1,6 +1,6 @@
 import { Button } from '../Button';
 import { formatCurrency } from '../../utils/formatCurrency';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 import { StepLogo } from './StepLogo';

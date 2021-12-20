@@ -1,7 +1,10 @@
+import { AccountVerificationFormProvider } from '../components/AccountVerificationForm';
 import '../styles.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <AccountVerificationFormProvider>
+      <Component {...pageProps} />
+    </AccountVerificationFormProvider>
+  );
 }
-
-export default MyApp;

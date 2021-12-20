@@ -4,7 +4,7 @@ import { useFormState } from 'react-use-form-state';
 import { useRouter } from 'next/router';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
