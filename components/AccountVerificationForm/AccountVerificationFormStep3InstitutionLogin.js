@@ -10,75 +10,6 @@ import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
-const selectedInstitution = {
-  type: 'institution',
-  id: 'AU04301',
-  name: 'Commonwealth Bank Australia',
-  shortName: 'CBA',
-  institutionType: 'Bank',
-  country: 'Australia',
-  serviceName: 'NetBank',
-  serviceType: 'Personal Banking',
-  loginIdCaption: 'NetBank client number',
-  passwordCaption: 'Password',
-  tier: '1',
-  authorization: 'user',
-  features: {
-    login: ['web'],
-    accounts: {
-      accountNo: ['web', 'pdf', 'csv'],
-      name: ['web', 'pdf', 'csv'],
-      currency: ['web', 'pdf', 'csv'],
-      balance: ['web', 'pdf', 'csv'],
-      availableFunds: ['web', 'pdf', 'csv'],
-      lastUpdated: ['web', 'pdf', 'csv'],
-      accountHolder: ['web', 'pdf', 'csv'],
-      meta: ['web', 'pdf'],
-    },
-    transactions: {
-      status: ['web', 'pdf', 'csv'],
-      description: ['web', 'pdf', 'csv'],
-      date: ['web', 'pdf', 'csv'],
-      amount: ['web', 'pdf', 'csv'],
-      balance: ['web', 'pdf', 'csv'],
-      class: ['web', 'pdf', 'csv'],
-    },
-    profile: {
-      fullName: ['web'],
-      firstName: ['web'],
-      lastName: ['web'],
-      middleName: [],
-      phoneNumbers: ['web'],
-      emailAddresses: ['web'],
-      physicalAddresses: ['web', 'pdf'],
-    },
-  },
-  forgottenPasswordUrl:
-    'https://www2.my.commbank.com.au/netbank/UserMaintenance/Mixed/ForgotLogonDetails/FLDYourLogonDetails.aspx?RID=qDwlIjSTxUegatgUii17ow&SID=m7CHkGqm4XI%3d',
-  stage: 'live',
-  status: 'operational',
-  stats: {
-    averageDurationMs: {
-      verifyCredentials: 22715,
-      retrieveAccounts: 25827,
-      retrieveTransactions: 36538,
-      retrieveMeta: 4426,
-      total: 89506,
-    },
-  },
-  logo: {
-    type: 'image',
-    colors: null,
-    links: {
-      square: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301.svg',
-      full: 'https://d388vpyfrt4zrj.cloudfront.net/AU04301-full.svg',
-    },
-  },
-  links: {
-    self: 'https://au-api.basiq.io/institutions/AU04301',
-  },
-};
-
 export function AccountVerificationFormStep3InstitutionLogin() {
   const [jobId, setJobId] = useState();
 
@@ -93,10 +24,14 @@ export function AccountVerificationFormStep3InstitutionLogin() {
 }
 
 function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
-  const { token, goBack, accountVerificationFormState } = useAccountVerificationForm();
+  const token = useGetTokenData();
+  const { goBack, accountVerificationFormState } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const { selectedInstitution } = accountVerificationFormState;
+  if (!selectedInstitution) return null;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -207,9 +142,13 @@ function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
   );
 }
 
-function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
-  const { token, goForward } = useAccountVerificationForm();
+function AccountVerificationFormStep3InstitutionLoginProgress({ token, jobId }) {
+  const token = useGetTokenData();
+  const { goForward, accountVerificationFormState } = useAccountVerificationForm();
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState();
+
+  const { selectedInstitution } = accountVerificationFormState;
 
   // The estimated time job is expected time to take (in milliseconds)
   // We only care about the "verifyCredentials" and "retrieveAccounts" step
@@ -219,27 +158,35 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
 
   // Poll the job
   useEffect(() => {
+    if (!token) return;
     const timer = setTimeout(async () => {
-      const response = await checkConnectionStatus({ token, jobId });
+      try {
+        setProgress(0);
+        const response = await checkConnectionStatus({ token, jobId });
 
-      // We only care about the "verify-credentials" and "retrieve-accounts" steps
-      // So once these steps have been completed, we can move to the user to the next step
-      const steps = response.data.steps.filter(
-        ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
-      );
+        // We only care about the "verify-credentials" and "retrieve-accounts" steps
+        // So once these steps have been completed, we can move to the user to the next step
+        const steps = response.data.steps.filter(
+          ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
+        );
 
-      const progress = 0;
-      for (const step of steps) {
-        switch (step.status) {
-          case 'in_progress':
-            progress += 25;
-          case 'success':
-            progress += 50;
-            break;
+        const progress = 0;
+        for (const step of steps) {
+          switch (step.status) {
+            case 'in_progress':
+              progress += 25;
+            case 'success':
+              progress += 50;
+              break;
+          }
         }
-      }
+        console.log({ progress });
 
-      setProgress(progress);
+        setProgress(progress);
+      } catch (error) {
+        console.log(error);
+        setError(error);
+      }
     }, 3000);
 
     return () => {
@@ -250,9 +197,14 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center">
-        <VerificationProgress value={progress} />
-        {progress !== 100 ? (
+      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
+        <VerificationProgress value={progress} error={error} />
+        {error ? (
+          <div className="space-y-2">
+            <h3 className="font-bold text-xl">Error</h3>
+            <p>{error.message}</p>
+          </div>
+        ) : progress !== 100 ? (
           <div className="space-y-2">
             <h3 className="font-bold text-xl">Verifying credentials...</h3>
             <p>Usually takes takes {ms(estimatedTime)}</p>
@@ -288,6 +240,7 @@ async function createConnection({ token, userId }) {
 }
 
 async function getJobId({ token, userId }) {
+  // TODO these should come from the form, but used for testing atm
   var data = JSON.stringify({
     loginId: 'gavinBelson',
     password: 'hooli2016',
@@ -303,4 +256,15 @@ async function getJobId({ token, userId }) {
     },
   });
   return response.data.id;
+}
+
+// TODO need to think about this properly
+function useGetTokenData() {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    axios.get('/api/client-token').then(response => setToken(response.data));
+  }, []);
+
+  return token;
 }

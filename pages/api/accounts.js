@@ -5,7 +5,7 @@ const { getServerToken } = require('../../utils/basiqTokens');
 // https://api.basiq.io/reference/list-all-accounts
 
 export default async function accounts(req, res) {
-  const { userId, institutionId } = req.query.userId;
+  const { userId, institutionId } = req.query;
   try {
     const token = await getServerToken();
 
