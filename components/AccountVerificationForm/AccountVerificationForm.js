@@ -62,6 +62,8 @@ export function AccountVerificationForm() {
     window.scrollTo(0, 0);
   }, [currentStep]);
 
+  const showCancelButton = currentStep > 0 && currentStep !== totalSteps - 1;
+
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>
       {/* PROGRESS BAR */}
@@ -87,7 +89,7 @@ export function AccountVerificationForm() {
       their decision to connect with a bank at any point. */}
       <div className="absolute right-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
         {/* Show Cancel button unless the user is on the first or last step */}
-        {currentStep > 0 && currentStep !== totalSteps - 1 ? (
+        {showCancelButton ? (
           // TODO: change tabindex so Cancel doesn't get focused first
           <button
             className="text-xs sm:text-sm text-primary-bolddarker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
@@ -98,19 +100,20 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      {/** The UI of the form step */}
+      {/* The UI of the form step */}
       <div className="min-h-screen flex flex-col mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
         <FormComponent />
       </div>
 
-      {/** Cancellation modal */}
+      {/* Cancellation modal */}
       <AccountVerificationFormCancellationModal
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
         onConfirm={confirmCancel}
       />
 
-      {/** Debugging */}
+      {/* Debugging */}
+      {/* TODO: Remove this */}
       <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-dim">
         <button onClick={goBack}>Prev</button>
         <button onClick={goForward}>Next</button>
