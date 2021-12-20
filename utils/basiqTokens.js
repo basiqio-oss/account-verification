@@ -6,13 +6,13 @@ const qs = require('qs');
  * Our token will be passed as the authorization header to requests made to the Basiq API, which you can find in `pages/api`
  *
  * We don't want to request a new token on every request, so in this file we create a simple token cache
- * We have a simple interval to get a new token every 50 minutes
+ * We have a simple interval to get a new token every 30 minutes
  *
  * https://api.basiq.io/reference/authentication
  * */
 
 let serverToken = undefined;
-const refreshInterval = 1000 * 60 * 50;
+const refreshInterval = 1000 * 60 * 30;
 
 async function setupTokenCache() {
   serverToken = await getNewServerToken();
