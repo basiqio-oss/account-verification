@@ -1,5 +1,6 @@
-import { useState, createContext, useContext } from 'react';
+import { useEffect, useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
@@ -35,6 +36,10 @@ const AccountVerificationFormContext = createContext({
   accountVerificationFormState: undefined,
   // Function to update the verification form state
   updateAccountVerificationFormState: undefined,
+  // Function to create a secure connection to the basiq API.
+  createBasiqConnection: undefined,
+  // The state of the secure connection to the basiq API
+  basiqConnection: undefined,
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
@@ -66,6 +71,11 @@ export function AccountVerificationForm() {
   // Called when the user has successfully finished all seteps
   const finish = () => router.push('/');
 
+  const { createBasiqConnection, basiqConnection } = useBasiqConnection({
+    userId: accountVerificationFormState.user?.id,
+    currentStep,
+  });
+
   const contextValue = {
     currentStep,
     totalSteps,
@@ -75,6 +85,8 @@ export function AccountVerificationForm() {
     finish,
     accountVerificationFormState,
     updateAccountVerificationFormState,
+    createBasiqConnection,
+    basiqConnection,
   };
   const FormComponent = FORM_COMPONENTS[currentStep];
 
@@ -133,4 +145,105 @@ export function AccountVerificationForm() {
       </div>
     </AccountVerificationFormContext.Provider>
   );
+}
+
+function useBasiqConnection({ userId, currentStep }) {
+  const token = useClientToken();
+
+  const [jobId, setJobId] = useState();
+  const [progress, setProgress] = useState();
+  const [error, setError] = useState();
+
+  async function createBasiqConnection() {
+    if (!userId | !token) return;
+    const jobId = await getJobId({ token, userId });
+    setJobId(jobId);
+  }
+
+  // Everytime the user changes steps, make sure these values get reset
+  useEffect(() => {
+    setProgress(undefined);
+    setError(undefined);
+  }, [currentStep]);
+
+  // If we have a basiq connection, check the status every 2 seconds
+  useEffect(() => {
+    if (!token || !jobId || !userId) return;
+    setProgress(0);
+    const timer = setTimeout(async () => {
+      try {
+        const response = await checkConnectionStatus({ token, jobId });
+
+        // In this demo, we only care about the "verify-credentials" and "retrieve-accounts" steps
+        // Once these steps have been completed, we can move to the user to the next step
+        const steps = response.data.steps.filter(
+          ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
+        );
+
+        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in_progress' can be '25%'
+        const progress = 0;
+        for (const step of steps) {
+          switch (step.status) {
+            case 'in_progress':
+              progress += 25;
+            case 'success':
+              progress += 50;
+              break;
+          }
+        }
+
+        setProgress(progress);
+      } catch (error) {
+        setError(error);
+      }
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [jobId, token, userId]);
+
+  return {
+    createBasiqConnection,
+    basiqConnection: jobId ? { progress, error } : undefined,
+  };
+}
+
+async function checkConnectionStatus({ token, jobId }) {
+  const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response;
+}
+
+async function getJobId({ token, userId }) {
+  // TODO these should come from the form, but used for testing atm
+  var data = JSON.stringify({
+    loginId: 'gavinBelson',
+    password: 'hooli2016',
+    institution: {
+      id: 'AU00000',
+    },
+  });
+  const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data.id;
+}
+
+function useClientToken() {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    axios.get('/api/client-token').then(response => setToken(response.data));
+  }, []);
+
+  return token;
 }

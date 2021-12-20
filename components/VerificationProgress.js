@@ -3,7 +3,7 @@ const strokeWidth = 6;
 const center = diameter / 2;
 const pathRadius = center - strokeWidth / 2;
 
-export function VerificationProgress({ label, value, error }) {
+export function VerificationProgress({ label, value = 0, error }) {
   const pathRatio = getPathRatio({ value });
 
   // Calculate dash coordinates relative to the circle (the actual "progress" bar)

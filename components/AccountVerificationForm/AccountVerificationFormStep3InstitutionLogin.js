@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormState } from 'react-use-form-state';
-import axios from 'axios';
 import ms from 'ms';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
@@ -11,21 +10,17 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep3InstitutionLogin() {
-  const [jobId, setJobId] = useState();
+  const { basiqConnection } = useAccountVerificationForm();
 
-  function onSubmit({ jobId }) {
-    setJobId(jobId);
+  if (!basiqConnection) {
+    return <AccountVerificationFormStep3InstitutionLoginForm />;
   }
 
-  if (!jobId) {
-    return <AccountVerificationFormStep3InstitutionLoginForm onSubmit={onSubmit} />;
-  }
-  return <AccountVerificationFormStep3InstitutionLoginProgress jobId={jobId} />;
+  return <AccountVerificationFormStep3InstitutionLoginProgress />;
 }
 
-function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
-  const token = useGetTokenData();
-  const { goBack, accountVerificationFormState } = useAccountVerificationForm();
+function AccountVerificationFormStep3InstitutionLoginForm() {
+  const { goBack, accountVerificationFormState, createBasiqConnection } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -37,11 +32,7 @@ function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const jobId = await createConnection({
-        token,
-        userId: accountVerificationFormState.user.id,
-      });
-      onSubmit({ jobId });
+      await createBasiqConnection(formState);
       setSubmitting(false);
     } catch (error) {
       setErrorMessage(error.message);
@@ -142,55 +133,17 @@ function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
   );
 }
 
-function AccountVerificationFormStep3InstitutionLoginProgress({ token, jobId }) {
-  const token = useGetTokenData();
-  const { goForward, accountVerificationFormState } = useAccountVerificationForm();
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState();
-
+function AccountVerificationFormStep3InstitutionLoginProgress() {
+  const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
   const { selectedInstitution } = accountVerificationFormState;
 
   // The estimated time job is expected time to take (in milliseconds)
-  // We only care about the "verifyCredentials" and "retrieveAccounts" step
+  // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
   const estimatedTime =
     selectedInstitution.stats.averageDurationMs.verifyCredentials +
     selectedInstitution.stats.averageDurationMs.retrieveAccounts;
 
-  // Poll the job
-  useEffect(() => {
-    if (!token) return;
-    const timer = setTimeout(async () => {
-      try {
-        setProgress(0);
-        const response = await checkConnectionStatus({ token, jobId });
-
-        // We only care about the "verify-credentials" and "retrieve-accounts" steps
-        // So once these steps have been completed, we can move to the user to the next step
-        const steps = response.data.steps.filter(
-          ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
-        );
-
-        const progress = 0;
-        for (const step of steps) {
-          switch (step.status) {
-            case 'in_progress':
-              progress += 25;
-            case 'success':
-              progress += 50;
-              break;
-          }
-        }
-
-        setProgress(progress);
-      } catch (error) {
-        setError(error);
-      }
-    }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [jobId, token]);
+  const { error, progress } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -219,50 +172,4 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ token, jobId }) 
       </div>
     </div>
   );
-}
-
-async function checkConnectionStatus({ token, jobId }) {
-  const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-  return response;
-}
-
-async function createConnection({ token, userId }) {
-  const jobId = await getJobId({ token, userId });
-  return jobId;
-}
-
-async function getJobId({ token, userId }) {
-  // TODO these should come from the form, but used for testing atm
-  var data = JSON.stringify({
-    loginId: 'gavinBelson',
-    password: 'hooli2016',
-    institution: {
-      id: 'AU00000',
-    },
-  });
-  const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-  return response.data.id;
-}
-
-// TODO need to think about this properly
-function useGetTokenData() {
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    axios.get('/api/client-token').then(response => setToken(response.data));
-  }, []);
-
-  return token;
 }
