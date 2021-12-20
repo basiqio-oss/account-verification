@@ -42,6 +42,6 @@ describe('Account verification form', () => {
 
   it('Completes step 2 - InstitutionPicker', () => {});
   it('Completes step 2 - InstitutionLogin', () => {});
-  it('Completes step 4 - SelectAccount');
-  it('Completes step 5 - Summary');
+  it('Completes step 4 - SelectAccount', () => {});
+  it('Completes step 5 - Summary', () => {});
 });
