@@ -14,7 +14,7 @@ export function AccountVerificationFormStep4SelectAccount() {
 
   const { data, error, loading } = useAccountsData({
     userId: accountVerificationFormState.user.id,
-    institutionId: 'AU00000',
+    institutionId: 'AU00000', // TODO this for testing only and needs to be removed
   });
 
   const { selectedInstitution } = accountVerificationFormState;
