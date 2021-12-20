@@ -166,7 +166,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
         ) : progress !== 100 ? (
           <div className="space-y-2">
             <h3 className="font-bold text-xl">Verifying credentials...</h3>
-            <p>Usually takes takes {ms(estimatedTime)}</p>
+            <p>Usually takes takes {ms(estimatedTime, { long: true })}</p>
           </div>
         ) : (
           <div className="space-y-2">
