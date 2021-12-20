@@ -63,7 +63,7 @@ export function AccountVerificationFormStep0SignUp() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
             {/** Error state */}
-            {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
 
             <TextField
               {...email('email')}

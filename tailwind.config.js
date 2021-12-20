@@ -57,10 +57,10 @@ module.exports = {
 
       // Critical UI colours
       critical: {
-        // subtle
-        subtle: '#FFE9EB', // error message backgrounds e.g.
+        // Subtle
+        subtle: '#FFE9EB', // <ErrorMessage /> background e.g.
 
-        // bold
+        // Bold
         bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
         'bold-darker': '#A30014', // error message text colour (darker to provide more contrast)
       },

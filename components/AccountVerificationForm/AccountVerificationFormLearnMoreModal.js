@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../Button';
 
 export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfirm }) {
-  let connectButtonRef = useRef(null);
+  const connectButtonRef = useRef(null);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

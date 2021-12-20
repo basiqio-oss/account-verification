@@ -101,7 +101,7 @@ function SectionErrorMessage() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">ErrorMessage</h2>
-      <ErrorMessage errorMessage="Something went wrong." />
+      <ErrorMessage message="Something went wrong." />
     </section>
   );
 }

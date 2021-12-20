@@ -54,7 +54,7 @@ export function AccountVerificationFormStep3InstitutionLogin() {
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
               {/* Error state */}
-              {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+              {errorMessage && <ErrorMessage message={errorMessage} />}
 
               {/* TODO: 
               The best way to approach this is to look for attributes with the "Caption" suffix to know what to render
