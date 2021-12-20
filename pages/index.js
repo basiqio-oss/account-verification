@@ -9,7 +9,7 @@ export default function Home() {
         <title>Piper</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-gradient-to-tr from-primary-500 to-primary-accent min-h-screen flex flex-col justify-center">
+      <main className="bg-gradient-to-tr from-primary-bold to-primary-accent min-h-screen flex flex-col justify-center">
         <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">

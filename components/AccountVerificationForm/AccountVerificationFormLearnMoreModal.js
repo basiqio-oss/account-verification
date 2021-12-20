@@ -88,7 +88,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                     target="_blank"
                     href="https://basiq.io"
                     rel="noopener noreferrer"
-                    className="text-primary-600 underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                    className="text-primary-bolddarker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
                   >
                     basiq.io
                   </a>

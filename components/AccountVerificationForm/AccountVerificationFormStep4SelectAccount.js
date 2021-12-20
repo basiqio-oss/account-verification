@@ -61,7 +61,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                     disabled={acc.disabled}
                     className={`rounded-lg outline-none ${
                       !acc.disabled &&
-                      'focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
+                      'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
                     }`}
                   >
                     {({ checked }) => (
@@ -69,7 +69,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                         className={`relative rounded-lg p-3 flex  ${
                           acc.disabled
                             ? 'bg-gray-100 cursor-not-allowed opacity-50'
-                            : 'cursor-pointer border hover:bg-primary-subtle hover:border-primary-500 active:bg-primary-subtledarker transition-colors'
+                            : 'cursor-pointer border hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtledarker transition-colors'
                         } ${checked && 'bg-primary-subtle border-primary-500'}`}
                       >
                         <div className="flex flex-grow space-x-3">

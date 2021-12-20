@@ -48,7 +48,7 @@ export function AccountVerificationFormStep1PreConsent() {
         for why it's 100% secure to connect to their bank through the app. */}
         <ul role="list" className="bg-gray-50 rounded-lg border divide-y">
           {/* Secure argument 1 */}
-          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-500 to-secondary rounded-t-lg space-x-4 flex items-center">
+          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-bold to-secondary rounded-t-lg space-x-4 flex items-center">
             <div className="flex flex-grow text-white font-medium leading-snug">
               Bank grade 256-bit <br />
               SSL encryption
@@ -136,7 +136,7 @@ export function AccountVerificationFormStep1PreConsent() {
             target="_blank"
             href="https://basiq.io"
             rel="noopener noreferrer"
-            className="text-primary-600 underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="text-primary-bolddarker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
           >
             basiq.io
           </a>{' '}
