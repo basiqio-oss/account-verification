@@ -81,8 +81,8 @@ function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
               Can we map over all the attributes ending in Caption for a neater solution? */}
               {/* Login ID */}
               <TextField
-                {...text('username')}
-                id={selectedInstitution.loginIdCaption}
+                {...text('loginId')}
+                id="loginId"
                 label={selectedInstitution.loginIdCaption}
                 placeholder={selectedInstitution.loginIdCaption}
                 required
@@ -92,7 +92,7 @@ function AccountVerificationFormStep3InstitutionLoginForm({ onSubmit }) {
               {selectedInstitution.securityCodeCaption && (
                 <TextField
                   {...password('securityCode')}
-                  id="username"
+                  id="securityCode"
                   label={selectedInstitution.securityCodeCaption}
                   placeholder={selectedInstitution.securityCodeCaption}
                   required
@@ -180,11 +180,9 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ token, jobId }) 
               break;
           }
         }
-        console.log({ progress });
 
         setProgress(progress);
       } catch (error) {
-        console.log(error);
         setError(error);
       }
     }, 3000);
