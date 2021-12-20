@@ -17,12 +17,12 @@ module.exports = {
       primary: {
         // Subtle
         subtle: '#F1F0FF', // <Button variant="subtle"/> bg, and radio options e.g.
-        subtledarker: '#E8E5FF', // <Button variant="subtle"/> :hover bg
-        subtledarkest: '#DEDBFF', // <Button variant="subtle"/> :active bg
+        'subtle-darker': '#E8E5FF', // <Button variant="subtle"/> :hover bg
+        'subtle-darkest': '#DEDBFF', // <Button variant="subtle"/> :active bg
 
         // Bold
         bold: '#4737FF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
-        bolddarker: '#1400FE', // Links (darker to provide more contrast)
+        'bold-darker': '#1400FE', // Links (darker to provide more contrast)
 
         // Accent
         accent: '#9C4EFF', // primary-bold to primary-accent bg gradient e.g.
@@ -31,9 +31,9 @@ module.exports = {
       // Secondary brand colours
       secondary: {
         // Bold
-        boldlighter: '#34F1CF', // icons on dark bg (lighter to provide more contrast)
+        'bold-lighter': '#34F1CF', // icons on dark bg (lighter to provide more contrast)
         bold: '#10EDC5', // primary-bold to secondary-bold bg gradients e.g.
-        bolddarker: '#0FD7B3', // icons on light bg (darker to provide more contrast)
+        'bold-darker': '#0FD7B3', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
@@ -48,11 +48,11 @@ module.exports = {
       // Neutral UI colours
       neutral: {
         subtle: '#F5F8F9', // subtle backgrounds to contrast with default white bg e.g.
-        subtledarker: '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
+        'subtle-darker': '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
         dim: '#DEE4E7', // User for default border colour
-        dimdarker: '#BECBD0', // input border, radio circles e.g.
+        'dim-darker': '#BECBD0', // input border, radio circles e.g.
         muted: '#7E888E', // muted icons, e.g. in <SearchInput />
-        muteddarker: '#4F6772', // muted text (darker to provide more contrast)
+        'muted-darker': '#4F6772', // muted text (darker to provide more contrast)
       },
 
       // Critical UI colours
@@ -62,7 +62,7 @@ module.exports = {
 
         // bold
         bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
-        bolddarker: '#A30014', // error message text colour (darker to provide more contrast)
+        'bold-darker': '#A30014', // error message text colour (darker to provide more contrast)
       },
     },
 

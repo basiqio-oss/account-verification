@@ -96,7 +96,7 @@ export function AccountVerificationFormStep3InstitutionLogin() {
                   href={selectedInstitution.forgottenPasswordUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block text-xs text-primary-bolddarker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                  className="inline-block text-xs text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
                 >
                   Forgot password?
                 </a>

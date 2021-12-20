@@ -25,10 +25,10 @@ export function AccountVerificationFormStep2InstitutionPicker() {
     return (
       <div className="space-y-3">
         {Array.apply(null, { length: 10 }).map((e, i) => (
-          <div key={i} className="rounded-lg p-3 flex border border-neutral-subtledarker animate-pulse">
+          <div key={i} className="rounded-lg p-3 flex border border-neutral-subtle-darker animate-pulse">
             <div className="flex items-center w-full space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-neutral-subtledarker" />
-              <div className="bg-neutral-subtledarker rounded h-4 w-48" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-neutral-subtle-darker" />
+              <div className="bg-neutral-subtle-darker rounded h-4 w-48" />
             </div>
           </div>
         ))}
@@ -57,7 +57,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
           <div className="space-y-3">
             <h2 className="font-semibold text-center text-xl tracking-tight">Banks couldn’t be fetched</h2>
-            <p className="text-sm text-center text-neutral-muteddarker">
+            <p className="text-sm text-center text-neutral-muted-darker">
               Something went wrong whilst fetching the list of banks. If the problem persists, please contact support.
             </p>
           </div>
@@ -89,7 +89,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
           <div className="space-y-3">
             <h2 className="font-semibold text-center text-xl tracking-tight">No matching results</h2>
-            <p className="text-sm text-center text-neutral-muteddarker">
+            <p className="text-sm text-center text-neutral-muted-darker">
               There were no banks matching your search text. Please double-check spelling again. If the problem
               persists, contact support.
             </p>
@@ -156,7 +156,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                       <RadioGroup.Option
                         key={institution.id}
                         value={institution}
-                        className="relative rounded-lg p-3 cursor-pointer flex border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtledarker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                        className="relative rounded-lg p-3 cursor-pointer flex border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
                       >
                         <div className="flex items-center w-full space-x-3">
                           {/* Institution logo */}

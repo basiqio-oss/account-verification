@@ -79,7 +79,7 @@ export function AccountVerificationForm() {
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
       <div className="absolute left-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
-        <span className="text-xs sm:text-sm text-neutral-muteddarker">
+        <span className="text-xs sm:text-sm text-neutral-muted-darker">
           {currentStep + 1} of {totalSteps}
         </span>
       </div>
@@ -92,7 +92,7 @@ export function AccountVerificationForm() {
         {showCancelButton ? (
           // TODO: change tabindex so Cancel doesn't get focused first
           <button
-            className="text-xs sm:text-sm text-primary-bolddarker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="text-xs sm:text-sm text-primary-bold-darker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
             onClick={openCancellationModal}
           >
             Cancel

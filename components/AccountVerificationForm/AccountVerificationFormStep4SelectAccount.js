@@ -68,8 +68,8 @@ export function AccountVerificationFormStep4SelectAccount() {
                       <div
                         className={`relative rounded-lg p-3 flex  ${
                           acc.disabled
-                            ? 'bg-neutral-subtledarker cursor-not-allowed opacity-50'
-                            : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtledarker transition-colors'
+                            ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
+                            : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
                         } ${checked && 'bg-primary-subtle border-primary-bold'}`}
                       >
                         <div className="flex flex-grow space-x-3">
@@ -93,7 +93,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                             // Radio circle
                             <span
                               className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
-                                checked ? 'border-primary-bold' : 'border-neutral-dimdarker'
+                                checked ? 'border-primary-bold' : 'border-neutral-dim-darker'
                               }`}
                             >
                               {checked && <span className={`w-2 h-2 rounded-full bg-primary-bold`} />}
@@ -104,8 +104,8 @@ export function AccountVerificationFormStep4SelectAccount() {
                             <RadioGroup.Label as="p" className="font-medium">
                               {acc.title}
                             </RadioGroup.Label>
-                            <span className="text-neutral-muteddarker text-xs">XXX-XXX XXXX 4435</span>
-                            <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muteddarker text-xs">
+                            <span className="text-neutral-muted-darker text-xs">XXX-XXX XXXX 4435</span>
+                            <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
                               <dt className="flex-1">Available:</dt>
                               <dd className="text-right text-black font-medium">{acc.available}</dd>
                               <dt className="flex-1">Balance:</dt>

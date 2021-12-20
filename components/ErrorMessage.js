@@ -15,7 +15,7 @@ export function ErrorMessage({ errorMessage }) {
           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      <span className="text-critical-bolddarker">{errorMessage}</span>
+      <span className="text-critical-bold-darker">{errorMessage}</span>
     </div>
   );
 }

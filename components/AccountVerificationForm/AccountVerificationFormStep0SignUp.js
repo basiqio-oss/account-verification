@@ -75,7 +75,7 @@ export function AccountVerificationFormStep0SignUp() {
             />
 
             {/* Terms and Conditions */}
-            <p className="text-xs text-neutral-muteddarker text-center max-w-xs mx-auto leading-relaxed">
+            <p className="text-xs text-neutral-muted-darker text-center max-w-xs mx-auto leading-relaxed">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
 

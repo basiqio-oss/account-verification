@@ -25,7 +25,7 @@ export function SearchInput({ labelScreenReader, ...props }) {
       <input
         id="search"
         type="search"
-        className="w-full h-12 pl-11 pr-3 bg-white placeholder-neutral-muted text-black text-base outline-none rounded-lg border border-neutral-dimdarker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+        className="w-full h-12 pl-11 pr-3 bg-white placeholder-neutral-muted text-black text-base outline-none rounded-lg border border-neutral-dim-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
         {...props}
       />
     </div>
