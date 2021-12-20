@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useFormState } from 'react-use-form-state';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -52,6 +53,9 @@ export function AccountVerificationFormStep3InstitutionLogin() {
         <div>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
+              {/* Error state */}
+              {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+
               {/* TODO: 
               The best way to approach this is to look for attributes with the "Caption" suffix to know what to render
               Pass these additional login parameters as optional arguments when you create any connection. 
@@ -107,13 +111,6 @@ export function AccountVerificationFormStep3InstitutionLogin() {
                   Pick another bank
                 </Button>
               </div>
-
-              {/** Error state */}
-              {errorMessage && (
-                <div className="bg-critical-subtle text-critical-bolddarker p-5">
-                  <span>{errorMessage}</span>
-                </div>
-              )}
             </div>
           </form>
         </div>

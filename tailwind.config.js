@@ -62,7 +62,7 @@ module.exports = {
 
         // bold
         bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
-        bolddarker: '#CB0018', // error message text colour (darker to provide more contrast)
+        bolddarker: '#9B1B2B', // error message text colour (darker to provide more contrast)
       },
     },
 

@@ -44,7 +44,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
         <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 text-critical-bolddarker"
+            className="h-16 w-16 text-critical-bold"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

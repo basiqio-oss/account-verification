@@ -4,6 +4,7 @@ import { useFormState } from 'react-use-form-state';
 import { useRouter } from 'next/router';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -61,6 +62,9 @@ export function AccountVerificationFormStep0SignUp() {
         PS. You can also use mobile number to Create User in the API */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
+            {/** Error state */}
+            {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+
             <TextField
               {...email('email')}
               id="email"
@@ -84,9 +88,6 @@ export function AccountVerificationFormStep0SignUp() {
                 Cancel
               </Button>
             </div>
-
-            {/** Error state */}
-            {errorMessage && <div className="bg-critical-subtle text-critical-bolddarker p-5">{errorMessage}</div>}
           </div>
         </form>
       </div>

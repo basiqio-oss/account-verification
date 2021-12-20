@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export default function Components() {
   // TODO: This file to be removed, for internal dev use only
@@ -17,6 +18,7 @@ export default function Components() {
         <SectionButtons />
         <SectionTextField />
         <SectionSearchInput />
+        <SectionErrorMessage />
         <SectionProgressBar />
       </main>
       <footer></footer>
@@ -91,6 +93,15 @@ function SectionSearchInput() {
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">SearchInput</h2>
       <SearchInput placeholder="Search" />
+    </section>
+  );
+}
+
+function SectionErrorMessage() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">ErrorMessage</h2>
+      <ErrorMessage errorMessage="Something went wrong." />
     </section>
   );
 }
