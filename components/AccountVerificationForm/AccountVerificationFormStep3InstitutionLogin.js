@@ -32,7 +32,17 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await createBasiqConnection(formState);
+      console.log({ formState });
+      await createBasiqConnection({
+        // loginId: formState.values.loginId,
+        // securityCode: formState.values.securityCode,
+        // password: formState.values.password,
+        // institution: { id: selectedInstitution.id },
+        // TODO remove these testing credentials
+        loginId: 'gavinBelson',
+        password: 'hooli2016',
+        institution: { id: 'AU00000' },
+      });
       setSubmitting(false);
     } catch (error) {
       setErrorMessage(error.message);

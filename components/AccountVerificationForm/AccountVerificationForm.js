@@ -154,9 +154,9 @@ function useBasiqConnection({ userId, currentStep }) {
   const [progress, setProgress] = useState();
   const [error, setError] = useState();
 
-  async function createBasiqConnection() {
-    if (!userId | !token) return;
-    const jobId = await getJobId({ token, userId });
+  async function createBasiqConnection(data) {
+    if (!userId || !token) return;
+    const jobId = await getJobId({ data, token, userId });
     setJobId(jobId);
   }
 
@@ -219,15 +219,7 @@ async function checkConnectionStatus({ token, jobId }) {
   return response;
 }
 
-async function getJobId({ token, userId }) {
-  // TODO these should come from the form, but used for testing atm
-  var data = JSON.stringify({
-    loginId: 'gavinBelson',
-    password: 'hooli2016',
-    institution: {
-      id: 'AU00000',
-    },
-  });
+async function getJobId({ token, userId, data }) {
   const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
