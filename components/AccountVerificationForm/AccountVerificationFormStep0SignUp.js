@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { ErrorMessage } from '../ErrorMessage';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
@@ -13,7 +13,7 @@ export function AccountVerificationFormStep0SignUp() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [formState, { email }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [error, setError] = useState();
   const router = useRouter();
 
   // Cancelling at the first step (before user has submitted any form data)
@@ -32,7 +32,7 @@ export function AccountVerificationFormStep0SignUp() {
       })
       .catch(error => {
         setSubmitting(false);
-        setErrorMessage(error.message);
+        setError(error.message);
       });
   }
 
@@ -63,7 +63,7 @@ export function AccountVerificationFormStep0SignUp() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
             {/** Error state */}
-            {errorMessage && <ErrorMessage message={errorMessage} />}
+            {error && <ErrorMessage message={error.message} />}
 
             <TextField
               {...email('email')}

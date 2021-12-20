@@ -3,7 +3,7 @@ import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
 import { Button } from '../Button';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
@@ -21,20 +21,14 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   // FILTERING INSTITUTIONS
   // If the user is searching, filter out any institutions which do not match the search term
   // We use both the "name" and "shortName" attributes for searching
-  const filteredInstitutions =
-    // If there is data
-    data
-      ? // If there is a search value
-        searchValue
-        ? // Filter the data by search value
-          data.filter(({ name, shortName }) => {
-            const val = searchValue.toLocaleLowerCase();
-            return name.toLocaleLowerCase().includes(val) || shortName.toLocaleLowerCase().includes(val);
-          })
-        : // Otherwise, use the data
-          data
-      : // If no data, fallback to empty array
-        [];
+  const filteredInstitutions = data
+    ? searchValue
+      ? data.filter(({ name, shortName }) => {
+          const val = searchValue.toLocaleLowerCase();
+          return name.toLocaleLowerCase().includes(val) || shortName.toLocaleLowerCase().includes(val);
+        })
+      : data
+    : [];
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -116,6 +110,8 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   );
 }
 
+// Custom react hook for managing our fetch request to retrieves a list institutions
+// The code for this API route can be found in `pages/api/institutions`
 function useInstitutionsData() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();

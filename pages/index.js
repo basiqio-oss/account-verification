@@ -1,8 +1,16 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Button } from '../components/Button';
+import { useAccountVerificationForm } from '../components/AccountVerificationForm';
 
 export default function Home() {
+  const { accountVerificationFormState } = useAccountVerificationForm();
+
+  const isConnected =
+    accountVerificationFormState.user &&
+    accountVerificationFormState.selectedInstitution &&
+    accountVerificationFormState.selectedAccount;
+
   return (
     <div>
       <Head>
@@ -28,15 +36,24 @@ export default function Home() {
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
-
-          {/* CTA to Account Verification flow */}
-          <div className="mx-auto w-56">
-            <Link href="/account-verification" passHref>
-              <Button as="a" variant="inverted" block>
-                Get started
+          {isConnected ? (
+            <div className="mx-auto w-64 space-y-2">
+              {/** TODO */}
+              <Button block variant="inverted">
+                View verified account
               </Button>
-            </Link>
-          </div>
+              <Button block>Reset app</Button> {/** TODO */}
+            </div>
+          ) : (
+            <div className="mx-auto w-56">
+              {/* CTA to Account Verification flow */}
+              <Link href="/account-verification" passHref>
+                <Button as="a" variant="inverted" block>
+                  Get started
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     </div>

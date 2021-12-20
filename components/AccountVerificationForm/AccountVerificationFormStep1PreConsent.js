@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../Button';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { AccountVerificationFormLearnMoreModal } from './AccountVerificationFormLearnMoreModal';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';

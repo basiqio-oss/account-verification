@@ -4,6 +4,7 @@ import { TextField } from '../components/TextField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { VerificationProgress } from '../components/VerificationProgress';
 
 export default function Components() {
   // TODO: This file to be removed, for internal dev use only
@@ -20,8 +21,8 @@ export default function Components() {
         <SectionSearchInput />
         <SectionErrorMessage />
         <SectionProgressBar />
+        <SectionVerificationProgress />
       </main>
-      <footer></footer>
     </>
   );
 }
@@ -111,6 +112,23 @@ function SectionProgressBar() {
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">ProgressBar</h2>
       <ProgressBar value={75} />
+    </section>
+  );
+}
+
+function SectionVerificationProgress() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">VerificationProgress</h2>
+      <div className="flex flex-wrap gap-4">
+        <VerificationProgress value={0} />
+        <VerificationProgress value={20} />
+        <VerificationProgress value={40} />
+        <VerificationProgress value={60} />
+        <VerificationProgress value={80} />
+        <VerificationProgress value={100} />
+        <VerificationProgress value={50} error />
+      </div>
     </section>
   );
 }

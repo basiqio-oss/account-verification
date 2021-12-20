@@ -1,15 +1,15 @@
-import { useState, createContext, useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { ProgressBar } from '../ProgressBar';
-import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
 import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
 import { AccountVerificationFormStep2InstitutionPicker } from './AccountVerificationFormStep2InstitutionPicker';
 import { AccountVerificationFormStep3InstitutionLogin } from './AccountVerificationFormStep3InstitutionLogin';
 import { AccountVerificationFormStep4SelectAccount } from './AccountVerificationFormStep4SelectAccount';
 import { AccountVerificationFormStep5Summary } from './AccountVerificationFormStep5Summary';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
+import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
 
-const FORM_COMPONENTS = [
+export const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
   AccountVerificationFormStep1PreConsent,
   AccountVerificationFormStep2InstitutionPicker,
@@ -18,54 +18,16 @@ const FORM_COMPONENTS = [
   AccountVerificationFormStep5Summary,
 ];
 
-const AccountVerificationFormContext = createContext({});
-export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
-
 export function AccountVerificationForm() {
-  const router = useRouter();
+  const { currentStep, totalSteps, cancel, goBack, goForward } = useAccountVerificationForm();
+  const Component = FORM_COMPONENTS[currentStep];
 
-  const [accountVerificationFormState, setAccountVerificationFormState] = useState({});
-  const updateAccountVerificationFormState = newState => {
-    setAccountVerificationFormState(oldState => ({ ...oldState, ...newState }));
-  };
-
-  // State for managing which step of the form to display
-  const [currentStep, setCurrentStep] = useState(0);
-  const totalSteps = FORM_COMPONENTS.length;
-  const goBack = () => setCurrentStep(step => (step === 0 ? 0 : step - 1));
-  const goForward = () => setCurrentStep(step => (step === totalSteps - 1 ? totalSteps - 1 : currentStep + 1));
-
-  // State for managing hiding/showing of the cancellation model
   const [isCancellationModalOpen, setCancellationModalOpen] = useState(false);
   const openCancellationModal = () => setCancellationModalOpen(true);
   const closeCancellationModal = () => setCancellationModalOpen(false);
-  // TODO: What do we need to do in terms of API here, ie delete user, stop job polling, remove any connection etc?
-  const confirmCancel = () => router.push('/');
-
-  // Called when the user has successfully finished all seteps
-  const finish = () => router.push('/');
-
-  const contextValue = {
-    currentStep,
-    totalSteps,
-    goBack,
-    goForward,
-    cancel: openCancellationModal,
-    finish,
-    accountVerificationFormState,
-    updateAccountVerificationFormState,
-  };
-  const FormComponent = FORM_COMPONENTS[currentStep];
-
-  // Scroll to top when currentStep changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentStep]);
-
-  const showCancelButton = currentStep > 0 && currentStep !== totalSteps - 1;
 
   return (
-    <AccountVerificationFormContext.Provider value={contextValue}>
+    <>
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
@@ -89,10 +51,10 @@ export function AccountVerificationForm() {
       their decision to connect with a bank at any point. */}
       <div className="absolute right-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
         {/* Show Cancel button unless the user is on the first or last step */}
-        {showCancelButton ? (
+        {currentStep > 0 && currentStep !== totalSteps - 1 ? (
           // TODO: change tabindex so Cancel doesn't get focused first
           <button
-            className="text-xs sm:text-sm text-primary-bold-darker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="text-xs sm:text-sm text-primary-600 rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
             onClick={openCancellationModal}
           >
             Cancel
@@ -100,24 +62,22 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      {/* The UI of the form step */}
       <div className="min-h-screen flex flex-col mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
-        <FormComponent />
+        <Component />
       </div>
 
-      {/* Cancellation modal */}
+      {/** Cancellation modal */}
       <AccountVerificationFormCancellationModal
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
-        onConfirm={confirmCancel}
+        onConfirm={cancel}
       />
 
-      {/* Debugging */}
-      {/* TODO: Remove this */}
-      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-dim">
+      {/** Debugging */}
+      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-muted-darker">
         <button onClick={goBack}>Prev</button>
         <button onClick={goForward}>Next</button>
       </div>
-    </AccountVerificationFormContext.Provider>
+    </>
   );
 }
