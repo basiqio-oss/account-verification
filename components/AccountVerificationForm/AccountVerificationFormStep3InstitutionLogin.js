@@ -24,7 +24,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
   const { goBack, accountVerificationFormState, createBasiqConnection } = useAccountVerificationForm();
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [error, setError] = useState();
 
   const { selectedInstitution } = accountVerificationFormState;
   if (!selectedInstitution) return null;
@@ -46,7 +46,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
       });
       setSubmitting(false);
     } catch (error) {
-      setErrorMessage(error.message);
+      setError(error.message);
       setSubmitting(false);
     }
   }
@@ -77,7 +77,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
               {/* Error state */}
-              {errorMessage && <ErrorMessage message={errorMessage} />}
+              {error && <ErrorMessage message={error.message} />}
 
               {/* TODO: 
               The best way to approach this is to look for attributes with the "Caption" suffix to know what to render
