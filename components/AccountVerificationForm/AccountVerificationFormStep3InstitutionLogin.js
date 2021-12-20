@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useFormState } from 'react-use-form-state';
 import axios from 'axios';
+import ms from 'ms';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
+import { VerificationProgress } from './VerificationProgress';
 
 const selectedInstitution = {
   type: 'institution',
@@ -209,46 +211,41 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
   const { token, goForward } = useAccountVerificationForm();
   const [progress, setProgress] = useState(0);
 
+  // The estimated time job is expected time to take (in milliseconds)
+  // We only care about the "verifyCredentials" and "retrieveAccounts" step
   const estimatedTime =
-    (selectedInstitution.stats.averageDurationMs.verifyCredentials +
-      selectedInstitution.stats.averageDurationMs.retrieveAccounts) /
-    1000;
+    selectedInstitution.stats.averageDurationMs.verifyCredentials +
+    selectedInstitution.stats.averageDurationMs.retrieveAccounts;
 
-  // TODO use something like `ms`
-  const formattedEstimatedTime = estimatedTime + ' seconds';
+  // Poll the job
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      const response = await checkConnectionStatus({ token, jobId });
 
-  useEffect(
-    () => {
-      let timer1 = setTimeout(async () => {
-        const response = await checkConnectionStatus({ token, jobId });
-        console.log({ response }, 'ff');
-        const steps = response.data.steps.filter(
-          i => i.title === 'verify-credentials' || i.title === 'retrieve-accounts'
-        );
-        let progress = 0;
-        for (const step of steps) {
-          console.log(step);
-          if (step.status === 'success') {
-            progress = progress + 50;
-          }
+      // We only care about the "verify-credentials" and "retrieve-accounts" steps
+      // So once these steps have been completed, we can move to the user to the next step
+      const steps = response.data.steps.filter(
+        ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
+      );
+
+      const progress = 0;
+      for (const step of steps) {
+        switch (step.status) {
+          case 'in_progress':
+            progress += 25;
+          case 'success':
+            progress += 50;
+            break;
         }
-        setProgress(progress);
-      }, 3000);
+      }
 
-      // this will clear Timeout
-      // when component unmount like in willComponentUnmount
-      // and show will not change to true
-      return () => {
-        clearTimeout(timer1);
-      };
-    },
-    // useEffect will run only one time with empty []
-    // if you pass a value to array,
-    // like this - [data]
-    // than clearTimeout will run every time
-    // this value changes (useEffect re-run)
-    [jobId]
-  );
+      setProgress(progress);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [jobId, token]);
 
   if (progress === 100) {
     return (
@@ -262,9 +259,8 @@ function AccountVerificationFormStep3InstitutionLoginProgress({ jobId }) {
   return (
     <div>
       <p>Verifying credentials...</p>
-      <p>Usually takes takes {formattedEstimatedTime}</p>
-      <p>{jobId}</p>
-      <div>{progress}/100</div>
+      <p>Usually takes takes {ms(estimatedTime)}</p>
+      <VerificationProgress value={progress} />
     </div>
   );
 }
