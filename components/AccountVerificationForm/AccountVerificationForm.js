@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
@@ -8,7 +9,6 @@ import { AccountVerificationFormStep2InstitutionPicker } from './AccountVerifica
 import { AccountVerificationFormStep3InstitutionLogin } from './AccountVerificationFormStep3InstitutionLogin';
 import { AccountVerificationFormStep4SelectAccount } from './AccountVerificationFormStep4SelectAccount';
 import { AccountVerificationFormStep5Summary } from './AccountVerificationFormStep5Summary';
-import axios from 'axios';
 
 const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
@@ -59,8 +59,6 @@ export function AccountVerificationForm() {
     token,
   };
   const FormComponent = FORM_COMPONENTS[currentStep];
-
-  console.log({ token });
 
   return (
     <AccountVerificationFormContext.Provider value={contextValue}>

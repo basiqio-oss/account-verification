@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
@@ -180,9 +181,11 @@ export function AccountVerificationFormStep4SelectAccount() {
                                 <span className="text-gray-600 text-xs">{acc.accountNo}</span>
                                 <dl className="grid grid-cols-2 gap-y-0.5 text-gray-600 text-xs">
                                   <dt className="flex-1">Available:</dt>
-                                  <dd className="text-right text-black font-medium">{acc.availableFunds}</dd>
+                                  <dd className="text-right text-black font-medium">
+                                    {formatCurrency(acc.availableFunds)}
+                                  </dd>
                                   <dt className="flex-1">Balance:</dt>
-                                  <dd className="text-right">{acc.balance}</dd>
+                                  <dd className="text-right">{formatCurrency(acc.balance)}</dd>
                                 </dl>
                               </div>
                             </div>

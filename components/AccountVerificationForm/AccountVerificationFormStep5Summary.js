@@ -1,4 +1,5 @@
 import { Button } from '../Button';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
@@ -47,7 +48,7 @@ export function AccountVerificationFormStep5Summary() {
             <div className="flex flex-col flex-grow">
               <span className="text-xs text-gray-600">{selectedInstitution.name}</span>
               <span className="font-medium">{selectedAccount.name}</span>
-              <span className="text-xs font-medium">{selectedAccount.balance}</span>
+              <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
             </div>
 
             {/* Connected bank logo */}
