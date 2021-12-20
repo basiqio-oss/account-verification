@@ -3,7 +3,7 @@ import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
 import { Button } from '../Button';
-import { useAccountVerificationForm } from './AccountVerificationForm';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 

@@ -74,7 +74,7 @@ export function AccountVerificationForm() {
       />
 
       {/** Debugging */}
-      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-gray-300">
+      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-muted-darker">
         <button onClick={goBack}>Prev</button>
         <button onClick={goForward}>Next</button>
       </div>

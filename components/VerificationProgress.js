@@ -15,12 +15,15 @@ export function VerificationProgress({ label, value = 0, error }) {
     cy: center,
     r: pathRadius,
     strokeWidth: strokeWidth,
-    className: `stroke-current transition-all duration-500 ${error ? 'text-red-500' : 'text-primary-500'}`,
+    className: `block stroke-current transition-all duration-500`,
     style: { fillOpacity: 0 },
   };
 
   return (
-    <div className="relative" style={{ height: diameter, width: diameter }}>
+    <div
+      className={`relative ${error ? 'text-critical-bold' : 'text-primary-bold'}`}
+      style={{ height: diameter, width: diameter }}
+    >
       <svg
         aria-valuemin={0}
         aria-valuemax={100}
@@ -32,7 +35,7 @@ export function VerificationProgress({ label, value = 0, error }) {
         <circle {...circleProps} strokeOpacity={0.15} />
         <circle {...circleProps} strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
       </svg>
-      <div className="absolute inset-0 flex justify-center items-center p-5">
+      <div className="absolute inset-0 flex justify-center items-center">
         {error ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +45,7 @@ export function VerificationProgress({ label, value = 0, error }) {
             stroke="currentColor"
           >
             <path
-              className="stroke-current text-red-500"
+              className="stroke-current"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
@@ -50,7 +53,7 @@ export function VerificationProgress({ label, value = 0, error }) {
             />
           </svg>
         ) : (
-          <span className="text-primary-500 text-3xl font-bold">{value}%</span>
+          <span className="text-3xl font-bold">{value}%</span>
         )}
       </div>
     </div>

@@ -120,7 +120,7 @@ function SectionVerificationProgress() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">VerificationProgress</h2>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <VerificationProgress value={0} />
         <VerificationProgress value={20} />
         <VerificationProgress value={40} />
