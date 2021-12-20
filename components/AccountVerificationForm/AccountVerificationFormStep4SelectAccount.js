@@ -3,7 +3,7 @@ import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
-import { useAccountVerificationForm } from './AccountVerificationFormProvider';
+import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
@@ -67,16 +67,16 @@ export function AccountVerificationFormStep4SelectAccount() {
                         disabled={disabled}
                         className={`rounded-lg outline-none ${
                           !disabled &&
-                          'focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
+                          'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
                         }`}
                       >
                         {({ checked }) => (
                           <div
                             className={`relative rounded-lg p-3 flex  ${
                               disabled
-                                ? 'bg-gray-100 cursor-not-allowed opacity-50'
-                                : 'cursor-pointer border hover:bg-primary-50 hover:border-primary-500 active:bg-primary-100 transition-colors'
-                            } ${checked && 'bg-primary-50 border-primary-500'}`}
+                                ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
+                                : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
+                            } ${checked && 'bg-primary-subtle border-primary-bold'}`}
                           >
                             <div className="flex flex-grow space-x-3">
                               {disabled ? (
@@ -99,19 +99,19 @@ export function AccountVerificationFormStep4SelectAccount() {
                                 // Radio circle
                                 <span
                                   className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
-                                    checked ? 'border-primary-500' : 'border-gray-300'
+                                    checked ? 'border-primary-bold' : 'border-neutral-dim-darker'
                                   }`}
                                 >
-                                  {checked && <span className={`w-2 h-2 rounded-full bg-primary-500`} />}
+                                  {checked && <span className={`w-2 h-2 rounded-full bg-primary-bold`} />}
                                 </span>
                               )}
 
                               <div className="flex-grow space-y-2">
                                 <RadioGroup.Label as="p" className="font-medium">
-                                  {acc.name}
+                                  {acc.title}
                                 </RadioGroup.Label>
-                                <span className="text-gray-600 text-xs">{acc.accountNo}</span>
-                                <dl className="grid grid-cols-2 gap-y-0.5 text-gray-600 text-xs">
+                                <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
+                                <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
                                   <dt className="flex-1">Available:</dt>
                                   <dd className="text-right text-black font-medium">
                                     {formatCurrency(acc.availableFunds)}

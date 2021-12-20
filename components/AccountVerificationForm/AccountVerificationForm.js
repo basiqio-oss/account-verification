@@ -41,7 +41,7 @@ export function AccountVerificationForm() {
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
       <div className="absolute left-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
-        <span className="text-xs sm:text-sm text-gray-600">
+        <span className="text-xs sm:text-sm text-neutral-muted-darker">
           {currentStep + 1} of {totalSteps}
         </span>
       </div>

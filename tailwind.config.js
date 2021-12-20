@@ -1,4 +1,3 @@
-const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -6,49 +5,72 @@ module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    // THEME
+    // To easily see what styles are used where, you can search the codebase for `text-primary-bold` e.g.
+    // For more information on how to configure this TailwindCSS theme, go to https://v2.tailwindcss.com/docs/theme
+
     colors: {
       // BRAND COLOURS
-      // To create your own palette from a brand colour, you can use a tool like https://www.tailwindshades.com/.
+      // These are your product brand colours. Tweak these to get a branded experience out-of-the-box.
+
+      // Primary brand colours
       primary: {
-        DEFAULT: '#4737FF',
-        50: '#F1F0FF', // subtle button bg,
-        100: '#E8E5FF', // subtle button :hover bg,
-        200: '#DEDBFF', // subtle button :active bg,
-        300: '#9289FF',
-        400: '#6D60FF',
-        500: '#4737FF', // bold button bg, primary to accent bg gradient
-        600: '#1400FE',
-        700: '#1000C6',
-        800: '#0B008E',
-        900: '#070056',
-        accent: '#9C4EFF', // primary to accent bg gradient
+        // Subtle
+        subtle: '#F1F0FF', // <Button variant="subtle"/> bg, and radio options e.g.
+        'subtle-darker': '#E8E5FF', // <Button variant="subtle"/> :hover bg
+        'subtle-darkest': '#DEDBFF', // <Button variant="subtle"/> :active bg
+
+        // Bold
+        bold: '#4737FF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
+        'bold-darker': '#1400FE', // Links (darker to provide more contrast)
+
+        // Accent
+        accent: '#9C4EFF', // primary-bold to primary-accent bg gradient e.g.
       },
+
+      // Secondary brand colours
       secondary: {
-        DEFAULT: '#10EDC5',
-        50: '#BAFAEF',
-        100: '#A7F9EA',
-        200: '#81F6E1',
-        300: '#5BF4D8',
-        400: '#34F1CF', // icons on dark bg
-        500: '#10EDC5', // primary to secondary bg gradient
-        600: '#0FD7B3', // icons on light bg
-        700: '#0DBF9F',
-        800: '#0BA78B',
-        900: '#0A8F77',
+        // Bold
+        'bold-lighter': '#34F1CF', // icons on dark bg (lighter to provide more contrast)
+        bold: '#10EDC5', // primary-bold to secondary-bold bg gradients e.g.
+        'bold-darker': '#0FD7B3', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
-      // Colours that are neutral and not necessarily tied to your products brand.
+      // Colours that are not necessarily tied to your products brand, but are heavily used to style the UI.
+
+      // Base UI colours
       transparent: 'transparent',
-      current: 'currentColor',
-      black: '#000217',
-      white: colors.white,
-      gray: colors.blueGray, // text-gray-600 for muted text e.g.
-      red: colors.red,
-      green: colors.green,
+      current: 'currentColor', // svgs to be able to grab the text-{color} as stroke- or fill colour
+      black: '#000217', // default text colour
+      white: '#FFFFFF', // default bg colour of the /account-verification flow, <Button variant="inverted"/> e.g.
+
+      // Neutral UI colours
+      neutral: {
+        subtle: '#F5F8F9', // subtle backgrounds to contrast with default white bg e.g.
+        'subtle-darker': '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
+        dim: '#DEE4E7', // User for default border colour
+        'dim-darker': '#BECBD0', // input border, radio circles e.g.
+        muted: '#7E888E', // muted icons, e.g. in <SearchInput />
+        'muted-darker': '#4F6772', // muted text (darker to provide more contrast)
+      },
+
+      // Critical UI colours
+      critical: {
+        // Subtle
+        subtle: '#FFE9EB', // <ErrorMessage /> background e.g.
+
+        // Bold
+        bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
+        'bold-darker': '#A30014', // error message text colour (darker to provide more contrast)
+      },
     },
 
     // FONT
+    // Changing font makes a big difference to the branded experience of your product.
+    // To change font go to /styles.css and import the font you want.
+    // Font-weights used through-out this example app are:
+    // 400 (default), 500 (font-medium), and 600 (font-semibold).
     fontFamily: {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
@@ -56,6 +78,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      // Extending ring-{colour} variants to support :hover and :active styles
       ringColor: ['hover', 'active'],
     },
   },

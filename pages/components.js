@@ -3,6 +3,7 @@ import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
+import { ErrorMessage } from '../components/ErrorMessage';
 import { VerificationProgress } from '../components/VerificationProgress';
 
 export default function Components() {
@@ -18,6 +19,7 @@ export default function Components() {
         <SectionButtons />
         <SectionTextField />
         <SectionSearchInput />
+        <SectionErrorMessage />
         <SectionProgressBar />
         <SectionVerificationProgress />
       </main>
@@ -96,11 +98,20 @@ function SectionSearchInput() {
   );
 }
 
+function SectionErrorMessage() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">ErrorMessage</h2>
+      <ErrorMessage message="Something went wrong." />
+    </section>
+  );
+}
+
 function SectionProgressBar() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">ProgressBar</h2>
-      <ProgressBar value={100} />
+      <ProgressBar value={75} />
     </section>
   );
 }
