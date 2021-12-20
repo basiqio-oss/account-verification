@@ -116,7 +116,7 @@ function SectionVerificationProgress() {
         <VerificationProgress value={60} />
         <VerificationProgress value={80} />
         <VerificationProgress value={100} />
-        <VerificationProgress value={50} error="Something went wrong" />
+        <VerificationProgress value={50} error />
       </div>
     </section>
   );
