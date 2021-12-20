@@ -1,6 +1,6 @@
 const express = require('express');
 const next = require('next');
-const { setupTokenCache, attatchServerTokenToReq } = require('./utils/basiqTokens');
+const { setupTokenCache, attatchServerTokenToReq } = require('./utils/serverAuthentication');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
