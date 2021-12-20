@@ -1,11 +1,32 @@
 const axios = require('axios');
 const qs = require('qs');
 
-// TODO these should be not be fetched on every request
-// Returns an access token with server access
-// https://api.basiq.io/reference/authentication
+/**
+ * The Basiq API authentication process is fairly straight forward, we simply exchange our API key for a token which has an expiry of 60 minutes
+ * Our token will be passed as the authorization header to requests made to the Basiq API, which you can find in `pages/api`
+ *
+ * We don't want to request a new token on every request, so in this file we create a simple token cache
+ * We have a simple interval to get a new token every 50 minutes
+ *
+ * https://api.basiq.io/reference/authentication
+ * */
 
-export async function getServerToken() {
+let serverToken = undefined;
+const refreshInterval = 1000 * 60 * 50;
+
+async function setupTokenCache() {
+  serverToken = await getNewServerToken();
+
+  setInterval(async () => {
+    serverToken = await getNewServerToken();
+  }, refreshInterval);
+}
+
+function getServerToken() {
+  return serverToken;
+}
+
+async function getNewServerToken() {
   const { data } = await axios({
     method: 'post',
     url: 'https://au-api.basiq.io/token',
@@ -19,7 +40,7 @@ export async function getServerToken() {
   return data.access_token;
 }
 
-export async function getClientToken() {
+async function getClientToken() {
   const { data } = await axios({
     method: 'post',
     url: 'https://au-api.basiq.io/token',
@@ -32,3 +53,9 @@ export async function getClientToken() {
   });
   return data.access_token;
 }
+
+module.exports = {
+  setupTokenCache,
+  getServerToken,
+  getClientToken,
+};

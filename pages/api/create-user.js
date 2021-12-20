@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { getServerToken } = require('../../utils/basiqTokens');
 
 // Creating a user gives you a "bucket" to store all your financial data.
 // https://api.basiq.io/reference/create-a-user
@@ -7,12 +6,11 @@ const { getServerToken } = require('../../utils/basiqTokens');
 export default async function createUser(req, res) {
   if (req.method === 'POST') {
     try {
-      const token = await getServerToken();
       const { data } = await axios({
         method: 'post',
         url: 'https://au-api.basiq.io/users',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${req.basiqServerToken}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
