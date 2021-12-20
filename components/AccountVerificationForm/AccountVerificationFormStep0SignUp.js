@@ -71,7 +71,7 @@ export function AccountVerificationFormStep0SignUp() {
             />
 
             {/* Terms and Conditions */}
-            <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
+            <p className="text-xs text-neutral-muteddarker text-center max-w-xs mx-auto leading-relaxed">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
 
@@ -86,7 +86,7 @@ export function AccountVerificationFormStep0SignUp() {
             </div>
 
             {/** Error state */}
-            {errorMessage && <div className="bg-red-100 text-red-500 p-5">{errorMessage}</div>}
+            {errorMessage && <div className="bg-critical-subtle text-critical-bolddarker p-5">{errorMessage}</div>}
           </div>
         </form>
       </div>

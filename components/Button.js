@@ -7,7 +7,7 @@ const VARIANT_MAP = {
   inverted:
     'bg-white text-primary-bold hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-white focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
   critical:
-    'bg-red-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-red-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
+    'bg-critical-bold text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-critical-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
 };
 
 export const Button = forwardRef(function Button(

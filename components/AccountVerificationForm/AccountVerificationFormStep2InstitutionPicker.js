@@ -25,10 +25,10 @@ export function AccountVerificationFormStep2InstitutionPicker() {
     return (
       <div className="space-y-3">
         {Array.apply(null, { length: 10 }).map((e, i) => (
-          <div key={i} className="rounded-lg p-3 flex border border-gray-100 animate-pulse">
+          <div key={i} className="rounded-lg p-3 flex border border-neutral-subtledarker animate-pulse">
             <div className="flex items-center w-full space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-gray-100" />
-              <div className="bg-gray-100 rounded h-4 w-48" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-neutral-subtledarker" />
+              <div className="bg-neutral-subtledarker rounded h-4 w-48" />
             </div>
           </div>
         ))}
@@ -44,7 +44,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
         <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 text-red-500"
+            className="h-16 w-16 text-critical-bolddarker"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -57,7 +57,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
           <div className="space-y-3">
             <h2 className="font-semibold text-center text-xl tracking-tight">Banks couldn’t be fetched</h2>
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center text-neutral-muteddarker">
               Something went wrong whilst fetching the list of banks. If the problem persists, please contact support.
             </p>
           </div>
@@ -76,7 +76,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
         <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 text-gray-500"
+            className="h-16 w-16 text-neutral-muted"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -89,7 +89,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
           <div className="space-y-3">
             <h2 className="font-semibold text-center text-xl tracking-tight">No matching results</h2>
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center text-neutral-muteddarker">
               There were no banks matching your search text. Please double-check spelling again. If the problem
               persists, contact support.
             </p>
@@ -156,7 +156,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                       <RadioGroup.Option
                         key={institution.id}
                         value={institution}
-                        className="relative rounded-lg p-3 cursor-pointer flex border hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtledarker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                        className="relative rounded-lg p-3 cursor-pointer flex border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtledarker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
                       >
                         <div className="flex items-center w-full space-x-3">
                           {/* Institution logo */}
@@ -174,7 +174,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                           {/* Chevron icon */}
                           <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
-                              className="stroke-current text-gray-500"
+                              className="stroke-current text-neutral-muted"
                               d="M7.5 4.167 13.333 10 7.5 15.833"
                               strokeWidth="2"
                               strokeLinecap="round"

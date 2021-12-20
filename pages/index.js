@@ -14,7 +14,7 @@ export default function Home() {
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
-            <div className="border-b mix-blend-soft-light"></div>
+            <div className="border-b border-white mix-blend-soft-light"></div>
           </div>
 
           {/* Product heading */}

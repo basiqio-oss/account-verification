@@ -38,7 +38,7 @@ export function AccountVerificationFormCancellationModal({ isOpen, onClose, onCo
                 <br />
                 bank account?
               </Dialog.Title>
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <p className="text-sm text-neutral-muteddarker leading-relaxed">
                 Any information you have provided so far will be deleted permanently. This action can not be undone.
               </p>
               <div className="space-y-2">

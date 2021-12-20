@@ -1,3 +1,3 @@
 export function StepDescription({ children }) {
-  return <p className="text-sm sm:text-base text-gray-600 text-center">{children}</p>;
+  return <p className="text-sm sm:text-base text-neutral-muteddarker text-center">{children}</p>;
 }

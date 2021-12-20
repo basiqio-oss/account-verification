@@ -17,7 +17,7 @@ export function AccountVerificationFormStep5Summary() {
       <div className="flex justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-600"
+          className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-bolddarker"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -42,10 +42,10 @@ export function AccountVerificationFormStep5Summary() {
         </StepDescription>
 
         {/* SUMMARY */}
-        <ul role="list" className="divide-y border-t border-b">
+        <ul role="list" className="divide-y border-t border-b border-neutral-dim">
           <li className="py-3 space-x-4 flex items-center">
             <div className="flex flex-col flex-grow">
-              <span className="text-xs text-gray-600">Commonwealth Bank Australia</span>
+              <span className="text-xs text-neutral-muteddarker">Commonwealth Bank Australia</span>
               <span className="font-medium">Smart Access</span>
               <span className="text-xs font-medium">$1,000.00</span>
             </div>
@@ -73,7 +73,7 @@ export function AccountVerificationFormStep5Summary() {
 
         {/* We recommend giving the user the ability to remove their 
         bank connection should they wish to. */}
-        <p className="text-xs sm:text-sm text-gray-600 text-center">
+        <p className="text-xs sm:text-sm text-neutral-muteddarker text-center">
           You can manage your bank connections <br />
           in the app settings later.
         </p>

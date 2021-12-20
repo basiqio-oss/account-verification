@@ -110,7 +110,7 @@ export function AccountVerificationFormStep3InstitutionLogin() {
 
               {/** Error state */}
               {errorMessage && (
-                <div className="bg-red-100 text-red-500 p-5">
+                <div className="bg-critical-subtle text-critical-bolddarker p-5">
                   <span>{errorMessage}</span>
                 </div>
               )}

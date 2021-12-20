@@ -9,7 +9,7 @@ export default function AccountVerification() {
         {/* TODO: Add favicon image */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="text-black bg-neutral-dim">
         <AccountVerificationForm />
         {/* TODO: Add background image */}
       </main>

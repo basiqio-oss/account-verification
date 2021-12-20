@@ -12,7 +12,7 @@ export function SearchInput({ labelScreenReader, ...props }) {
           stroke="currentColor"
         >
           <path
-            className="stroke-current text-gray-500"
+            className="stroke-current text-neutral-muted"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
@@ -25,7 +25,7 @@ export function SearchInput({ labelScreenReader, ...props }) {
       <input
         id="search"
         type="search"
-        className="w-full h-12 pl-11 pr-3 text-black text-base outline-none rounded-lg border border-gray-300 focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+        className="w-full h-12 pl-11 pr-3 bg-white placeholder-neutral-muted text-black text-base outline-none rounded-lg border border-neutral-dimdarker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
         {...props}
       />
     </div>
