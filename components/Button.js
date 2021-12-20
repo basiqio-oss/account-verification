@@ -1,13 +1,13 @@
 import { forwardRef } from 'react';
 
 const VARIANT_MAP = {
-  bold: 'bg-primary-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
+  bold: 'bg-primary-bold text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   subtle:
-    'bg-primary-50 text-primary-500 hover:bg-primary-100 active:bg-primary-200 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
+    'bg-primary-subtle text-primary-bold hover:bg-primary-subtle-darker active:bg-primary-subtle-darkest focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   inverted:
-    'bg-white text-primary-500 hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-white focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
+    'bg-white text-primary-bold hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-white focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
   critical:
-    'bg-red-500 text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-red-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
+    'bg-critical-bold text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-critical-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent	outline-none',
 };
 
 export const Button = forwardRef(function Button(

@@ -4,6 +4,7 @@ import { useFormState } from 'react-use-form-state';
 import { useRouter } from 'next/router';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationForm';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -40,7 +41,7 @@ export function AccountVerificationFormStep0SignUp() {
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
-      <StepLogo src="/logo-on-white.svg" alt="Piper logo" />
+      <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
       {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
@@ -61,6 +62,9 @@ export function AccountVerificationFormStep0SignUp() {
         PS. You can also use mobile number to Create User in the API */}
         <form onSubmit={handleSubmit}>
           <div className="space-y-6 sm:space-y-8">
+            {/** Error state */}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
+
             <TextField
               {...email('email')}
               id="email"
@@ -71,7 +75,7 @@ export function AccountVerificationFormStep0SignUp() {
             />
 
             {/* Terms and Conditions */}
-            <p className="text-xs text-gray-600 text-center max-w-xs mx-auto leading-relaxed">
+            <p className="text-xs text-neutral-muted-darker text-center max-w-xs mx-auto leading-relaxed">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
 
@@ -84,9 +88,6 @@ export function AccountVerificationFormStep0SignUp() {
                 Cancel
               </Button>
             </div>
-
-            {/** Error state */}
-            {errorMessage && <div className="bg-red-100 text-red-500 p-5">{errorMessage}</div>}
           </div>
         </form>
       </div>
