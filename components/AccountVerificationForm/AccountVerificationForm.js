@@ -1,6 +1,5 @@
 import { useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
-
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormCancellationModal } from './AccountVerificationFormCancellationModal';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
@@ -19,13 +18,34 @@ const FORM_COMPONENTS = [
   AccountVerificationFormStep5Summary,
 ];
 
-const AccountVerificationFormContext = createContext({});
+const AccountVerificationFormContext = createContext({
+  // The current step number of the form the user on
+  currentStep: undefined,
+  // The total amount of steps in the form
+  totalSteps: undefined,
+  // Function to navigate the user to the previous step
+  goBack: undefined,
+  // Function to navigate the user to the next step
+  goForward: undefined,
+  // Function to cancel the the users verification. A confirmation modal will be triggered.
+  cancel: undefined,
+  // Function to call when the user has completed the form
+  finish: undefined,
+  // The state of the verification form, this is used to pass values between multiple steps
+  accountVerificationFormState: undefined,
+  // Function to update the verification form state
+  updateAccountVerificationFormState: undefined,
+});
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
 export function AccountVerificationForm() {
   const router = useRouter();
 
-  const [accountVerificationFormState, setAccountVerificationFormState] = useState({});
+  const [accountVerificationFormState, setAccountVerificationFormState] = useState({
+    user: undefined,
+    selectedInstitution: undefined,
+    selectedAccount: undefined,
+  });
   const updateAccountVerificationFormState = newState => {
     setAccountVerificationFormState(oldState => ({ ...oldState, ...newState }));
   };
