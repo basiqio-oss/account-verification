@@ -127,7 +127,13 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
               </div>
 
               <div className="space-y-2">
-                <Button ref={connectButtonRef} onClick={onConfirm} variant="bold" block>
+                <Button
+                  data-cy="securely-connect-my-account"
+                  ref={connectButtonRef}
+                  onClick={onConfirm}
+                  variant="bold"
+                  block
+                >
                   Securely connect my account
                 </Button>
                 <Button onClick={onClose} variant="subtle" block>
