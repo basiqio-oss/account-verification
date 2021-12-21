@@ -32,7 +32,7 @@ export function AccountVerificationFormStep0SignUp() {
       })
       .catch(error => {
         setSubmitting(false);
-        setError(error.message);
+        setError(error);
       });
   }
 

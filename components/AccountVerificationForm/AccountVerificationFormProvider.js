@@ -80,6 +80,7 @@ function useBasiqConnection({ userId, currentStep }) {
   const [jobId, setJobId] = useState();
   const [progress, setProgress] = useState();
   const [error, setError] = useState();
+  const [stepNameInProgress, setStepNameInProgress] = useState();
 
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
@@ -89,6 +90,7 @@ function useBasiqConnection({ userId, currentStep }) {
 
   // Everytime the user changes steps, make sure these values get reset
   useEffect(() => {
+    setJobId(undefined);
     setProgress(undefined);
     setError(undefined);
   }, [currentStep]);
@@ -97,12 +99,19 @@ function useBasiqConnection({ userId, currentStep }) {
   useEffect(() => {
     if (!token || !jobId || !userId) return;
     setProgress(0);
-    const timer = setTimeout(async () => {
+
+    // Immediately check the status of the job
+    checkJobStatus();
+
+    // Check the status of the job every 2 seconds
+    const timer = setTimeout(checkJobStatus, 2000);
+
+    async function checkJobStatus() {
       try {
         const response = await checkConnectionStatus({ token, jobId });
 
         // In this demo, we only care about the "verify-credentials" and "retrieve-accounts" steps
-        // Once these steps have been completed, we can move to the user to the next step
+        // Once these steps have been completed, we navigate the user to the next step in the form
         const steps = response.data.steps.filter(
           ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
         );
@@ -112,10 +121,14 @@ function useBasiqConnection({ userId, currentStep }) {
         for (const step of steps) {
           switch (step.status) {
             case 'in_progress':
+              setStepNameInProgress(step.title);
               progress += 25;
             case 'success':
               progress += 50;
               break;
+            case 'failed':
+              setError(newStepError(step.result));
+              progress += 50;
           }
         }
 
@@ -123,7 +136,8 @@ function useBasiqConnection({ userId, currentStep }) {
       } catch (error) {
         setError(error);
       }
-    }, 2000);
+    }
+
     return () => {
       clearTimeout(timer);
     };
@@ -131,8 +145,21 @@ function useBasiqConnection({ userId, currentStep }) {
 
   return {
     createBasiqConnection,
-    basiqConnection: jobId ? { progress, error } : undefined,
+    basiqConnection: jobId
+      ? {
+          progress,
+          stepNameInProgress,
+          error,
+        }
+      : undefined,
   };
+}
+
+function newStepError({ detail, title }) {
+  const error = new Error();
+  error.message = detail;
+  error.name = title;
+  return error;
 }
 
 // Creates a new connection with the Basiq API

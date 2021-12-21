@@ -10,21 +10,22 @@ import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
+  const { selectedInstitution } = accountVerificationFormState;
+
   const [selectedAccount, setSelectedAccount] = useState();
 
   const { data, error, loading } = useAccountsData({
     userId: accountVerificationFormState.user.id,
-    institutionId: 'AU00000', // TODO this for testing only and needs to be removed
+    institutionId: selectedInstitution?.id,
   });
-
-  const { selectedInstitution } = accountVerificationFormState;
-  if (!selectedInstitution) return null;
 
   function handleSubmit(e) {
     e.preventDefault();
     updateAccountVerificationFormState({ selectedAccount });
     goForward();
   }
+
+  if (!selectedInstitution) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
