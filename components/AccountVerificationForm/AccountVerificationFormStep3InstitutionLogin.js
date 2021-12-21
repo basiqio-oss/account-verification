@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useFormState } from 'react-use-form-state';
 import ms from 'ms';
 import { Button } from '../Button';
@@ -22,34 +22,46 @@ export function AccountVerificationFormStep3InstitutionLogin() {
 
 function AccountVerificationFormStep3InstitutionLoginForm() {
   const { goBack, accountVerificationFormState, createBasiqConnection } = useAccountVerificationForm();
+  const { selectedInstitution } = accountVerificationFormState;
+
   const [formState, { text, password }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState();
 
-  const { selectedInstitution } = accountVerificationFormState;
-  if (!selectedInstitution) return null;
+  const formFields = useMemo(() => {
+    if (!selectedInstitution) return;
+    return Object.keys(selectedInstitution)
+      .filter(key => key.endsWith('Caption'))
+      .map(key => {
+        const id = key.replace('Caption', '');
+        const label = selectedInstitution[key];
+        const placeholder = selectedInstitution[key];
+        return {
+          id,
+          label,
+          placeholder,
+          // We should always show a password field, except for the loginId field
+          ...(id === 'loginId' ? text(id) : password(id)),
+        };
+      });
+  }, [password, selectedInstitution, text]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      console.log({ formState });
       await createBasiqConnection({
-        // loginId: formState.values.loginId,
-        // securityCode: formState.values.securityCode,
-        // password: formState.values.password,
-        // institution: { id: selectedInstitution.id },
-        // TODO remove these testing credentials
-        loginId: 'gavinBelson',
-        password: 'hooli2016',
-        institution: { id: 'AU00000' },
+        ...formState.values,
+        institution: { id: selectedInstitution.id },
       });
       setSubmitting(false);
     } catch (error) {
-      setError(error.message);
+      setError(error);
       setSubmitting(false);
     }
   }
+
+  if (!selectedInstitution) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -79,51 +91,23 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
               {/* Error state */}
               {error && <ErrorMessage message={error.message} />}
 
-              {/* TODO: 
-              The best way to approach this is to look for attributes with the "Caption" suffix to know what to render
-              Pass these additional login parameters as optional arguments when you create any connection. 
-              
-              Can we map over all the attributes ending in Caption for a neater solution? */}
-              {/* Login ID */}
-              <TextField
-                {...text('loginId')}
-                id="loginId"
-                label={selectedInstitution.loginIdCaption}
-                placeholder={selectedInstitution.loginIdCaption}
-                required
-              />
+              {formFields.map(field => (
+                <div key={field.id} className="space-y-2">
+                  <TextField {...field} />
+                  {/** Forgot password */}
+                  {field.id === 'password' && (
+                    <a
+                      href={selectedInstitution.forgottenPasswordUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                    >
+                      Forgot password?
+                    </a>
+                  )}
+                </div>
+              ))}
 
-              {/* securityCodeCaption (if exists, St George Bank e.g.) */}
-              {selectedInstitution.securityCodeCaption && (
-                <TextField
-                  {...password('securityCode')}
-                  id="securityCode"
-                  label={selectedInstitution.securityCodeCaption}
-                  placeholder={selectedInstitution.securityCodeCaption}
-                  required
-                />
-              )}
-
-              {/* Password */}
-              <div className="space-y-2">
-                <TextField
-                  {...password('password')}
-                  id="password"
-                  label={selectedInstitution.passwordCaption}
-                  placeholder={selectedInstitution.passwordCaption}
-                  required
-                />
-
-                {/* Forgotten password */}
-                <a
-                  href={selectedInstitution.forgottenPasswordUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-xs text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
-                >
-                  Forgot password?
-                </a>
-              </div>
               {/* Actions */}
               <div className="space-y-2">
                 <Button type="submit" loading={submitting} variant="bold" block>
@@ -151,7 +135,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
     selectedInstitution.stats.averageDurationMs.verifyCredentials +
     selectedInstitution.stats.averageDurationMs.retrieveAccounts;
 
-  const { error, progress } = basiqConnection;
+  const { error, progress, stepNameInProgress } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -160,12 +144,12 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
         <VerificationProgress value={progress} error={error} />
         {error ? (
           <div className="space-y-2">
-            <h3 className="font-bold text-xl">Error</h3>
+            <h3 className="font-bold text-xl">{error.name}</h3>
             <p>{error.message}</p>
           </div>
         ) : progress !== 100 ? (
           <div className="space-y-2">
-            <h3 className="font-bold text-xl">Verifying credentials...</h3>
+            <h3 className="font-bold text-xl">{STEP_NAME_MAP[stepNameInProgress]}</h3>
             <p>Usually takes takes {ms(estimatedTime, { long: true })}</p>
           </div>
         ) : (
@@ -181,3 +165,8 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
     </div>
   );
 }
+
+const STEP_NAME_MAP = {
+  'verify-credentials': 'Verifying credentials...',
+  'retrieve-accounts': 'Retrieving accounts...',
+};
