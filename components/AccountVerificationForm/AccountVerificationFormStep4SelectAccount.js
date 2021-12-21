@@ -61,28 +61,26 @@ export function AccountVerificationFormStep4SelectAccount() {
                 <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
                 <div className="space-y-3">
                   {data.map((acc, idx) => {
-                    // Disabled if status is not `available` or class type is not `transaction`
-                    const disabled = acc.status !== 'available' || acc.class.type !== 'transaction';
                     return (
                       <RadioGroup.Option
                         key={idx}
                         value={acc}
-                        disabled={disabled}
+                        disabled={acc.disabled}
                         className={`rounded-lg outline-none ${
-                          !disabled &&
+                          !acc.disabled &&
                           'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
                         }`}
                       >
                         {({ checked }) => (
                           <div
                             className={`relative rounded-lg p-3 flex  ${
-                              disabled
+                              acc.disabled
                                 ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
                                 : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
                             } ${checked && 'bg-primary-subtle border-primary-bold'}`}
                           >
                             <div className="flex flex-grow space-x-3">
-                              {disabled ? (
+                              {acc.disabled ? (
                                 // Lock icon
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
