@@ -28,18 +28,25 @@ export function AccountVerificationFormStep5Summary() {
             strokeLinejoin="round"
             strokeWidth={1}
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke="url(#gradient)"
           />
+          <defs>
+            <linearGradient id="gradient" x1="4" y1="25.3333" x2="22.0923" y2="2.07176" gradientUnits="userSpaceOnUse">
+              <stop stopColor="var(--color-primary-bold)" />
+              <stop offset="1" stopColor="var(--color-secondary-bold)" />
+            </linearGradient>
+          </defs>
         </svg>
       </div>
 
       {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
-        <StepHeading>You&apos;re all set!</StepHeading>
+        <StepHeading>You&rsquo;re all set!</StepHeading>
 
         {/* STEP DESCRIPTION */}
         <StepDescription>
-          We have verified the details of the bank account below, and you’re good to go.
+          We have verified the details of the bank account below, and you&rsquo;re good to go.
         </StepDescription>
 
         {/* SUMMARY */}
