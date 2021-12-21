@@ -45,7 +45,7 @@ async function getNewServerToken() {
   return data.access_token;
 }
 
-export async function getClientToken() {
+export async function getNewClientToken() {
   const { data } = await axios.post('https://au-api.basiq.io/token', qs.stringify({ scope: 'CLIENT_ACCESS' }), {
     headers: {
       Authorization: `Basic ${process.env.BASIQ_API_KEY}`,

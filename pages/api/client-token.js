@@ -1,4 +1,4 @@
-const { getClientToken } = require('../../serverAuthentication');
+const { getNewClientToken } = require('../../serverAuthentication');
 
 /**
  * This API endpoint retrieves a Basiq API token with the scope of `CLIENT_ACCESS`
@@ -8,7 +8,7 @@ const { getClientToken } = require('../../serverAuthentication');
 
 export default async function clientToken(req, res) {
   try {
-    const clientToken = await getClientToken();
+    const clientToken = await getNewClientToken();
     res.status(200).json(clientToken);
   } catch (error) {
     res.status(400).json({ message: 'Something went wrong' });
