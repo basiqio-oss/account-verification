@@ -11,6 +11,6 @@ export default async function clientToken(req, res) {
     const clientToken = await getNewClientToken();
     res.status(200).json(clientToken);
   } catch (error) {
-    res.status(400).json({ message: 'Something went wrong' });
+    res.status(400).json({ message: error.message });
   }
 }
