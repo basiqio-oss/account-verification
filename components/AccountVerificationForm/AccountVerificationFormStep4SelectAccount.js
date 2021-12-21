@@ -51,6 +51,7 @@ export function AccountVerificationFormStep4SelectAccount() {
         {error ? (
           <span>Error</span>
         ) : loading ? (
+          // TODO: Skeleton
           <span>Loading</span>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
@@ -133,6 +134,7 @@ export function AccountVerificationFormStep4SelectAccount() {
               // TODO
               <span>No results found</span>
             )}
+            {/* TODO: disable button if no radio selection has been made (Johan) */}
             <Button type="submit" block>
               Finish
             </Button>
