@@ -24,7 +24,6 @@ export function AccountVerificationForm() {
 
   // State for managing hiding/showing of the cancellation model
   const [isCancellationModalOpen, openCancellationModal, closeCancellationModal] = useTernaryState(false);
-  console.log({ isCancellationModalOpen });
   return (
     <>
       {/* PROGRESS BAR */}
