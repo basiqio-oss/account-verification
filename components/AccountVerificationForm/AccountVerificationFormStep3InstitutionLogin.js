@@ -56,7 +56,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
       });
       setSubmitting(false);
     } catch (error) {
-      setError(error.message);
+      setError(error);
       setSubmitting(false);
     }
   }
