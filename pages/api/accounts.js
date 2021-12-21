@@ -1,8 +1,11 @@
 const axios = require('axios');
-const { getBasiqAuthorizationHeader } = require('../../utils/serverAuthentication');
+const { getBasiqAuthorizationHeader } = require('../../serverAuthentication');
 
-// Retrieves a list of accounts. Each entry in the array is a separate account object.
-// https://api.basiq.io/reference/list-all-accounts
+/**
+ * This API endpoint retrieves a list of accounts. Each entry in the array is a separate account object.
+ *
+ * https://api.basiq.io/reference/list-all-accounts
+ */
 
 export default async function accounts(req, res) {
   const { userId, institutionId } = req.query;
@@ -11,7 +14,7 @@ export default async function accounts(req, res) {
       `https://au-api.basiq.io/users/${userId}/accounts?filter=institution.id.eq('${institutionId}')`,
       {
         headers: {
-          Authorization: getBasiqAuthorizationHeader(req),
+          Authorization: await getBasiqAuthorizationHeader(),
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },

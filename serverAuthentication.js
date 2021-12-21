@@ -5,64 +5,53 @@ const qs = require('qs');
  * The Basiq API authentication process is fairly straight forward, we simply exchange our API key for a token which has an expiry of 60 minutes
  * Our token will be passed as the authorization header to requests made to the Basiq API, which you can find in `pages/api`
  *
- * We don't want to request a new token on every request, so in this file we create a simple token cache
- * We have a simple interval to get a new token every 30 minutes
+ * IMPORTANT: You do not want to request a new token on every request!
+ * In this file we keep the latest server token in memory and only request a new token when it is expired
  *
  * https://api.basiq.io/reference/authentication
  * */
 
-const SERVER_TOKEN_REQ_KEY = 'BASIQ_ACCESS_TOKEN';
 const REFRESH_INTERVAL = 1000 * 60 * 30; // 30 minutes
 
 let serverToken = undefined;
+let serverTokenRefreshDate = 0;
 
-async function setupTokenCache() {
+export async function getBasiqAuthorizationHeader() {
+  const token = await getServerToken();
+  return `Bearer ${token}`;
+}
+
+async function getServerToken() {
+  if (!serverToken || Date.now() - serverTokenRefreshDate > REFRESH_INTERVAL) {
+    // If we don't have a server token in memory, or the token has expired, fetch a new one
+    await updateServerToken();
+  }
+  return serverToken;
+}
+
+async function updateServerToken() {
   serverToken = await getNewServerToken();
-
-  setInterval(async () => {
-    serverToken = await getNewServerToken();
-  }, REFRESH_INTERVAL);
-}
-
-async function attatchServerTokenToReq(req) {
-  req[SERVER_TOKEN_REQ_KEY] = serverToken;
-}
-
-async function getBasiqAuthorizationHeader(req) {
-  return `Bearer ${req[SERVER_TOKEN_REQ_KEY]}`;
+  serverTokenRefreshDate = Date.now();
 }
 
 async function getNewServerToken() {
-  const { data } = await axios({
-    method: 'post',
-    url: 'https://au-api.basiq.io/token',
+  const { data } = await axios.post('https://au-api.basiq.io/token', qs.stringify({ scope: 'SERVER_ACCESS' }), {
     headers: {
       Authorization: `Basic ${process.env.BASIQ_API_KEY}`,
       'Content-Type': 'application/x-www-form-urlencoded',
       'basiq-version': '2.0',
     },
-    data: qs.stringify({ scope: 'SERVER_ACCESS' }),
   });
   return data.access_token;
 }
 
-async function getClientToken() {
-  const { data } = await axios({
-    method: 'post',
-    url: 'https://au-api.basiq.io/token',
+export async function getClientToken() {
+  const { data } = await axios.post('https://au-api.basiq.io/token', qs.stringify({ scope: 'CLIENT_ACCESS' }), {
     headers: {
       Authorization: `Basic ${process.env.BASIQ_API_KEY}`,
       'Content-Type': 'application/x-www-form-urlencoded',
       'basiq-version': '2.0',
     },
-    data: qs.stringify({ scope: 'CLIENT_ACCESS' }),
   });
   return data.access_token;
 }
-
-module.exports = {
-  setupTokenCache,
-  attatchServerTokenToReq,
-  getBasiqAuthorizationHeader,
-  getClientToken,
-};

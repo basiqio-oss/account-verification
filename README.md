@@ -1,10 +1,6 @@
 # Account verification
 
-This application takes a user through the account verification process using the BasiqConnectControl UI component.
-
-It is built with a React FE, Express/NodeJS backend.
-
-Before you can spin up you will need to create a `.env` file and create a variable `BASIQ_API_KEY` in which you store your applications API key.
+This application takes a user through the account verification process using the Basiq API.
 
 ## Getting started
 
@@ -57,5 +53,3 @@ This project has been built with the following technologies
 - [Next.js](https://github.com/vercel/next.js/)
 - [Tailwind](https://github.com/tailwindlabs/tailwindcss)
 - [HeadlessUI](https://github.com/tailwindlabs/headlessui)
-- [Express](https://github.com/expressjs/express)
-- [Node](https://github.com/nodejs/node)
