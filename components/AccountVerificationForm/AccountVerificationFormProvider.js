@@ -75,7 +75,7 @@ export function AccountVerificationFormProvider({ children }) {
     }
   }
 
-  // Called when the user has successfully finished all seteps
+  // Called when the user has successfully finished all steps
   const finish = () => router.push('/');
 
   const contextValue = {
