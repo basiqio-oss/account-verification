@@ -46,7 +46,7 @@ export function AccountVerificationFormStep5Summary() {
         <ul role="list" className="divide-y border-t border-b border-neutral-dim">
           <li className="py-3 space-x-4 flex items-center">
             <div className="flex flex-col flex-grow">
-              <span className="text-xs text-neutral-muted-darker">C{selectedInstitution.name}</span>
+              <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
               <span className="font-medium">{selectedAccount.name}</span>
               <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
             </div>
