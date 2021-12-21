@@ -93,9 +93,9 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
 
               {formFields.map(field => (
                 <div key={field.id} className="space-y-2">
-                  <TextField {...field} />
+                  <TextField {...field} disabled={submitting} />
                   {/** Forgot password */}
-                  {field.id === 'password' && (
+                  {field.id === 'password' && selectedInstitution.forgottenPasswordUrl && (
                     <a
                       href={selectedInstitution.forgottenPasswordUrl}
                       target="_blank"
@@ -113,7 +113,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
                 <Button type="submit" loading={submitting} variant="bold" block>
                   Connect
                 </Button>
-                <Button type="button" variant="subtle" block onClick={goBack}>
+                <Button type="button" disabled={submitting} variant="subtle" block onClick={goBack}>
                   Pick another bank
                 </Button>
               </div>
