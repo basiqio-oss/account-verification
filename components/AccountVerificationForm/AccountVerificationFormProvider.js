@@ -14,6 +14,8 @@ const AccountVerificationFormContext = createContext({
   goForward: undefined,
   // Function to cancel the the users verification. A confirmation modal will be triggered.
   cancel: undefined,
+  // If true, the cancellation process is in progress
+  cancelling: undefined,
   // Function to call when the user has completed the form
   finish: undefined,
   // The state of the verification form, this is used to pass values between multiple steps
