@@ -156,22 +156,37 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
+
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
         <VerificationProgress value={progress} error={error} />
         {error ? (
-          <div className="space-y-2">
-            <h3 className="font-bold text-xl">Error</h3>
-            <p>{error.message}</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-xl sm:text-2xl">Error</h3>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">{error.message}</p>
+            </div>
+            {/* TODO: Hook up "Try again" to go back to InstitutionLogin form */}
+            <Button block>Try again</Button>
           </div>
         ) : progress !== 100 ? (
-          <div className="space-y-2">
-            <h3 className="font-bold text-xl">Verifying credentials...</h3>
-            <p>Usually takes takes {ms(estimatedTime, { long: true })}</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">Verifying credentials...</h2>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">
+                Usually takes {ms(estimatedTime, { long: true })}
+              </p>
+            </div>
+            {/* TODO: Hook up "Minimise"-feature, onClick go to Home and listen for connection process to finish/error out */}
+            <Button block variant="subtle">
+              Resume in background
+            </Button>
           </div>
         ) : (
-          <div className="space-y-2">
-            <h3 className="font-bold text-2xl">Connected 🎉</h3>
-            <p>One last step to go...</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-xl sm:text-2xl">Connected 🎉</h3>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
+            </div>
             <Button block onClick={goForward}>
               Continue
             </Button>
