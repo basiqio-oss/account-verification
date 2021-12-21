@@ -24,6 +24,7 @@ const AccountVerificationFormContext = createContext({
   createBasiqConnection: undefined,
   // The state of the secure connection to the basiq API
   basiqConnection: undefined,
+  // TODO: resetState
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
