@@ -14,6 +14,8 @@ const AccountVerificationFormContext = createContext({
   goForward: undefined,
   // Function to cancel the the users verification. A confirmation modal will be triggered.
   cancel: undefined,
+  // If true, the cancellation process is in progress
+  cancelling: undefined,
   // Function to call when the user has completed the form
   finish: undefined,
   // The state of the verification form, this is used to pass values between multiple steps
@@ -27,14 +29,16 @@ const AccountVerificationFormContext = createContext({
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
+const initialAccountVerificationFormState = {
+  user: undefined,
+  selectedInstitution: undefined,
+  selectedAccount: undefined,
+};
+
 export function AccountVerificationFormProvider({ children }) {
   const router = useRouter();
 
-  const [accountVerificationFormState, setAccountVerificationFormState] = useState({
-    user: undefined,
-    selectedInstitution: undefined,
-    selectedAccount: undefined,
-  });
+  const [accountVerificationFormState, setAccountVerificationFormState] = useState(initialAccountVerificationFormState);
   const updateAccountVerificationFormState = newState => {
     setAccountVerificationFormState(oldState => ({ ...oldState, ...newState }));
   };
@@ -45,16 +49,34 @@ export function AccountVerificationFormProvider({ children }) {
   const goBack = () => setCurrentStep(step => (step === 0 ? 0 : step - 1));
   const goForward = () => setCurrentStep(step => (step === totalSteps - 1 ? totalSteps - 1 : currentStep + 1));
 
-  // TODO: What do we need to do in terms of API here, ie delete user, stop job polling, remove any connection etc?
-  const cancel = () => router.push('/');
-
-  // Called when the user has successfully finished all seteps
-  const finish = () => router.push('/');
-
-  const { createBasiqConnection, basiqConnection } = useBasiqConnection({
+  const { createBasiqConnection, basiqConnection, deleteBasiqConnection } = useBasiqConnection({
     userId: accountVerificationFormState.user?.id,
     currentStep,
   });
+
+  // State for managing cancelling the account verification form
+  const [cancelling, setCancelling] = useState(false);
+  async function cancel() {
+    // Cancelling at the first step doesn't require a confirmation modal as the user has not submitted any form data yet
+    if (currentStep === 0) {
+      router.push('/');
+      return;
+    }
+    setCancelling(true);
+    try {
+      await deleteBasiqConnection();
+      router.push('/');
+      setAccountVerificationFormState(initialAccountVerificationFormState);
+      setCurrentStep(0);
+      setCancelling(false);
+    } catch {
+      // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset
+      window.location = window.location.origin;
+    }
+  }
+
+  // Called when the user has successfully finished all steps
+  const finish = () => router.push('/');
 
   const contextValue = {
     currentStep,
@@ -62,6 +84,7 @@ export function AccountVerificationFormProvider({ children }) {
     goBack,
     goForward,
     cancel,
+    cancelling,
     finish,
     accountVerificationFormState,
     updateAccountVerificationFormState,
@@ -86,6 +109,11 @@ function useBasiqConnection({ userId, currentStep }) {
     if (!userId || !token) return;
     const jobId = await createConnection({ data, token, userId });
     setJobId(jobId);
+  }
+
+  async function deleteBasiqConnection() {
+    if (!jobId || !userId || !token) return;
+    await deleteConnection({ token, jobId, userId });
   }
 
   // Everytime the user changes steps, make sure these values get reset
@@ -145,6 +173,7 @@ function useBasiqConnection({ userId, currentStep }) {
 
   return {
     createBasiqConnection,
+    deleteBasiqConnection,
     basiqConnection: jobId
       ? {
           progress,
@@ -168,6 +197,20 @@ function newStepError({ detail, title }) {
 // https://api.basiq.io/reference/jobs
 async function createConnection({ token, userId, data }) {
   const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data.id;
+}
+
+// Permanently deletes a connection with the Basiq API
+// Once the connection has been deleted, all of the associated financial data e.g. accounts and transactions can still be accessed via the users end-point
+// https://api.basiq.io/reference/delete-a-connection
+async function deleteConnection({ token, userId, jobId }) {
+  const response = await axios.delete(`https://au-api.basiq.io/users/${userId}/connections/${jobId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',

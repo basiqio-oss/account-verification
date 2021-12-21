@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useTernaryState } from '../../utils/useTernaryState';
 import { Button } from '../Button';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { AccountVerificationFormLearnMoreModal } from './AccountVerificationFormLearnMoreModal';
@@ -9,10 +9,8 @@ import { StepDescription } from './StepDescription';
 export function AccountVerificationFormStep1PreConsent() {
   const { goForward } = useAccountVerificationForm();
 
-  // State for managing hiding/showing of the cancellation model
-  const [isLearnMoreModalOpen, setLearnMoreModalOpen] = useState(false);
-  const openLearnMoreModal = () => setLearnMoreModalOpen(true);
-  const closeLearnMoreModal = () => setLearnMoreModalOpen(false);
+  // State for managing hiding/showing of the learn more model
+  const [isLearnMoreModalOpen, openLearnMoreModal, closeLearnMoreModal] = useTernaryState(false);
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useTernaryState } from '../../utils/useTernaryState';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
 import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
@@ -19,13 +19,11 @@ export const FORM_COMPONENTS = [
 ];
 
 export function AccountVerificationForm() {
-  const { currentStep, totalSteps, cancel, goBack, goForward } = useAccountVerificationForm();
+  const { currentStep, totalSteps, cancel, cancelling, goBack, goForward } = useAccountVerificationForm();
   const Component = FORM_COMPONENTS[currentStep];
 
-  const [isCancellationModalOpen, setCancellationModalOpen] = useState(false);
-  const openCancellationModal = () => setCancellationModalOpen(true);
-  const closeCancellationModal = () => setCancellationModalOpen(false);
-
+  // State for managing hiding/showing of the cancellation model
+  const [isCancellationModalOpen, openCancellationModal, closeCancellationModal] = useTernaryState(false);
   return (
     <>
       {/* PROGRESS BAR */}
@@ -71,6 +69,7 @@ export function AccountVerificationForm() {
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
         onConfirm={cancel}
+        cancelling={cancelling}
       />
 
       {/** Debugging */}
