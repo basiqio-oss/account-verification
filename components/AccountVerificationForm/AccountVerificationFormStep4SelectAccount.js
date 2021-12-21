@@ -137,8 +137,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                 })}
               </div>
             </RadioGroup>
-            {/* TODO: disable button if no radio selection has been made (Johan) */}
-            <Button type="submit" block>
+            <Button type="submit" block disabled={!selectedAccount}>
               Finish
             </Button>
           </form>
