@@ -59,7 +59,8 @@ export function AccountVerificationFormStep4SelectAccount() {
                 <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
                 <div className="space-y-3">
                   {data.map((acc, idx) => {
-                    const disabled = acc.status !== 'available';
+                    // Disabled if status is not `available` or class type is not `transaction`
+                    const disabled = acc.status !== 'available' || acc.class.type !== 'transaction';
                     return (
                       <RadioGroup.Option
                         key={idx}
@@ -108,7 +109,7 @@ export function AccountVerificationFormStep4SelectAccount() {
 
                               <div className="flex-grow space-y-2">
                                 <RadioGroup.Label as="p" className="font-medium">
-                                  {acc.title}
+                                  {acc.name}
                                 </RadioGroup.Label>
                                 <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
                                 <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
