@@ -84,7 +84,6 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
         </div>
 
         {/* CREDENTIALS FORM */}
-        {/* TODO: Write more */}
         <div>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
@@ -150,7 +149,9 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
               <p className="text-sm sm:text-base text-neutral-muted-darker">{error.message}</p>
             </div>
             {/* TODO: Hook up "Try again" to go back to InstitutionLogin form */}
-            <Button block>Try again</Button>
+            <Button block onClick={undefined}>
+              Try again
+            </Button>
           </div>
         ) : progress !== 100 ? (
           <div className="w-full space-y-6 sm:space-y-8">
