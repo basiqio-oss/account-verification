@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cypress-run:
+  cypress:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -17,4 +17,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: yarn build && yarn start
+          build: yarn build
+          start: yarn start
+          wait-on: http://localhost:3000
