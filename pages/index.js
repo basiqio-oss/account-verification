@@ -39,7 +39,7 @@ export default function Home() {
           {isConnected ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
-              <Button block variant="inverted">
+              <Button block variant="inverted" data-cy="view-verified-account">
                 View verified account
               </Button>
               <Button block>Reset app</Button> {/** TODO */}

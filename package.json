@@ -6,9 +6,7 @@
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open",
-    "cypress:headless": "cypress run",
-    "e2e": "start-server-and-test dev http://localhost:3000 cypress",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
+    "cypress:headless": "cypress run"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
@@ -28,7 +26,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-cypress": "^2.12.1",
     "postcss": "^8.3.5",
-    "start-server-and-test": "1.13.1",
     "tailwindcss": "^2.2.4"
   }
 }

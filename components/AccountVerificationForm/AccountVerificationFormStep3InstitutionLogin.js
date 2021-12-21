@@ -156,7 +156,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
           <div className="space-y-2">
             <h3 className="font-bold text-2xl">Connected 🎉</h3>
             <p>One last step to go...</p>
-            <Button block onClick={goForward}>
+            <Button data-cy="continue" block onClick={goForward}>
               Continue
             </Button>
           </div>

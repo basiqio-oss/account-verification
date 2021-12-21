@@ -1,12 +1,9 @@
-describe('Home page', () => {
+import fixtures from '../fixtures/example.json';
+
+describe('Index page', () => {
   it('Should navigate to the account verification form', () => {
-    // Start from the index page
     cy.visit('http://localhost:3000/');
-
-    // Find a link with an href attribute containing "account-verification" and click it
     cy.get('a[href*="account-verification"]').click();
-
-    // The new url should include "/account-verification"
     cy.url().should('include', '/account-verification');
   });
 });
@@ -30,15 +27,44 @@ describe('Account verification form', () => {
   });
 
   it('Completes step 1 - PreConsent', () => {
-    // cy.get('[data-cy=current-step]').contains('2');
-    // cy.get('[data-cy="learn-more').click();
-    // cy.get('h3').contains('Security you can trust');
-    // cy.get('[data-cy="securely-connect-my-account').click();
-    // cy.get('[data-cy=current-step]').contains('3');
+    cy.get('[data-cy=current-step]').contains('2');
+    cy.get('[data-cy="learn-more').click();
+    cy.get('h3').contains('Security you can trust');
+    cy.get('[data-cy="securely-connect-my-account').click();
+    cy.wait('@api');
   });
 
-  it('Completes step 2 - InstitutionPicker', () => {});
-  it('Completes step 2 - InstitutionLogin', () => {});
-  it('Completes step 4 - SelectAccount', () => {});
-  it('Completes step 5 - Summary', () => {});
+  it('Completes step 2 - InstitutionPicker', () => {
+    cy.get('[data-cy=current-step]').contains('3');
+    cy.get(`[data-cy=${fixtures.institutionId}]`).click();
+  });
+
+  it('Completes step 2 - InstitutionLogin', () => {
+    cy.get('[data-cy=current-step]').contains('4');
+    cy.get('#loginId').should('be.visible').type(fixtures.loginId);
+    cy.get('#password').should('be.visible').type(fixtures.password);
+    cy.get('button[type="submit"]').click();
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(3000);
+
+    cy.get('[data-cy=continue]').click();
+    cy.wait('@api');
+  });
+
+  it('Completes step 4 - SelectAccount', () => {
+    cy.get('[data-cy=current-step]').contains('5');
+    cy.get(`[data-cy="${fixtures.accountNumber}"]`).click();
+    cy.get('button[type="submit"]').click();
+  });
+
+  it('Completes step 5 - Summary', () => {
+    cy.get('h1').contains("You're all set!");
+
+    cy.get('[data-cy="done"]').click();
+
+    cy.url().should('eql', 'http://localhost:3000/');
+
+    cy.get('[data-cy="view-verified-account"]').should('be.visible');
+  });
 });

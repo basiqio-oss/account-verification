@@ -80,7 +80,7 @@ export function AccountVerificationFormStep5Summary() {
         </p>
 
         {/* Action */}
-        <Button variant="bold" block onClick={finish}>
+        <Button variant="bold" block onClick={finish} data-cy="done">
           Done
         </Button>
       </div>

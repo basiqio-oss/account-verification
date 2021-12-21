@@ -70,6 +70,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                           !disabled &&
                           'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
                         }`}
+                        data-cy={acc.accountNo}
                       >
                         {({ checked }) => (
                           <div
