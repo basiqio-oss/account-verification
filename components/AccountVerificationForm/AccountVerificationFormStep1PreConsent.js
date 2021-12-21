@@ -27,7 +27,7 @@ export function AccountVerificationFormStep1PreConsent() {
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
           <StepHeading>
-            Let’s connect your
+            Let&rsquo;s connect your
             {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
             Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
             <br />
