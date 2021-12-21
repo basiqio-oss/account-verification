@@ -45,10 +45,13 @@ export default function Home() {
           {isConnected ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
-              <Button block variant="inverted">
-                View verified account
-              </Button>
-              <Button block>Reset app</Button> {/** TODO */}
+              <Link href="/account-verification" passHref>
+                <Button block variant="inverted">
+                  View verified account
+                </Button>
+              </Link>
+              {/** TODO: Johan resetState function */}
+              <Button block>Reset app</Button>
             </div>
           ) : (
             <div className="mx-auto w-56">
