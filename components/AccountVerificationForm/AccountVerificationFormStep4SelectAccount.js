@@ -67,7 +67,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           <ErrorScene
             title="Failed to load accounts"
             message="Something went wrong whilst loading the list of accounts. If the problem persists, please contact support."
-            action={refetch}
+            actionOnClick={refetch}
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">

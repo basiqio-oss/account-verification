@@ -61,7 +61,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
             <ErrorScene
               title="Failed to load banks"
               message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."
-              action={refetch}
+              actionOnClick={refetch}
             />
           ) : (
             <>
