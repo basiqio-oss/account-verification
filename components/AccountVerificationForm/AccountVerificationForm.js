@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
 import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
@@ -25,6 +25,11 @@ export function AccountVerificationForm() {
   const [isCancellationModalOpen, setCancellationModalOpen] = useState(false);
   const openCancellationModal = () => setCancellationModalOpen(true);
   const closeCancellationModal = () => setCancellationModalOpen(false);
+
+  // When the user changes steps, scroll to the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
 
   return (
     <>
