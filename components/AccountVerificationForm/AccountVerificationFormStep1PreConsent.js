@@ -169,11 +169,11 @@ export function AccountVerificationFormStep1PreConsent() {
 
         {/* Actions */}
         <div className="space-y-2">
-          <Button variant="bold" block onClick={goForward} data-cy="continue">
+          <Button variant="bold" block onClick={goForward}>
             Continue
           </Button>
 
-          <Button variant="subtle" block onClick={openLearnMoreModal} data-cy="learn-more">
+          <Button variant="subtle" block onClick={openLearnMoreModal}>
             Learn more
           </Button>
         </div>
