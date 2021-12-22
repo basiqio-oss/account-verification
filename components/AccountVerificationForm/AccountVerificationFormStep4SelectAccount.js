@@ -85,6 +85,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                         !acc.disabled &&
                         'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
                       }`}
+                      data-cy={`account-${acc.accountNo}`}
                     >
                       {({ checked }) => (
                         <div

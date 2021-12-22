@@ -72,6 +72,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                       key={institution.id}
                       className="relative flex w-full rounded-lg p-3 cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
                       onClick={() => onInstitutionClick(institution)}
+                      data-cy={`institution-${institution.id}`}
                     >
                       <div className="flex items-center w-full space-x-3">
                         {/* Institution logo */}
