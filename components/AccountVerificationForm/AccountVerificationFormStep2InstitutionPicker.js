@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
 import { ErrorScene } from '../ErrorScene';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
@@ -14,7 +13,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   const errorNoData = error || !data || data.length === 0;
 
   // When a user selects a bank, update the form state and push the user to the next step
-  function onChange(selectedInstitution) {
+  function onInstitutionClick(selectedInstitution) {
     updateAccountVerificationFormState({ selectedInstitution });
     goForward();
   }
@@ -64,55 +63,53 @@ export function AccountVerificationFormStep2InstitutionPicker() {
               action={refetch}
             />
           ) : (
-            <form>
+            <>
               {filteredInstitutions.length ? (
-                // TODO: Fix keyboard navigation when switching between radio options
-                <RadioGroup onChange={onChange}>
-                  <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
-                  <div className="space-y-3">
-                    {filteredInstitutions.map(institution => (
-                      <RadioGroup.Option
-                        key={institution.id}
-                        value={institution}
-                        className="relative rounded-lg p-3 cursor-pointer flex border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
-                      >
-                        <div className="flex items-center w-full space-x-3">
-                          {/* Institution logo */}
-                          <img
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
-                            src={institution.logo.links.square}
-                            alt={`Logo of ${institution.name}`}
+                <div className="space-y-3">
+                  {filteredInstitutions.map(institution => (
+                    <button
+                      key={institution.id}
+                      className="relative flex w-full rounded-lg p-3 cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                      onClick={() => onInstitutionClick(institution)}
+                    >
+                      <div className="flex items-center w-full space-x-3">
+                        {/* Institution logo */}
+                        <img
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
+                          src={institution.logo.links.square}
+                          alt={`Logo of ${institution.name}`}
+                        />
+
+                        {/* Institution shortName */}
+                        <span className="flex flex-grow font-medium">{institution.shortName}</span>
+
+                        {/* Chevron icon */}
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            className="stroke-current text-neutral-muted"
+                            d="M7.5 4.167 13.333 10 7.5 15.833"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
-
-                          {/* Institution shortName */}
-                          <RadioGroup.Label as="p" className="flex flex-grow font-medium">
-                            {institution.shortName}
-                          </RadioGroup.Label>
-
-                          {/* Chevron icon */}
-                          <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              className="stroke-current text-neutral-muted"
-                              d="M7.5 4.167 13.333 10 7.5 15.833"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
+                        </svg>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               ) : (
                 <NoMatchingResults />
               )}
-            </form>
+            </>
           )}
         </div>
       </div>
     </div>
   );
+}
+
+function myCoolFunction() {
+  return 'Cool';
 }
 
 // Custom react hook for managing our fetch request to retrieves a list institutions
