@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
@@ -10,7 +10,7 @@ import { StepHeading } from './StepHeading';
 export function AccountVerificationFormStep2InstitutionPicker() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
-  const { data, error, loading } = useInstitutionsData();
+  const { data, error, loading, refetch } = useInstitutionsData();
   const errorNoData = error || !data || data.length === 0;
 
   // When a user selects a bank, update the form state and push the user to the next step
@@ -61,9 +61,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
             <ErrorScene
               title="Failed to load banks"
               message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."
-              // TODO: Hook up Try again-action
-              action={undefined}
-              disabled={false}
+              action={refetch}
             />
           ) : (
             <form>
@@ -124,23 +122,37 @@ function useInstitutionsData() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  useEffect(() => {
+  const fetchInstitutions = useCallback(() => {
     axios
       .get('/api/institutions')
-      .then(res => setData(res.data))
-      .catch(setError)
-      .finally(() => setLoading(false));
+      .then(res => {
+        setData(res.data);
+        setError(undefined);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
   }, []);
 
-  return { data, loading, error };
+  useEffect(() => {
+    fetchInstitutions();
+  }, [fetchInstitutions]);
+
+  const refetch = useCallback(() => {
+    setLoading(true);
+    fetchInstitutions();
+  }, [fetchInstitutions]);
+
+  return { data, loading, error, refetch };
 }
 
 // INSTITUTIONS LOADING SKELETON
 // Keeps the user visually occupied whilst loading,
 // making the experience seem quicker than it might be.
+const skeletonItems = [...new Array(10).keys()];
 function InstitutionsLoadingSkeleton() {
-  const skeletonItems = [...new Array(10).keys()];
-
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (

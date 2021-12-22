@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
@@ -15,7 +15,7 @@ export function AccountVerificationFormStep4SelectAccount() {
 
   const [selectedAccount, setSelectedAccount] = useState();
 
-  const { data, error, loading } = useAccountsData({
+  const { data, error, loading, refetch } = useAccountsData({
     userId: accountVerificationFormState.user.id,
     institutionId: selectedInstitution?.id,
   });
@@ -59,9 +59,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           <ErrorScene
             title="Failed to load accounts"
             message="Something went wrong whilst loading the list of accounts. If the problem persists, please contact support."
-            // TODO: Hook up Try again-action and disabled
-            action={undefined}
-            disabled={false}
+            action={refetch}
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
@@ -154,24 +152,37 @@ function useAccountsData({ userId, institutionId }) {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  useEffect(() => {
-    setLoading(true);
+  const fetchAccounts = useCallback(() => {
     axios
       .get('/api/accounts', { params: { userId, institutionId } })
-      .then(res => setData(res.data))
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [userId, institutionId]);
+      .then(res => {
+        setData(res.data);
+        setError(undefined);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [institutionId, userId]);
 
-  return { data, loading, error };
+  useEffect(() => {
+    fetchAccounts();
+  }, [fetchAccounts]);
+
+  const refetch = useCallback(() => {
+    setLoading(true);
+    fetchAccounts();
+  }, [fetchAccounts]);
+
+  return { data, loading, error, refetch };
 }
 
 // ACCOUNTS LOADING SKELETON
 // Keeps the user visually occupied whilst loading,
 // making the experience seem quicker than it might be.
+const skeletonItems = [...new Array(5).keys()];
 function AccountsLoadingSkeleton() {
-  const skeletonItems = [...new Array(5).keys()];
-
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (

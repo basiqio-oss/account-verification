@@ -1,6 +1,6 @@
 import { Button } from './Button';
 
-export function ErrorScene({ title, message, action, loading }) {
+export function ErrorScene({ title, message, action }) {
   return (
     <div role="alert" className="space-y-6 sm:space-y-8">
       <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
@@ -21,7 +21,7 @@ export function ErrorScene({ title, message, action, loading }) {
           <p className="text-sm sm:text-base text-center text-neutral-muted-darker leading-relaxed">{message}</p>
         </div>
       </div>
-      <Button block onClick={action} disabled={loading}>
+      <Button block onClick={action}>
         Try again
       </Button>
     </div>
