@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { AccountVerificationForm } from '../components/AccountVerificationForm';
 import { SEO } from '../components/SEO';
 
