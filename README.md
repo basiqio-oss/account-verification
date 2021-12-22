@@ -53,6 +53,6 @@ You should now see the website running at `http://localhost:3000`
 
 ## Testing
 
-Cypress is a test runner used for End-to-End (E2E) and Integration Testing. This repository includes a single simple E2E test which is used to test the account verification form flow.
+Cypress is a test runner used for End-to-End (E2E) and Integration Testing. This repository includes a simple E2E test which is used to test the account verification form flow.
 
 To run the E2E tests locally, you will first need have the website up and running. This can be done by either running `yarn dev` or `yarn build && yarn start`. The latter can be used when you want to run the tests againts the production build of the website. Once you have the website running in another terminal window run `yarn cypress`.
