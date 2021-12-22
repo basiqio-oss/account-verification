@@ -4,6 +4,7 @@ import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
 import { ErrorScene } from '../ErrorScene';
+import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -14,6 +15,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   const { selectedInstitution } = accountVerificationFormState;
 
   const [selectedAccount, setSelectedAccount] = useState();
+  const [validationError, setValidationError] = useState(false);
 
   const { data, error, loading, refetch } = useAccountsData({
     userId: accountVerificationFormState.user.id,
@@ -23,8 +25,13 @@ export function AccountVerificationFormStep4SelectAccount() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    updateAccountVerificationFormState({ selectedAccount });
-    goForward();
+    if (selectedAccount) {
+      updateAccountVerificationFormState({ selectedAccount });
+      goForward();
+    } else {
+      setValidationError(true);
+      window.scrollTo(0, 0);
+    }
   }
 
   if (!selectedInstitution) return null;
@@ -63,6 +70,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            {validationError && <ErrorMessage message="Please select an account" />}
             <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
               <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
               <div className="space-y-3">
@@ -135,7 +143,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                 })}
               </div>
             </RadioGroup>
-            <Button type="submit" block disabled={!selectedAccount}>
+            <Button type="submit" block>
               Finish
             </Button>
           </form>
