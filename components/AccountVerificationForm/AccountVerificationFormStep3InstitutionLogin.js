@@ -131,7 +131,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   const { selectedInstitution } = accountVerificationFormState;
 
   // State for managing hiding/showing of the resume in background modal
-  const [isCancellationModalOpen, openCancellationModal, closeCancellationModal] = useTernaryState(false);
+  const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
 
   // The estimated time job is expected time to take (in milliseconds)
   // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
@@ -166,7 +166,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
                 Usually takes {ms(estimatedTime, { long: true })}
               </p>
             </div>
-            <Button block variant="subtle" onClick={openCancellationModal}>
+            <Button block variant="subtle" onClick={openResumeModal}>
               Resume in background
             </Button>
           </div>
@@ -182,10 +182,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
           </div>
         )}
       </div>
-      <AccountVerificationFormResumeInBackgroundModal
-        isOpen={isCancellationModalOpen}
-        onClose={closeCancellationModal}
-      />
+      <AccountVerificationFormResumeInBackgroundModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );
 }
