@@ -1,6 +1,7 @@
 export function Toast({ title, children, appearance, onDismiss }) {
   return (
     <div
+      role="alert"
       className={`flex space-x-3 max-w-xs rounded-lg border-2 text-black p-3 shadow-md ${
         appearance === 'critical' ? 'bg-critical-subtle border-critical-bold' : 'bg-success-subtle border-success-bold'
       }`}
@@ -46,6 +47,7 @@ export function Toast({ title, children, appearance, onDismiss }) {
           onClick={onDismiss}
           className="flex w-6 h-6 justify-center items-center rounded hover:opacity-90 active:opacity-75 focus:ring-2 focus:ring-neutral-muted focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none flex-shrink-0"
         >
+          <span className="sr-only">Dismiss</span>
           {/* Icon: x */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
