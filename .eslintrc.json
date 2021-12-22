@@ -1,5 +1,6 @@
 {
-  "extends": ["next", "prettier"],
+  "extends": ["next", "prettier", "plugin:cypress/recommended"],
+  "plugins": ["cypress"],
   "rules": {
     "no-unused-vars": "error",
     "no-undef": "error",
