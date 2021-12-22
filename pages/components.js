@@ -1,19 +1,16 @@
-import Head from 'next/head';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { VerificationProgress } from '../components/VerificationProgress';
+import { SEO } from '../components/SEO';
 
+// TODO: This file to be removed, for internal dev use only
 export default function Components() {
-  // TODO: This file to be removed, for internal dev use only
   return (
     <>
-      <Head>
-        <title>Components</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEO title="Components" />
       <main className="container mx-auto px-6 py-6 space-y-10">
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
@@ -127,7 +124,7 @@ function SectionVerificationProgress() {
         <VerificationProgress value={60} />
         <VerificationProgress value={80} />
         <VerificationProgress value={100} />
-        <VerificationProgress value={50} error />
+        <VerificationProgress value={100} error />
       </div>
     </section>
   );

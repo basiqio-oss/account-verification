@@ -26,6 +26,7 @@ const AccountVerificationFormContext = createContext({
   createBasiqConnection: undefined,
   // The state of the secure connection to the basiq API
   basiqConnection: undefined,
+  // TODO: resetState
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
@@ -127,12 +128,13 @@ function useBasiqConnection({ userId, currentStep }) {
   useEffect(() => {
     if (!token || !jobId || !userId) return;
     setProgress(0);
+    setStepNameInProgress('verify-credentials');
 
     // Immediately check the status of the job
     checkJobStatus();
 
     // Check the status of the job every 2 seconds
-    const timer = setTimeout(checkJobStatus, 2000);
+    const timer = setInterval(checkJobStatus, 2000);
 
     async function checkJobStatus() {
       try {
@@ -144,11 +146,11 @@ function useBasiqConnection({ userId, currentStep }) {
           ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
         );
 
-        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in_progress' can be '25%'
+        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in-progress' can be '25%'
         const progress = 0;
         for (const step of steps) {
           switch (step.status) {
-            case 'in_progress':
+            case 'in-progress':
               setStepNameInProgress(step.title);
               progress += 25;
             case 'success':
@@ -167,7 +169,7 @@ function useBasiqConnection({ userId, currentStep }) {
     }
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   }, [jobId, token, userId]);
 

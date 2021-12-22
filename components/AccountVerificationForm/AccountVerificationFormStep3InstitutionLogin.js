@@ -84,7 +84,6 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
         </div>
 
         {/* CREDENTIALS FORM */}
-        {/* TODO: Write more */}
         <div>
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 sm:space-y-8">
@@ -93,9 +92,9 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
 
               {formFields.map(field => (
                 <div key={field.id} className="space-y-2">
-                  <TextField {...field} />
+                  <TextField {...field} disabled={submitting} />
                   {/** Forgot password */}
-                  {field.id === 'password' && (
+                  {field.id === 'password' && selectedInstitution.forgottenPasswordUrl && (
                     <a
                       href={selectedInstitution.forgottenPasswordUrl}
                       target="_blank"
@@ -113,7 +112,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
                 <Button type="submit" loading={submitting} variant="bold" block>
                   Connect
                 </Button>
-                <Button type="button" variant="subtle" block onClick={goBack}>
+                <Button type="button" disabled={submitting} variant="subtle" block onClick={goBack}>
                   Pick another bank
                 </Button>
               </div>
@@ -140,22 +139,39 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
+
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
         <VerificationProgress value={progress} error={error} />
         {error ? (
-          <div className="space-y-2">
-            <h3 className="font-bold text-xl">{error.name}</h3>
-            <p>{error.message}</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error.name}</h2>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">{error.message}</p>
+            </div>
+            {/* TODO: Hook up "Try again" to go back to InstitutionLogin form */}
+            <Button block onClick={undefined}>
+              Try again
+            </Button>
           </div>
         ) : progress !== 100 ? (
-          <div className="space-y-2">
-            <h3 className="font-bold text-xl">{STEP_NAME_MAP[stepNameInProgress]}</h3>
-            <p>Usually takes takes {ms(estimatedTime, { long: true })}</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{STEP_NAME_MAP[stepNameInProgress]}</h2>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">
+                Usually takes {ms(estimatedTime, { long: true })}
+              </p>
+            </div>
+            {/* TODO: Hook up "Minimise"-feature, onClick go to Home and listen for connection process to finish/error out */}
+            <Button block variant="subtle">
+              Resume in background
+            </Button>
           </div>
         ) : (
-          <div className="space-y-2">
-            <h3 className="font-bold text-2xl">Connected 🎉</h3>
-            <p>One last step to go...</p>
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
+            </div>
             <Button block onClick={goForward}>
               Continue
             </Button>

@@ -20,8 +20,22 @@ export default async function accounts(req, res) {
         },
       }
     );
-    res.status(200).json(data.data);
+
+    const sortedAccounts = data.data
+      .map(account => {
+        const isAvailable = account.status === 'available';
+        const isTransactionAccount = account.class.type === 'transaction';
+        const disabled = !isAvailable || !isTransactionAccount;
+        return {
+          ...account,
+          disabled,
+        };
+      })
+      // Make sure disabled accounts appear last
+      .sort((a, b) => a.disabled - b.disabled);
+
+    res.status(200).json(sortedAccounts);
   } catch (error) {
-    res.status(400).json({ message: 'Something went wrong' });
+    res.status(400).json({ message: error.message });
   }
 }

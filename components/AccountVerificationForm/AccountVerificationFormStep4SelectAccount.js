@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
+import { ErrorScene } from '../ErrorScene';
+import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -13,16 +15,24 @@ export function AccountVerificationFormStep4SelectAccount() {
   const { selectedInstitution } = accountVerificationFormState;
 
   const [selectedAccount, setSelectedAccount] = useState();
+  const [validationError, setValidationError] = useState(false);
 
-  const { data, error, loading } = useAccountsData({
+  const { data, error, loading, refetch } = useAccountsData({
     userId: accountVerificationFormState.user.id,
     institutionId: selectedInstitution?.id,
   });
 
+  const errorOrNoData = error || !data || data.length === 0;
+
   function handleSubmit(e) {
     e.preventDefault();
-    updateAccountVerificationFormState({ selectedAccount });
-    goForward();
+    if (selectedAccount) {
+      updateAccountVerificationFormState({ selectedAccount });
+      goForward();
+    } else {
+      setValidationError(true);
+      window.scrollTo(0, 0);
+    }
   }
 
   if (!selectedInstitution) return null;
@@ -35,7 +45,7 @@ export function AccountVerificationFormStep4SelectAccount() {
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
         <StepHeading>
@@ -44,95 +54,96 @@ export function AccountVerificationFormStep4SelectAccount() {
         </StepHeading>
 
         {/* STEP DESCRIPTION */}
-        <StepDescription>
-          Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
-          accounts.
-        </StepDescription>
+        {(loading || !errorOrNoData) && (
+          <StepDescription>
+            Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
+            accounts.
+          </StepDescription>
+        )}
 
-        {error ? (
-          <span>Error</span>
-        ) : loading ? (
-          <span>Loading</span>
+        {loading ? (
+          <AccountsLoadingSkeleton />
+        ) : errorOrNoData ? (
+          <ErrorScene
+            title="Failed to load accounts"
+            message="Something went wrong whilst loading the list of accounts. If the problem persists, please contact support."
+            actionOnClick={refetch}
+          />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-            {data.length ? (
-              <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
-                <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
-                <div className="space-y-3">
-                  {data.map((acc, idx) => {
-                    const disabled = acc.status !== 'available';
-                    return (
-                      <RadioGroup.Option
-                        key={idx}
-                        value={acc}
-                        disabled={disabled}
-                        className={`rounded-lg outline-none ${
-                          !disabled &&
-                          'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
-                        }`}
-                      >
-                        {({ checked }) => (
-                          <div
-                            className={`relative rounded-lg p-3 flex  ${
-                              disabled
-                                ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
-                                : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
-                            } ${checked && 'bg-primary-subtle border-primary-bold'}`}
-                          >
-                            <div className="flex flex-grow space-x-3">
-                              {disabled ? (
-                                // Lock icon
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-6 w-6"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                  />
-                                </svg>
-                              ) : (
-                                // Radio circle
-                                <span
-                                  className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
-                                    checked ? 'border-primary-bold' : 'border-neutral-dim-darker'
-                                  }`}
-                                >
-                                  {checked && <span className={`w-2 h-2 rounded-full bg-primary-bold`} />}
-                                </span>
-                              )}
+            {validationError && <ErrorMessage message="Please select an account" />}
+            <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
+              <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
+              <div className="space-y-3">
+                {data.map((acc, idx) => {
+                  return (
+                    <RadioGroup.Option
+                      key={idx}
+                      value={acc}
+                      disabled={acc.disabled}
+                      className={`rounded-lg outline-none ${
+                        !acc.disabled &&
+                        'focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent'
+                      }`}
+                    >
+                      {({ checked }) => (
+                        <div
+                          className={`relative rounded-lg p-3 flex  ${
+                            acc.disabled
+                              ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
+                              : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
+                          } ${checked && 'bg-primary-subtle border-primary-bold'}`}
+                        >
+                          <div className="flex flex-grow space-x-3">
+                            {acc.disabled ? (
+                              // Lock icon
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                />
+                              </svg>
+                            ) : (
+                              // Radio circle
+                              <span
+                                className={`flex items-center justify-center w-6 h-6 rounded-full bg-white border-2  ${
+                                  checked ? 'border-primary-bold' : 'border-neutral-dim-darker'
+                                }`}
+                              >
+                                {checked && <span className={`w-2 h-2 rounded-full bg-primary-bold`} />}
+                              </span>
+                            )}
 
-                              <div className="flex-grow space-y-2">
-                                <RadioGroup.Label as="p" className="font-medium">
-                                  {acc.title}
-                                </RadioGroup.Label>
-                                <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
-                                <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
-                                  <dt className="flex-1">Available:</dt>
-                                  <dd className="text-right text-black font-medium">
-                                    {formatCurrency(acc.availableFunds)}
-                                  </dd>
-                                  <dt className="flex-1">Balance:</dt>
-                                  <dd className="text-right">{formatCurrency(acc.balance)}</dd>
-                                </dl>
-                              </div>
+                            <div className="flex-grow space-y-2">
+                              <RadioGroup.Label as="p" className="font-medium">
+                                {acc.name}
+                              </RadioGroup.Label>
+                              <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
+                              <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
+                                <dt className="flex-1">Available:</dt>
+                                <dd className="text-right text-black font-medium">
+                                  {formatCurrency(acc.availableFunds)}
+                                </dd>
+                                <dt className="flex-1">Balance:</dt>
+                                <dd className="text-right">{formatCurrency(acc.balance)}</dd>
+                              </dl>
                             </div>
                           </div>
-                        )}
-                      </RadioGroup.Option>
-                    );
-                  })}
-                </div>
-              </RadioGroup>
-            ) : (
-              // TODO
-              <span>No results found</span>
-            )}
+                        </div>
+                      )}
+                    </RadioGroup.Option>
+                  );
+                })}
+              </div>
+            </RadioGroup>
             <Button type="submit" block>
               Finish
             </Button>
@@ -150,14 +161,54 @@ function useAccountsData({ userId, institutionId }) {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  useEffect(() => {
-    setLoading(true);
+  const fetchAccounts = useCallback(() => {
     axios
       .get('/api/accounts', { params: { userId, institutionId } })
-      .then(res => setData(res.data))
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [userId, institutionId]);
+      .then(res => {
+        setData(res.data);
+        setError(undefined);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [institutionId, userId]);
 
-  return { data, loading, error };
+  useEffect(() => {
+    fetchAccounts();
+  }, [fetchAccounts]);
+
+  const refetch = useCallback(() => {
+    setLoading(true);
+    fetchAccounts();
+  }, [fetchAccounts]);
+
+  return { data, loading, error, refetch };
+}
+
+// ACCOUNTS LOADING SKELETON
+// Keeps the user visually occupied whilst loading,
+// making the experience seem quicker than it might be.
+const skeletonItems = [...new Array(5).keys()];
+function AccountsLoadingSkeleton() {
+  return (
+    <div className="space-y-3">
+      {skeletonItems.map(i => (
+        <div key={i} className="rounded-lg p-3 flex border border-neutral-subtle-darker animate-pulse">
+          <div className="flex space-x-3">
+            <span className="w-6 h-6 rounded-full border-2 border-neutral-subtle-darker" />
+            <div className="flex-grow space-y-2">
+              <div className="bg-neutral-subtle-darker rounded h-6 w-48" />
+              <div className="bg-neutral-subtle-darker rounded h-4 w-32" />
+              <div className="grid gap-y-0.5">
+                <div className="h-4" />
+                <div className="h-4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }

@@ -1,7 +1,7 @@
-import Head from 'next/head';
 import Link from 'next/link';
-import { Button } from '../components/Button';
 import { useAccountVerificationForm } from '../components/AccountVerificationForm';
+import { Button } from '../components/Button';
+import { SEO } from '../components/SEO';
 
 export default function Home() {
   const { accountVerificationFormState } = useAccountVerificationForm();
@@ -13,10 +13,7 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Piper</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEO />
       <main className="bg-gradient-to-tr from-primary-bold to-primary-accent min-h-screen flex flex-col justify-center">
         <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
           {/* Product logo and divider */}
@@ -39,10 +36,13 @@ export default function Home() {
           {isConnected ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
-              <Button block variant="inverted">
-                View verified account
-              </Button>
-              <Button block>Reset app</Button> {/** TODO */}
+              <Link href="/account-verification" passHref>
+                <Button block variant="inverted">
+                  View verified account
+                </Button>
+              </Link>
+              {/** TODO: Johan resetState function */}
+              <Button block>Reset app</Button>
             </div>
           ) : (
             <div className="mx-auto w-56">
