@@ -1,7 +1,7 @@
-import Head from 'next/head';
 import Link from 'next/link';
-import { Button } from '../components/Button';
 import { useAccountVerificationForm } from '../components/AccountVerificationForm';
+import { Button } from '../components/Button';
+import { SEO } from '../components/SEO';
 
 export default function Home() {
   const { accountVerificationFormState } = useAccountVerificationForm();
@@ -13,16 +13,7 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Piper</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4737ff" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="theme-color" content="#ffffff" />
-      </Head>
+      <SEO />
       <main className="bg-gradient-to-tr from-primary-bold to-primary-accent min-h-screen flex flex-col justify-center">
         <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
           {/* Product logo and divider */}

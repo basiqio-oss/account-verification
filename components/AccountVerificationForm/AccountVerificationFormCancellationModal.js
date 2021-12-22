@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '../Button';
 
-export function AccountVerificationFormCancellationModal({ isOpen, onClose, onConfirm }) {
+export function AccountVerificationFormCancellationModal({ isOpen, onClose, onConfirm, cancelling }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
@@ -42,10 +42,10 @@ export function AccountVerificationFormCancellationModal({ isOpen, onClose, onCo
                 Any information you have provided so far will be deleted permanently. This action can not be undone.
               </p>
               <div className="space-y-2">
-                <Button onClick={onConfirm} variant="critical" block>
+                <Button onClick={onConfirm} loading={cancelling} variant="critical" block>
                   Yes, cancel
                 </Button>
-                <Button onClick={onClose} variant="subtle" block>
+                <Button onClick={onClose} disabled={cancelling} variant="subtle" block>
                   No, go back
                 </Button>
               </div>

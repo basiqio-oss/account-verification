@@ -52,7 +52,7 @@ export function VerificationProgress({ label, value = 0, error }) {
           // Icon: exclamation-circle
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12 sm:h-16 sm:w-16 text-critical-bold"
+            className="h-16 w-16 text-critical-bold"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

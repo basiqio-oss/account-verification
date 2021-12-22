@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useTernaryState } from '../../utils/useTernaryState';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
 import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
@@ -19,12 +20,16 @@ export const FORM_COMPONENTS = [
 ];
 
 export function AccountVerificationForm() {
-  const { currentStep, totalSteps, cancel, goBack, goForward } = useAccountVerificationForm();
+  const { currentStep, totalSteps, cancel, cancelling, goBack, goForward } = useAccountVerificationForm();
   const Component = FORM_COMPONENTS[currentStep];
 
-  const [isCancellationModalOpen, setCancellationModalOpen] = useState(false);
-  const openCancellationModal = () => setCancellationModalOpen(true);
-  const closeCancellationModal = () => setCancellationModalOpen(false);
+  // State for managing hiding/showing of the cancellation model
+  const [isCancellationModalOpen, openCancellationModal, closeCancellationModal] = useTernaryState(false);
+
+  // When the user changes steps, scroll to the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
 
   return (
     <>
@@ -71,13 +76,16 @@ export function AccountVerificationForm() {
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
         onConfirm={cancel}
+        cancelling={cancelling}
       />
 
       {/** Debugging */}
-      <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-muted-darker">
-        <button onClick={goBack}>Prev</button>
-        <button onClick={goForward}>Next</button>
-      </div>
+      {process.env.NODE_ENV !== 'production' && (
+        <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-muted-darker">
+          <button onClick={goBack}>Prev</button>
+          <button onClick={goForward}>Next</button>
+        </div>
+      )}
     </>
   );
 }
