@@ -129,8 +129,10 @@ function useBasiqConnection({ userId, currentStep }) {
 
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
+    // We can't start a job without this information
     if (!token || !jobId || !userId) return;
-    if (!error || completed) return;
+    // If a job was started, but an error occurred or it's finished, we can stop polling
+    if (error || completed) return;
 
     setProgress(0);
     setStepNameInProgress('verify-credentials');
@@ -155,9 +157,12 @@ function useBasiqConnection({ userId, currentStep }) {
         const progress = 0;
         for (const step of steps) {
           switch (step.status) {
+            case 'pending':
+              progress += 10;
+              break;
             case 'in-progress':
               setStepNameInProgress(step.title);
-              progress += 25;
+              progress += 30;
               break;
             case 'success':
               progress += 50;
@@ -180,16 +185,17 @@ function useBasiqConnection({ userId, currentStep }) {
     };
   }, [jobId, token, userId, asPath, error, completed]);
 
+  // If the user has decided to exit and resume process in background we will
+  // trigger a toast when the job finishes processing or an error occurres
   useEffect(() => {
-    if (asPath !== '/account-verification') {
-      if (error) {
-        console.log('TRIGGER ERROR TOAST', error.message, error.name);
-        return;
-      }
-      if (completed) {
-        console.log('TRIGGER SUCCESS TOAST');
-        return;
-      }
+    if (asPath === '/account-verification') return;
+    if (error) {
+      console.log('TRIGGER ERROR TOAST', error.message, error.name);
+      return;
+    }
+    if (completed) {
+      console.log('TRIGGER SUCCESS TOAST');
+      return;
     }
   }, [asPath, progress, completed, error]);
 

@@ -6,7 +6,7 @@ import { SEO } from '../components/SEO';
 export default function Home() {
   const { accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
 
-  const isConnected =
+  const hasVerifiedAccount =
     accountVerificationFormState.user &&
     accountVerificationFormState.selectedInstitution &&
     accountVerificationFormState.selectedAccount;
@@ -36,7 +36,7 @@ export default function Home() {
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
-          {isConnected ? (
+          {hasVerifiedAccount ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
               <Link href="/account-verification" passHref>

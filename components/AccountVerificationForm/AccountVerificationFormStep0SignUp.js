@@ -7,7 +7,6 @@ import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
-import { AccountVerificationFormReumeInBackgroundModal } from './AccountVerificationFormReumeInBackgroundModal';
 
 export function AccountVerificationFormStep0SignUp() {
   const { cancel, goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
