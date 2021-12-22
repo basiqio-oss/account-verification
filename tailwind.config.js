@@ -58,11 +58,20 @@ module.exports = {
       // Critical UI colours
       critical: {
         // Subtle
-        subtle: '#FFE9EB', // <ErrorMessage /> background e.g.
+        subtle: '#FFE9EB', // ErrorMessage and critical Toast background e.g.
 
         // Bold
         bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
         'bold-darker': '#A30014', // error message text colour (darker to provide more contrast)
+      },
+
+      // Success UI colours
+      success: {
+        // Subtle
+        subtle: '#D9FFE8', // Success Toast background e.g.
+
+        // Bold
+        bold: '#00BD4C', // Success Toast border and icon colour e.g.
       },
     },
 

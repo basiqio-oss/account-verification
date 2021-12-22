@@ -65,7 +65,7 @@ export function AccountVerificationFormStep5Summary() {
               {/* Icon: check-circle (https://heroicons.com/) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute -top-2 -right-2 h-6 w-6 text-secondary-bold-darker border-white bg-white rounded-full"
+                className="absolute -top-2 -right-2 h-6 w-6 text-success-bold border-white bg-white rounded-full"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
