@@ -141,7 +141,7 @@ function SectionToast() {
       <div className="flex flex-wrap gap-4">
         <Button
           onClick={() =>
-            addToast('Everything is green and gravy.', {
+            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
               title: 'Successfully added toast',
               appearance: 'success',
             })
@@ -153,7 +153,7 @@ function SectionToast() {
         <Button
           variant="critical"
           onClick={() =>
-            addToast('There was an error with the app. Please try again later.', {
+            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
               title: 'Something went wrong',
               appearance: 'critical',
             })
