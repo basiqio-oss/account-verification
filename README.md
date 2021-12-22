@@ -1,6 +1,11 @@
 # Account verification
 
-This application takes a user through the account verification process using the Basiq API.
+This application takes a user through the account verification process using the Basiq API. This project has been built with the following technologies
+
+- [Basiq API](https://api.basiq.io/reference/introduction)
+- [Next.js](https://github.com/vercel/next.js/)
+- [Tailwind](https://github.com/tailwindlabs/tailwindcss)
+- [HeadlessUI](https://github.com/tailwindlabs/headlessui)
 
 ## Getting started
 
@@ -46,10 +51,8 @@ yarn dev
 
 You should now see the website running at `http://localhost:3000`
 
-## Built with
+## Testing
 
-This project has been built with the following technologies
+Cypress is a test runner used for End-to-End (E2E) and Integration Testing. This repository includes a single simple E2E test which is used to test the account verification form flow.
 
-- [Next.js](https://github.com/vercel/next.js/)
-- [Tailwind](https://github.com/tailwindlabs/tailwindcss)
-- [HeadlessUI](https://github.com/tailwindlabs/headlessui)
+To run the E2E tests locally, you will first need have the website up and running. This can be done by either running `yarn dev` or `yarn build && yarn start`. The latter can be used when you want to run the tests againts the production build of the website. Once you have the website running in another terminal window run `yarn cypress`.
