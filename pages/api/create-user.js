@@ -22,7 +22,7 @@ export default async function createUser(req, res) {
       });
       res.status(200).json(data);
     } catch (error) {
-      res.status(400).json({ message: 'Something went wrong' });
+      res.status(400).json({ message: error.message });
     }
   } else {
     // Only POST is allowed
