@@ -4,7 +4,7 @@ import { Button } from '../components/Button';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
-  const { accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
+  const { accountVerificationFormState, basiqConnection, reset } = useAccountVerificationForm();
 
   const hasVerifiedAccount =
     accountVerificationFormState.user &&
@@ -45,7 +45,9 @@ export default function Home() {
                 </Button>
               </Link>
               {/** TODO: Johan resetState function */}
-              <Button block>Reset app</Button>
+              <Button onClick={reset} block>
+                Reset app
+              </Button>
             </div>
           ) : (
             <div className="mx-auto w-56">

@@ -26,7 +26,8 @@ const AccountVerificationFormContext = createContext({
   createBasiqConnection: undefined,
   // The state of the secure connection to the basiq API
   basiqConnection: undefined,
-  // TODO: resetState
+  // Function to reset the state of the form
+  reset: undefined,
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
@@ -52,8 +53,14 @@ export function AccountVerificationFormProvider({ children }) {
 
   const { createBasiqConnection, basiqConnection, deleteBasiqConnection } = useBasiqConnection({
     userId: accountVerificationFormState.user?.id,
-    currentStep,
+    selectedInstitution: accountVerificationFormState.selectedInstitution.currentStep,
   });
+
+  function resetState() {
+    setAccountVerificationFormState(initialAccountVerificationFormState);
+    setCurrentStep(0);
+    setCancelling(false);
+  }
 
   // State for managing cancelling the account verification form
   const [cancelling, setCancelling] = useState(false);
@@ -67,9 +74,7 @@ export function AccountVerificationFormProvider({ children }) {
     try {
       await deleteBasiqConnection();
       router.push('/');
-      setAccountVerificationFormState(initialAccountVerificationFormState);
-      setCurrentStep(0);
-      setCancelling(false);
+      resetState();
     } catch {
       // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset
       window.location = window.location.origin;
@@ -91,6 +96,7 @@ export function AccountVerificationFormProvider({ children }) {
     updateAccountVerificationFormState,
     createBasiqConnection,
     basiqConnection,
+    reset: resetState,
   };
 
   return (
@@ -98,7 +104,7 @@ export function AccountVerificationFormProvider({ children }) {
   );
 }
 
-function useBasiqConnection({ userId, currentStep }) {
+function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
   const { asPath } = useRouter();
   const token = useClientToken();
 
@@ -106,6 +112,13 @@ function useBasiqConnection({ userId, currentStep }) {
   const [progress, setProgress] = useState();
   const [error, setError] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
+
+  // The estimated time job is expected time to take (in milliseconds)
+  // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
+  const estimatedTime = selectedInstitution
+    ? selectedInstitution.stats.averageDurationMs.verifyCredentials +
+      selectedInstitution.stats.averageDurationMs.retrieveAccounts
+    : undefined;
 
   const completed = !error && progress === 100;
 
@@ -204,6 +217,7 @@ function useBasiqConnection({ userId, currentStep }) {
     deleteBasiqConnection,
     basiqConnection: jobId
       ? {
+          estimatedTime,
           progress,
           stepNameInProgress,
           error,

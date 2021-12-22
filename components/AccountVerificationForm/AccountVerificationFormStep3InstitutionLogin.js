@@ -133,13 +133,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   // State for managing hiding/showing of the resume in background modal
   const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
 
-  // The estimated time job is expected time to take (in milliseconds)
-  // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
-  const estimatedTime =
-    selectedInstitution.stats.averageDurationMs.verifyCredentials +
-    selectedInstitution.stats.averageDurationMs.retrieveAccounts;
-
-  const { error, progress, stepNameInProgress } = basiqConnection;
+  const { error, progress, stepNameInProgress, estimatedTime } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
