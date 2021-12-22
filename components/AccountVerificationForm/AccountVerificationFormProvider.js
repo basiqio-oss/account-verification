@@ -107,6 +107,8 @@ function useBasiqConnection({ userId, currentStep }) {
   const [error, setError] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
 
+  const completed = !error && progress === 100;
+
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
     const jobId = await createConnection({ data, token, userId });
@@ -125,11 +127,11 @@ function useBasiqConnection({ userId, currentStep }) {
     setError(undefined);
   }, [currentStep]);
 
-  console.log({ asPath });
-
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
     if (!token || !jobId || !userId) return;
+    if (!error || completed) return;
+
     setProgress(0);
     setStepNameInProgress('verify-credentials');
 
@@ -176,7 +178,7 @@ function useBasiqConnection({ userId, currentStep }) {
     return () => {
       clearInterval(timer);
     };
-  }, [jobId, token, userId, asPath]);
+  }, [jobId, token, userId, asPath, error, completed]);
 
   useEffect(() => {
     if (asPath !== '/account-verification') {
@@ -184,12 +186,12 @@ function useBasiqConnection({ userId, currentStep }) {
         console.log('TRIGGER ERROR TOAST', error.message, error.name);
         return;
       }
-      if (progress === 100) {
-        console.log('Yew!');
+      if (completed) {
+        console.log('TRIGGER SUCCESS TOAST');
         return;
       }
     }
-  }, [asPath, progress, error]);
+  }, [asPath, progress, completed, error]);
 
   return {
     createBasiqConnection,
@@ -199,7 +201,7 @@ function useBasiqConnection({ userId, currentStep }) {
           progress,
           stepNameInProgress,
           error,
-          completed: !error && progress === 100,
+          completed,
         }
       : undefined,
   };
