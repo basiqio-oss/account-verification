@@ -197,7 +197,7 @@ function useBasiqConnection({ userId, currentStep }) {
       console.log('TRIGGER SUCCESS TOAST');
       return;
     }
-  }, [asPath, progress, completed, error]);
+  }, [asPath, completed, error]);
 
   return {
     createBasiqConnection,
