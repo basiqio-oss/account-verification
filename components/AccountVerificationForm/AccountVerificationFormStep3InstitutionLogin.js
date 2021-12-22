@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useFormState } from 'react-use-form-state';
 import ms from 'ms';
+import { useTernaryState } from '../../utils/useTernaryState';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { VerificationProgress } from '../VerificationProgress';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
+import { AccountVerificationFormResumeInBackgroundModal } from './AccountVerificationFormResumeInBackgroundModal';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
@@ -128,6 +130,9 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
   const { selectedInstitution } = accountVerificationFormState;
 
+  // State for managing hiding/showing of the resume in background modal
+  const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
+
   // The estimated time job is expected time to take (in milliseconds)
   // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
   const estimatedTime =
@@ -161,8 +166,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
                 Usually takes {ms(estimatedTime, { long: true })}
               </p>
             </div>
-            {/* TODO: Hook up "Minimise"-feature, onClick go to Home and listen for connection process to finish/error out */}
-            <Button block variant="subtle">
+            <Button block variant="subtle" onClick={openResumeModal}>
               Resume in background
             </Button>
           </div>
@@ -178,6 +182,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
           </div>
         )}
       </div>
+      <AccountVerificationFormResumeInBackgroundModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );
 }

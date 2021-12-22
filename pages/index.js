@@ -4,12 +4,15 @@ import { Button } from '../components/Button';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
-  const { accountVerificationFormState } = useAccountVerificationForm();
+  const { accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
 
-  const isConnected =
+  const hasVerifiedAccount =
     accountVerificationFormState.user &&
     accountVerificationFormState.selectedInstitution &&
     accountVerificationFormState.selectedAccount;
+
+  const basiqConnectionInProgress = basiqConnection?.progress > 0;
+  const basiqConnectionError = basiqConnectionInProgress ? basiqConnection?.error : undefined;
 
   return (
     <div>
@@ -33,7 +36,7 @@ export default function Home() {
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
-          {isConnected ? (
+          {hasVerifiedAccount ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
               <Link href="/account-verification" passHref>
@@ -47,15 +50,31 @@ export default function Home() {
           ) : (
             <div className="mx-auto w-56">
               {/* CTA to Account Verification flow */}
-              <Link href="/account-verification" passHref>
-                <Button as="a" variant="inverted" block>
-                  Get started
-                </Button>
-              </Link>
+              <div className="relative">
+                {basiqConnectionInProgress && <Indicator error={basiqConnectionError} />}
+                <Link href="/account-verification" passHref>
+                  <Button as="a" variant="inverted" block>
+                    Get started
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
         </div>
       </main>
     </div>
+  );
+}
+
+function Indicator({ error }) {
+  return (
+    <span className="absolute top-0 right-0 transform -translate-y-1/2 translate-x-1/2 flex h-4 w-4">
+      <span
+        className={`absolute animate-ping inline-flex h-full w-full rounded-full ${
+          error ? 'bg-critical-subtle' : 'bg-secondary-bold-lighter'
+        } opacity-75`}
+      />
+      <span className={`inline-flex rounded-full h-full w-full ${error ? 'bg-critical-bold' : 'bg-secondary-bold'}`} />
+    </span>
   );
 }
