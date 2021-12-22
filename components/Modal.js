@@ -30,7 +30,9 @@ export function Modal({ children, isOpen, onClose, initialFocus }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            {children}
+            <div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg space-y-6">
+              {children}
+            </div>
           </Transition.Child>
         </div>
       </Dialog>

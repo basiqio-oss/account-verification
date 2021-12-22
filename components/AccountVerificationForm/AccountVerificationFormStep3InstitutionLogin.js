@@ -7,7 +7,7 @@ import { TextField } from '../TextField';
 import { VerificationProgress } from '../VerificationProgress';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
-import { AccountVerificationFormReumeInBackgroundModal } from './AccountVerificationFormReumeInBackgroundModal';
+import { AccountVerificationFormResumeInBackgroundModal } from './AccountVerificationFormResumeInBackgroundModal';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
@@ -182,7 +182,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
           </div>
         )}
       </div>
-      <AccountVerificationFormReumeInBackgroundModal
+      <AccountVerificationFormResumeInBackgroundModal
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
       />
