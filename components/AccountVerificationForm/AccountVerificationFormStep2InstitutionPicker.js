@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { RadioGroup } from '@headlessui/react';
 import { SearchInput } from '../SearchInput';
-import { Button } from '../Button';
+import { ErrorScene } from '../ErrorScene';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
@@ -10,10 +9,12 @@ import { StepHeading } from './StepHeading';
 export function AccountVerificationFormStep2InstitutionPicker() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
-  const { data, error, loading } = useInstitutionsData();
+  const { data, loading, error, refetch } = useInstitutionsData();
+
+  const errorOrNoData = error || !data || data.length === 0;
 
   // When a user selects a bank, update the form state and push the user to the next step
-  function onChange(selectedInstitution) {
+  function onInstitutionClick(selectedInstitution) {
     updateAccountVerificationFormState({ selectedInstitution });
     goForward();
   }
@@ -45,65 +46,62 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
         {/* INSTITUTIONS */}
         <div className="space-y-3">
-          <SearchInput
-            labelScreenReader="Search"
-            placeholder="Search"
-            value={searchValue}
-            onChange={e => setSearchValue(e.target.value)}
-            disabled={loading || error || !data || data.length === 0}
-          />
+          {(loading || !errorOrNoData) && (
+            <SearchInput
+              labelScreenReader="Search"
+              placeholder="Search"
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
+              disabled={loading}
+            />
+          )}
           {loading ? (
-            // Whilst loading
             <InstitutionsLoadingSkeleton />
-          ) : error || !data || data.length === 0 ? (
-            // Error or no
-            <InstitutionsErrorScene />
+          ) : errorOrNoData ? (
+            <ErrorScene
+              title="Failed to load banks"
+              message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."
+              actionOnClick={refetch}
+            />
           ) : (
-            <form>
+            <>
               {filteredInstitutions.length ? (
-                // TODO: Fix keyboard navigation when switching between radio options
-                <RadioGroup onChange={onChange}>
-                  <RadioGroup.Label className="sr-only">Select bank</RadioGroup.Label>
-                  <div className="space-y-3">
-                    {filteredInstitutions.map(institution => (
-                      <RadioGroup.Option
-                        key={institution.id}
-                        value={institution}
-                        className="relative rounded-lg p-3 cursor-pointer flex border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
-                        data-cy={institution.id}
-                      >
-                        <div className="flex items-center w-full space-x-3">
-                          {/* Institution logo */}
-                          <img
-                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
-                            src={institution.logo.links.square}
-                            alt={`Logo of ${institution.name}`}
+                <div className="space-y-3">
+                  {filteredInstitutions.map(institution => (
+                    <button
+                      key={institution.id}
+                      className="relative flex w-full rounded-lg p-3 cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                      onClick={() => onInstitutionClick(institution)}
+                    >
+                      <div className="flex items-center w-full space-x-3">
+                        {/* Institution logo */}
+                        <img
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
+                          src={institution.logo.links.square}
+                          alt={`Logo of ${institution.name}`}
+                        />
+
+                        {/* Institution shortName */}
+                        <span className="flex flex-grow font-medium">{institution.shortName}</span>
+
+                        {/* Chevron icon */}
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            className="stroke-current text-neutral-muted"
+                            d="M7.5 4.167 13.333 10 7.5 15.833"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
-
-                          {/* Institution shortName */}
-                          <RadioGroup.Label as="p" className="flex flex-grow font-medium">
-                            {institution.shortName}
-                          </RadioGroup.Label>
-
-                          {/* Chevron icon */}
-                          <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              className="stroke-current text-neutral-muted"
-                              d="M7.5 4.167 13.333 10 7.5 15.833"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
+                        </svg>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               ) : (
-                <InstitutionsNoMatchingResults />
+                <NoMatchingResults />
               )}
-            </form>
+            </>
           )}
         </div>
       </div>
@@ -118,23 +116,37 @@ function useInstitutionsData() {
   const [data, setData] = useState();
   const [error, setError] = useState();
 
-  useEffect(() => {
+  const fetchInstitutions = useCallback(() => {
     axios
       .get('/api/institutions')
-      .then(res => setData(res.data))
-      .catch(setError)
-      .finally(() => setLoading(false));
+      .then(res => {
+        setData(res.data);
+        setError(undefined);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
   }, []);
 
-  return { data, loading, error };
+  useEffect(() => {
+    fetchInstitutions();
+  }, [fetchInstitutions]);
+
+  const refetch = useCallback(() => {
+    setLoading(true);
+    fetchInstitutions();
+  }, [fetchInstitutions]);
+
+  return { data, loading, error, refetch };
 }
 
-// LOADING INSTITUTIONS SKELETON
-// Keeps the user visually occupied whilst institutions are loading,
-// making the experience seem quicker than it might be
+// INSTITUTIONS LOADING SKELETON
+// Keeps the user visually occupied whilst loading,
+// making the experience seem quicker than it might be.
+const skeletonItems = [...new Array(10).keys()];
 function InstitutionsLoadingSkeleton() {
-  const skeletonItems = [...new Array(10).keys()];
-
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (
@@ -149,41 +161,8 @@ function InstitutionsLoadingSkeleton() {
   );
 }
 
-// INSTITUTIONS ERROR SCENE
-// If institutions could not be fetched, let the user know and provide ability to try fetching the list again
-function InstitutionsErrorScene() {
-  return (
-    <div className="space-y-6 sm:space-y-8 py-3">
-      <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-16 w-16 text-critical-bold"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
-
-        <div className="space-y-3">
-          <h2 className="font-semibold text-center text-xl tracking-tight">Banks couldn’t be fetched</h2>
-          <p className="text-sm text-center text-neutral-muted-darker">
-            Something went wrong whilst fetching the list of banks. If the problem persists, please contact support.
-          </p>
-        </div>
-      </div>
-      {/* TODO: Hook up button to try and reload list of institutions */}
-      <Button block>Try again</Button>
-    </div>
-  );
-}
-
-// NO MATCHING FILTER RESULTS
-// If institutions could not be fetched, let the user know and provide ability to try fetching the list again
-function InstitutionsNoMatchingResults() {
+// NO MATCHING RESULTS
+function NoMatchingResults() {
   return (
     <div className="space-y-6 sm:space-y-8 py-3">
       <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
@@ -202,7 +181,7 @@ function InstitutionsNoMatchingResults() {
 
         <div className="space-y-3">
           <h2 className="font-semibold text-center text-xl tracking-tight">No matching results</h2>
-          <p className="text-sm text-center text-neutral-muted-darker">
+          <p className="text-sm text-center text-neutral-muted-darker leading-relaxed">
             There were no banks matching your search text. Please double-check spelling again. If the problem persists,
             contact support.
           </p>

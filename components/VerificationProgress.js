@@ -1,5 +1,5 @@
 const diameter = 180;
-const strokeWidth = 6;
+const strokeWidth = 8;
 const center = diameter / 2;
 const pathRadius = center - strokeWidth / 2;
 
@@ -15,15 +15,11 @@ export function VerificationProgress({ label, value = 0, error }) {
     cy: center,
     r: pathRadius,
     strokeWidth: strokeWidth,
-    className: `block stroke-current transition-all duration-500`,
     style: { fillOpacity: 0 },
   };
 
   return (
-    <div
-      className={`relative ${error ? 'text-critical-bold' : 'text-primary-bold'}`}
-      style={{ height: diameter, width: diameter }}
-    >
+    <div className="relative" style={{ height: diameter, width: diameter }}>
       <svg
         aria-valuemin={0}
         aria-valuemax={100}
@@ -32,28 +28,45 @@ export function VerificationProgress({ label, value = 0, error }) {
         role="progressbar"
         viewBox={`0 0 ${diameter} ${diameter}`}
       >
-        <circle {...circleProps} strokeOpacity={0.15} />
-        <circle {...circleProps} strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
+        {/* Background circle */}
+        <circle {...circleProps} className="block stroke-current text-neutral-subtle" />
+        {/* Progress circle */}
+        <circle
+          {...circleProps}
+          className={`block transition-all duration-500 ${error && 'stroke-current text-critical-bold'}`}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          stroke="url(#gradient)"
+          transform={`rotate(-90 ${center} ${center})`}
+        />
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="var(--color-primary-bold)" />
+            <stop offset="100%" stopColor="var(--color-primary-accent)" />
+          </linearGradient>
+        </defs>
       </svg>
       <div className="absolute inset-0 flex justify-center items-center">
         {error ? (
+          // Icon: exclamation-circle
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+            className="h-16 w-16 text-critical-bold"
+            viewBox="0 0 20 20"
+            fill="currentColor"
           >
             <path
-              className="stroke-current"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
             />
           </svg>
         ) : (
-          <span className="text-3xl font-bold">{value}%</span>
+          <span className="text-4xl sm:text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-primary-bold to-primary-accent">
+            {value}
+            <span>%</span>
+          </span>
         )}
       </div>
     </div>

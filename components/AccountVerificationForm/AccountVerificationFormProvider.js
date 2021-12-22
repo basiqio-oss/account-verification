@@ -26,6 +26,7 @@ const AccountVerificationFormContext = createContext({
   createBasiqConnection: undefined,
   // The state of the secure connection to the basiq API
   basiqConnection: undefined,
+  // TODO: resetState
 });
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
@@ -98,12 +99,15 @@ export function AccountVerificationFormProvider({ children }) {
 }
 
 function useBasiqConnection({ userId, currentStep }) {
+  const { asPath } = useRouter();
   const token = useClientToken();
 
   const [jobId, setJobId] = useState();
   const [progress, setProgress] = useState();
   const [error, setError] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
+
+  const completed = !error && progress === 100;
 
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
@@ -125,14 +129,19 @@ function useBasiqConnection({ userId, currentStep }) {
 
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
+    // We can't start a job without this information
     if (!token || !jobId || !userId) return;
+    // If a job was started, but an error occurred or it's finished, we can stop polling
+    if (error || completed) return;
+
     setProgress(0);
+    setStepNameInProgress('verify-credentials');
 
     // Immediately check the status of the job
     checkJobStatus();
 
     // Check the status of the job every 2 seconds
-    const timer = setTimeout(checkJobStatus, 2000);
+    const timer = setInterval(checkJobStatus, 2000);
 
     async function checkJobStatus() {
       try {
@@ -144,19 +153,24 @@ function useBasiqConnection({ userId, currentStep }) {
           ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
         );
 
-        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in_progress' can be '25%'
+        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in-progress' can be '25%'
         const progress = 0;
         for (const step of steps) {
           switch (step.status) {
-            case 'in_progress':
+            case 'pending':
+              progress += 10;
+              break;
+            case 'in-progress':
               setStepNameInProgress(step.title);
-              progress += 25;
+              progress += 30;
+              break;
             case 'success':
               progress += 50;
               break;
             case 'failed':
               setError(newStepError(step.result));
               progress += 50;
+              break;
           }
         }
 
@@ -167,9 +181,23 @@ function useBasiqConnection({ userId, currentStep }) {
     }
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
-  }, [jobId, token, userId]);
+  }, [jobId, token, userId, asPath, error, completed]);
+
+  // If the user has decided to exit and resume process in background we will
+  // trigger a toast when the job finishes processing or an error occurres
+  useEffect(() => {
+    if (asPath === '/account-verification') return;
+    if (error) {
+      console.log('TRIGGER ERROR TOAST', error.message, error.name);
+      return;
+    }
+    if (completed) {
+      console.log('TRIGGER SUCCESS TOAST');
+      return;
+    }
+  }, [asPath, completed, error]);
 
   return {
     createBasiqConnection,
@@ -179,6 +207,7 @@ function useBasiqConnection({ userId, currentStep }) {
           progress,
           stepNameInProgress,
           error,
+          completed,
         }
       : undefined,
   };

@@ -34,6 +34,6 @@ export default async function institutions(req, res) {
 
     res.status(200).json(filteredAndSortedData);
   } catch (error) {
-    res.status(400).json({ message: 'Something went wrong' });
+    res.status(400).json({ message: error.message });
   }
 }

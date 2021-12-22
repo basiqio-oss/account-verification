@@ -49,8 +49,8 @@ module.exports = {
       neutral: {
         subtle: '#F5F8F9', // subtle backgrounds to contrast with default white bg e.g.
         'subtle-darker': '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
-        dim: '#DEE4E7', // User for default border colour
-        'dim-darker': '#BECBD0', // input border, radio circles e.g.
+        dim: '#DEE4E7', // border, divide colour
+        'dim-darker': '#BECBD0', // form input border, radio circles e.g.
         muted: '#7E888E', // muted icons, e.g. in <SearchInput />
         'muted-darker': '#4F6772', // muted text (darker to provide more contrast)
       },
@@ -58,11 +58,20 @@ module.exports = {
       // Critical UI colours
       critical: {
         // Subtle
-        subtle: '#FFE9EB', // <ErrorMessage /> background e.g.
+        subtle: '#FFE9EB', // ErrorMessage and critical Toast background e.g.
 
         // Bold
         bold: '#E8001C', // <Button variant="critical"/> bg, error border colour e.g.
         'bold-darker': '#A30014', // error message text colour (darker to provide more contrast)
+      },
+
+      // Success UI colours
+      success: {
+        // Subtle
+        subtle: '#D9FFE8', // Success Toast background e.g.
+
+        // Bold
+        bold: '#00BD4C', // Success Toast border and icon colour e.g.
       },
     },
 

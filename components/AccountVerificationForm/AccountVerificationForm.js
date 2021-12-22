@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTernaryState } from '../../utils/useTernaryState';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
@@ -24,6 +25,12 @@ export function AccountVerificationForm() {
 
   // State for managing hiding/showing of the cancellation model
   const [isCancellationModalOpen, openCancellationModal, closeCancellationModal] = useTernaryState(false);
+
+  // When the user changes steps, scroll to the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
+
   return (
     <>
       {/* PROGRESS BAR */}
@@ -52,7 +59,7 @@ export function AccountVerificationForm() {
         {currentStep > 0 && currentStep !== totalSteps - 1 ? (
           // TODO: change tabindex so Cancel doesn't get focused first
           <button
-            className="text-xs sm:text-sm text-primary-600 rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="text-xs sm:text-sm text-primary-bold-darker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
             onClick={openCancellationModal}
           >
             Cancel

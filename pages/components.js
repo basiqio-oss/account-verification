@@ -1,19 +1,17 @@
-import Head from 'next/head';
+import { useToasts } from 'react-toast-notifications';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { VerificationProgress } from '../components/VerificationProgress';
+import { SEO } from '../components/SEO';
 
+// This file is for developer use only, to get an overview of all the components
 export default function Components() {
-  // TODO: This file to be removed, for internal dev use only
   return (
     <>
-      <Head>
-        <title>Components</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEO title="Components" />
       <main className="container mx-auto px-6 py-6 space-y-10">
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
@@ -22,6 +20,7 @@ export default function Components() {
         <SectionErrorMessage />
         <SectionProgressBar />
         <SectionVerificationProgress />
+        <SectionToast />
       </main>
     </>
   );
@@ -127,7 +126,41 @@ function SectionVerificationProgress() {
         <VerificationProgress value={60} />
         <VerificationProgress value={80} />
         <VerificationProgress value={100} />
-        <VerificationProgress value={50} error />
+        <VerificationProgress value={100} error />
+      </div>
+    </section>
+  );
+}
+
+function SectionToast() {
+  const { addToast } = useToasts();
+
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">Toast</h2>
+      <div className="flex flex-wrap gap-4">
+        <Button
+          onClick={() =>
+            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
+              title: 'Successfully added toast',
+              appearance: 'success',
+            })
+          }
+        >
+          Open success toast
+        </Button>
+
+        <Button
+          variant="critical"
+          onClick={() =>
+            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
+              title: 'Something went wrong',
+              appearance: 'critical',
+            })
+          }
+        >
+          Open critical toast
+        </Button>
       </div>
     </section>
   );

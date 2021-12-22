@@ -25,7 +25,7 @@ export function AccountVerificationFormStep1PreConsent() {
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
           <StepHeading>
-            Let’s connect your
+            Let&rsquo;s connect your
             {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
             Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
             <br />
@@ -89,12 +89,25 @@ export function AccountVerificationFormStep1PreConsent() {
                 viewBox="0 0 32 32"
               >
                 <path
-                  className="stroke-current text-secondary-bold-darker"
                   d="M20 9.333A2.667 2.667 0 0 1 22.667 12M28 12a8 8 0 0 1-10.324 7.657l-3.01 3.01H12v2.666H9.333V28h-4A1.333 1.333 0 0 1 4 26.667v-3.448c0-.354.14-.693.39-.943l7.953-7.952A8 8 0 1 1 28 12Z"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  stroke="url(#gradient1)"
                 />
+                <defs>
+                  <linearGradient
+                    id="gradient1"
+                    x1="4"
+                    y1="25.3333"
+                    x2="22.0923"
+                    y2="2.07176"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="var(--color-primary-bold)" />
+                    <stop offset="1" stopColor="var(--color-secondary-bold)" />
+                  </linearGradient>
+                </defs>
               </svg>
             </div>
           </li>
@@ -115,12 +128,25 @@ export function AccountVerificationFormStep1PreConsent() {
                 viewBox="0 0 32 32"
               >
                 <path
-                  className="stroke-current text-secondary-bold-darker"
                   d="M4 13.333h24M9.333 20h1.334M16 20h1.333M8 25.333h16a4 4 0 0 0 4-4V10.667a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v10.666a4 4 0 0 0 4 4Z"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  stroke="url(#gradient2)"
                 />
+                <defs>
+                  <linearGradient
+                    id="gradient2"
+                    x1="4"
+                    y1="25.3333"
+                    x2="22.0923"
+                    y2="2.07176"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="var(--color-primary-bold)" />
+                    <stop offset="1" stopColor="var(--color-secondary-bold)" />
+                  </linearGradient>
+                </defs>
               </svg>
             </div>
           </li>
