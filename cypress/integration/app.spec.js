@@ -55,8 +55,8 @@ describe('Account verification form', () => {
     cy.get('#password').should('be.visible').type(fixtures.password);
     // Submit the form
     cy.get('button[type="submit"]').click();
-    // // eslint-disable-next-line cypress/no-unnecessary-waiting
-    // cy.wait(2000);
+    // Wait until the API call to basiq has finished
+    cy.wait('@basiqApi');
     // Proceed to the next step in the from
     cy.contains('Continue').click();
     // Wait until the API call to `/api/accounts` has finished
@@ -66,7 +66,7 @@ describe('Account verification form', () => {
   it('Completes step 4 - SelectAccount', () => {
     // Check the step number
     cy.get('[data-cy=current-step]').contains('5');
-    // Select an account
+    // Select the account
     cy.get(`[data-cy="account-${fixtures.accountNumber}"]`).click();
     // Submiut the form
     cy.get('button[type="submit"]').click();
