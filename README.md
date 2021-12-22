@@ -2,7 +2,7 @@
 
 This application takes a user through the account verification process using the Basiq API. This project has been built with the following technologies
 
-- [Basiq API](https://api.basiq.io/reference/introduction)
+- [Basiq API](https://api.basiq.io)
 - [Next.js](https://github.com/vercel/next.js/)
 - [Tailwind](https://github.com/tailwindlabs/tailwindcss)
 - [HeadlessUI](https://github.com/tailwindlabs/headlessui)
