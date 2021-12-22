@@ -109,10 +109,6 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   );
 }
 
-function myCoolFunction() {
-  return 'Cool';
-}
-
 // Custom react hook for managing our fetch request to retrieves a list institutions
 // The code for this API route can be found in `pages/api/institutions`
 function useInstitutionsData() {
