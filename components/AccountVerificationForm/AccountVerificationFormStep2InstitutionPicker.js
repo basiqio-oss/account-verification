@@ -9,8 +9,9 @@ import { StepHeading } from './StepHeading';
 export function AccountVerificationFormStep2InstitutionPicker() {
   const { goForward, updateAccountVerificationFormState } = useAccountVerificationForm();
   const [searchValue, setSearchValue] = useState('');
-  const { data, error, loading, refetch } = useInstitutionsData();
-  const errorNoData = error || !data || data.length === 0;
+  const { data, loading, error, refetch } = useInstitutionsData();
+
+  const errorOrNoData = error || !data || data.length === 0;
 
   // When a user selects a bank, update the form state and push the user to the next step
   function onInstitutionClick(selectedInstitution) {
@@ -45,18 +46,18 @@ export function AccountVerificationFormStep2InstitutionPicker() {
 
         {/* INSTITUTIONS */}
         <div className="space-y-3">
-          {(loading || !errorNoData) && (
+          {(loading || !errorOrNoData) && (
             <SearchInput
               labelScreenReader="Search"
               placeholder="Search"
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
-              disabled={loading || errorNoData}
+              disabled={loading}
             />
           )}
           {loading ? (
             <InstitutionsLoadingSkeleton />
-          ) : errorNoData ? (
+          ) : errorOrNoData ? (
             <ErrorScene
               title="Failed to load banks"
               message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."

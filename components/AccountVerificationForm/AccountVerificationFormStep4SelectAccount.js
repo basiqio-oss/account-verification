@@ -21,7 +21,8 @@ export function AccountVerificationFormStep4SelectAccount() {
     userId: accountVerificationFormState.user.id,
     institutionId: selectedInstitution?.id,
   });
-  const errorNoData = error || !data || data.length === 0;
+
+  const errorOrNoData = error || !data || data.length === 0;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -53,7 +54,7 @@ export function AccountVerificationFormStep4SelectAccount() {
         </StepHeading>
 
         {/* STEP DESCRIPTION */}
-        {(loading || !errorNoData) && (
+        {(loading || !errorOrNoData) && (
           <StepDescription>
             Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
             accounts.
@@ -62,7 +63,7 @@ export function AccountVerificationFormStep4SelectAccount() {
 
         {loading ? (
           <AccountsLoadingSkeleton />
-        ) : errorNoData ? (
+        ) : errorOrNoData ? (
           <ErrorScene
             title="Failed to load accounts"
             message="Something went wrong whilst loading the list of accounts. If the problem persists, please contact support."
