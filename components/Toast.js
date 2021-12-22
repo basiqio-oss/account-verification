@@ -23,7 +23,7 @@ export function Toast({ title, children, appearance, onDismiss }) {
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-success-bold"
+          className="h-6 w-6 text-success-bold flex-shrink-0"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
