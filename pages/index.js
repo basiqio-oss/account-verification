@@ -4,12 +4,15 @@ import { Button } from '../components/Button';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
-  const { accountVerificationFormState } = useAccountVerificationForm();
+  const { accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
 
   const isConnected =
     accountVerificationFormState.user &&
     accountVerificationFormState.selectedInstitution &&
     accountVerificationFormState.selectedAccount;
+
+  const inProgress = basiqConnection?.progress > 0;
+  const error = basiqConnection?.error;
 
   return (
     <div>
@@ -47,15 +50,35 @@ export default function Home() {
           ) : (
             <div className="mx-auto w-56">
               {/* CTA to Account Verification flow */}
-              <Link href="/account-verification" passHref>
-                <Button as="a" variant="inverted" block>
-                  Get started
-                </Button>
-              </Link>
+              <div className="relative">
+                {inProgress && <Indicator appearance={error ? 'critical' : 'success'} />}
+                <Link href="/account-verification" passHref>
+                  <Button as="a" variant="inverted" block>
+                    Get started
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
         </div>
       </main>
     </div>
+  );
+}
+
+function Indicator({ appearance }) {
+  return (
+    <span className="absolute top-0 right-0 transform -translate-y-1/2 translate-x-1/2 flex h-4 w-4">
+      <span
+        className={`absolute animate-ping inline-flex h-full w-full rounded-full ${
+          appearance === 'critical' ? 'bg-critical-subtle' : 'bg-secondary-bold-lighter'
+        } opacity-75`}
+      />
+      <span
+        className={`inline-flex rounded-full h-full w-full ${
+          appearance === 'critical' ? 'bg-critical-bold' : 'bg-secondary-bold'
+        }`}
+      />
+    </span>
   );
 }

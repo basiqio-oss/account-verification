@@ -99,6 +99,7 @@ export function AccountVerificationFormProvider({ children }) {
 }
 
 function useBasiqConnection({ userId, currentStep }) {
+  const { asPath } = useRouter();
   const token = useClientToken();
 
   const [jobId, setJobId] = useState();
@@ -123,6 +124,8 @@ function useBasiqConnection({ userId, currentStep }) {
     setProgress(undefined);
     setError(undefined);
   }, [currentStep]);
+
+  console.log({ asPath });
 
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
@@ -153,12 +156,14 @@ function useBasiqConnection({ userId, currentStep }) {
             case 'in-progress':
               setStepNameInProgress(step.title);
               progress += 25;
+              break;
             case 'success':
               progress += 50;
               break;
             case 'failed':
               setError(newStepError(step.result));
               progress += 50;
+              break;
           }
         }
 
@@ -171,7 +176,20 @@ function useBasiqConnection({ userId, currentStep }) {
     return () => {
       clearInterval(timer);
     };
-  }, [jobId, token, userId]);
+  }, [jobId, token, userId, asPath]);
+
+  useEffect(() => {
+    if (asPath !== '/account-verification') {
+      if (error) {
+        console.log('TRIGGER ERROR TOAST', error.message, error.name);
+        return;
+      }
+      if (progress === 100) {
+        console.log('Yew!');
+        return;
+      }
+    }
+  }, [asPath, progress, error]);
 
   return {
     createBasiqConnection,
@@ -181,6 +199,7 @@ function useBasiqConnection({ userId, currentStep }) {
           progress,
           stepNameInProgress,
           error,
+          completed: !error && progress === 100,
         }
       : undefined,
   };
