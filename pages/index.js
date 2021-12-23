@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useAccountVerificationForm } from '../components/AccountVerificationForm';
-import { Button, LoadingSpinner } from '../components/Button';
+import { Button } from '../components/Button';
+import { LoadingSpinner } from '../components/LoadingSpinner';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
