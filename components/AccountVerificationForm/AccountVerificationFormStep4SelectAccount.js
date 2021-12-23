@@ -9,6 +9,7 @@ import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
+import { maskAccountNumber } from '../../utils/maskAccountNumber';
 
 export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
@@ -127,7 +128,9 @@ export function AccountVerificationFormStep4SelectAccount() {
                               <RadioGroup.Label as="p" className="font-medium">
                                 {acc.name}
                               </RadioGroup.Label>
-                              <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
+                              <span className="text-neutral-muted-darker text-xs">
+                                {maskAccountNumber(acc.accountNo)}
+                              </span>
                               <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
                                 <dt className="flex-1">Available:</dt>
                                 <dd className="text-right text-black font-medium">
