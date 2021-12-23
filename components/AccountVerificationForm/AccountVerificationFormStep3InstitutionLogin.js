@@ -15,11 +15,11 @@ import { StepDescription } from './StepDescription';
 export function AccountVerificationFormStep3InstitutionLogin() {
   const { basiqConnection } = useAccountVerificationForm();
 
-  if (!basiqConnection) {
-    return <AccountVerificationFormStep3InstitutionLoginForm />;
+  if (basiqConnection.inProgress) {
+    return <AccountVerificationFormStep3InstitutionLoginProgress />;
   }
 
-  return <AccountVerificationFormStep3InstitutionLoginProgress />;
+  return <AccountVerificationFormStep3InstitutionLoginForm />;
 }
 
 function AccountVerificationFormStep3InstitutionLoginForm() {

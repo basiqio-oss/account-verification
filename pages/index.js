@@ -4,12 +4,7 @@ import { Button } from '../components/Button';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
-  const { accountVerificationFormState, basiqConnection, reset } = useAccountVerificationForm();
-
-  const hasVerifiedAccount =
-    accountVerificationFormState.user &&
-    accountVerificationFormState.selectedInstitution &&
-    accountVerificationFormState.selectedAccount;
+  const { basiqConnection, reset, hasCompletedForm } = useAccountVerificationForm();
 
   const basiqConnectionInProgress = basiqConnection?.progress > 0;
   const basiqConnectionError = basiqConnectionInProgress ? basiqConnection?.error : undefined;
@@ -36,7 +31,7 @@ export default function Home() {
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
-          {hasVerifiedAccount ? (
+          {hasCompletedForm ? (
             <div className="mx-auto w-64 space-y-2">
               {/** TODO */}
               <Link href="/account-verification" passHref>
