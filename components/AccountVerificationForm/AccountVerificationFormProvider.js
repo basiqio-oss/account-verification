@@ -215,7 +215,7 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   // We want the job polling experience to be an engaging experience for the user
   // So here we use the estimated job time to calculate the progress
   useEffect(() => {
-    if (!inProgress) return;
+    if (!inProgress || error) return;
     const start = Date.now();
     const timer = setInterval(checkEstimatedProgress, 500);
 
@@ -231,7 +231,7 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     return () => {
       clearInterval(timer);
     };
-  }, [inProgress, estimatedTime]);
+  }, [inProgress, error, estimatedTime]);
 
   // If the job is taking longer than the estimated progress, we will show 95% until the job is raedy
   const progress = inProgress && estimatedProgress >= 95 ? 95 : estimatedProgress;
