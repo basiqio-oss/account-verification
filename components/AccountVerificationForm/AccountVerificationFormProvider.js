@@ -58,6 +58,7 @@ export function AccountVerificationFormProvider({ children }) {
 
   // State for managing the basiq connection
   const { createBasiqConnection, basiqConnection, deleteBasiqConnection } = useBasiqConnection({
+    currentStep,
     userId: accountVerificationFormState.user?.id,
     selectedInstitution: accountVerificationFormState.selectedInstitution,
   });
@@ -115,7 +116,7 @@ export function AccountVerificationFormProvider({ children }) {
   );
 }
 
-function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
+function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   const { addToast } = useToasts();
   const { asPath } = useRouter();
   const token = useClientToken();
