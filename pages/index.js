@@ -1,19 +1,15 @@
 import Link from 'next/link';
 import { useAccountVerificationForm } from '../components/AccountVerificationForm';
-import { Button, LoadingSpinner } from '../components/Button';
+import { Button } from '../components/Button';
+import { LoadingSpinner } from '../components/LoadingSpinner';
 import { SEO } from '../components/SEO';
 
 export default function Home() {
-  const { accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
+  const { basiqConnection, reset, hasCompletedForm } = useAccountVerificationForm();
 
-  const hasVerifiedAccount =
-    accountVerificationFormState.user &&
-    accountVerificationFormState.selectedInstitution &&
-    accountVerificationFormState.selectedAccount;
-
-  const basiqConnectionInProgress = basiqConnection?.progress > 0;
-  const basiqConnectionSuccess = basiqConnection?.progress === 100;
-  const basiqConnectionError = basiqConnectionInProgress ? basiqConnection?.error : undefined;
+  const basiqConnectionInProgress = basiqConnection?.inProgress;
+  const basiqConnectionSuccess = basiqConnection?.completed;
+  const basiqConnectionError = basiqConnection?.error;
 
   return (
     <div>
@@ -37,7 +33,8 @@ export default function Home() {
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
-          {hasVerifiedAccount ? (
+
+          {hasCompletedForm ? (
             <div className="mx-auto w-64 space-y-2 sm:space-y-0">
               {/* VIEW CONNECTED ACCOUNT */}
               {/* It might be a good idea to let the user be able to view a summary of their 
@@ -53,8 +50,7 @@ export default function Home() {
               <div className="relative sm:fixed sm:top-0 sm:right-0 sm:px-6 md:px-8 sm:pt-6 mix-blend-soft-light">
                 <button
                   className="text-xs sm:text-sm text-white rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
-                  // TODO: resetState
-                  onClick={undefined}
+                  onClick={reset}
                 >
                   Reset app
                 </button>

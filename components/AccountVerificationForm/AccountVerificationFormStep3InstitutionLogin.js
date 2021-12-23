@@ -15,11 +15,11 @@ import { StepDescription } from './StepDescription';
 export function AccountVerificationFormStep3InstitutionLogin() {
   const { basiqConnection } = useAccountVerificationForm();
 
-  if (!basiqConnection) {
-    return <AccountVerificationFormStep3InstitutionLoginForm />;
+  if (basiqConnection.inProgress || basiqConnection.completed) {
+    return <AccountVerificationFormStep3InstitutionLoginProgress />;
   }
 
-  return <AccountVerificationFormStep3InstitutionLoginProgress />;
+  return <AccountVerificationFormStep3InstitutionLoginForm />;
 }
 
 function AccountVerificationFormStep3InstitutionLoginForm() {
@@ -127,19 +127,14 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
 }
 
 function AccountVerificationFormStep3InstitutionLoginProgress() {
-  const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
-  const { selectedInstitution } = accountVerificationFormState;
-
   // State for managing hiding/showing of the resume in background modal
   const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
+  const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
 
-  // The estimated time job is expected time to take (in milliseconds)
-  // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
-  const estimatedTime =
-    selectedInstitution.stats.averageDurationMs.verifyCredentials +
-    selectedInstitution.stats.averageDurationMs.retrieveAccounts;
+  const { selectedInstitution } = accountVerificationFormState;
+  if (!selectedInstitution) return null;
 
-  const { error, progress, stepNameInProgress } = basiqConnection;
+  const { error, progress, completed, stepNameInProgress, estimatedTime, reset } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -150,15 +145,24 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
         {error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error.name}</h2>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">{error.message}</p>
+              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error?.name}</h2>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">{error?.message}</p>
             </div>
-            {/* TODO: Hook up "Try again" to go back to InstitutionLogin form */}
-            <Button block onClick={undefined}>
+            <Button block onClick={reset}>
               Try again
             </Button>
           </div>
-        ) : progress !== 100 ? (
+        ) : completed ? (
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
+            </div>
+            <Button block onClick={goForward}>
+              Continue
+            </Button>
+          </div>
+        ) : (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
               <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{STEP_NAME_MAP[stepNameInProgress]}</h2>
@@ -168,16 +172,6 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
             </div>
             <Button block variant="subtle" onClick={openResumeModal}>
               Resume in background
-            </Button>
-          </div>
-        ) : (
-          <div className="w-full space-y-6 sm:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
-            </div>
-            <Button block onClick={goForward}>
-              Continue
             </Button>
           </div>
         )}

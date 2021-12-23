@@ -27,8 +27,12 @@ const AccountVerificationFormContext = createContext({
   createBasiqConnection: undefined,
   // The state of the secure connection to the basiq API
   basiqConnection: undefined,
-  // TODO: resetState
+  // Function to reset the state of the form
+  reset: undefined,
+  // Function to be called when the user has successfully finished all steps
+  hasCompletedForm: undefined,
 });
+
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
 const initialAccountVerificationFormState = {
@@ -44,6 +48,7 @@ export function AccountVerificationFormProvider({ children }) {
   const updateAccountVerificationFormState = newState => {
     setAccountVerificationFormState(oldState => ({ ...oldState, ...newState }));
   };
+  const [hasCompletedForm, setHasCompletedForm] = useState(false);
 
   // State for managing which step of the form to display
   const [currentStep, setCurrentStep] = useState(0);
@@ -51,10 +56,19 @@ export function AccountVerificationFormProvider({ children }) {
   const goBack = () => setCurrentStep(step => (step === 0 ? 0 : step - 1));
   const goForward = () => setCurrentStep(step => (step === totalSteps - 1 ? totalSteps - 1 : currentStep + 1));
 
+  // State for managing the basiq connection
   const { createBasiqConnection, basiqConnection, deleteBasiqConnection } = useBasiqConnection({
-    userId: accountVerificationFormState.user?.id,
     currentStep,
+    userId: accountVerificationFormState.user?.id,
+    selectedInstitution: accountVerificationFormState.selectedInstitution,
   });
+
+  function resetState() {
+    setAccountVerificationFormState(initialAccountVerificationFormState);
+    setCurrentStep(0);
+    setCancelling(false);
+    setHasCompletedForm(false);
+  }
 
   // State for managing cancelling the account verification form
   const [cancelling, setCancelling] = useState(false);
@@ -68,9 +82,7 @@ export function AccountVerificationFormProvider({ children }) {
     try {
       await deleteBasiqConnection();
       router.push('/');
-      setAccountVerificationFormState(initialAccountVerificationFormState);
-      setCurrentStep(0);
-      setCancelling(false);
+      resetState();
     } catch {
       // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset
       window.location = window.location.origin;
@@ -78,7 +90,10 @@ export function AccountVerificationFormProvider({ children }) {
   }
 
   // Called when the user has successfully finished all steps
-  const finish = () => router.push('/');
+  function finish() {
+    setHasCompletedForm(true);
+    router.push('/');
+  }
 
   const contextValue = {
     currentStep,
@@ -92,6 +107,8 @@ export function AccountVerificationFormProvider({ children }) {
     updateAccountVerificationFormState,
     createBasiqConnection,
     basiqConnection,
+    reset: resetState,
+    hasCompletedForm,
   };
 
   return (
@@ -99,20 +116,46 @@ export function AccountVerificationFormProvider({ children }) {
   );
 }
 
-function useBasiqConnection({ userId, currentStep }) {
+function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
+  const { addToast } = useToasts();
   const { asPath } = useRouter();
   const token = useClientToken();
 
   const [jobId, setJobId] = useState();
-  const [progress, setProgress] = useState();
-  const [error, setError] = useState();
+  const [inProgress, setInProgress] = useState(false);
+  const [estimatedProgress, setEstimatedProgress] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
-  const { addToast } = useToasts();
+  const [completed, setCompleted] = useState(false);
+  const [error, setError] = useState();
 
-  const completed = !error && progress === 100;
+  function resetState() {
+    setJobId(undefined);
+    setInProgress(false);
+    setEstimatedProgress(undefined);
+    setStepNameInProgress(undefined);
+    setCompleted(false);
+    setError(undefined);
+  }
+
+  // Reset our state anytime the current step changes
+  useEffect(() => {
+    resetState();
+  }, [currentStep]);
+
+  // The estimated time job is expected time to take (in milliseconds)
+  // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
+  const estimatedTime = selectedInstitution
+    ? selectedInstitution.stats.averageDurationMs.verifyCredentials +
+      selectedInstitution.stats.averageDurationMs.retrieveAccounts
+    : undefined;
 
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
+
+    setInProgress(true);
+    // Optimisic UI. We know the first job basiq will process will always be "verify-credentials"
+    setStepNameInProgress('verify-credentials');
+
     const jobId = await createConnection({ data, token, userId });
     setJobId(jobId);
   }
@@ -122,22 +165,12 @@ function useBasiqConnection({ userId, currentStep }) {
     await deleteConnection({ token, jobId, userId });
   }
 
-  // Everytime the user changes steps, make sure these values get reset
-  useEffect(() => {
-    setJobId(undefined);
-    setProgress(undefined);
-    setError(undefined);
-  }, [currentStep]);
-
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
     // We can't start a job without this information
     if (!token || !jobId || !userId) return;
     // If a job was started, but an error occurred or it's finished, we can stop polling
     if (error || completed) return;
-
-    setProgress(0);
-    setStepNameInProgress('verify-credentials');
 
     // Immediately check the status of the job
     checkJobStatus();
@@ -150,33 +183,25 @@ function useBasiqConnection({ userId, currentStep }) {
         const response = await checkConnectionStatus({ token, jobId });
 
         // In this demo, we only care about the "verify-credentials" and "retrieve-accounts" steps
-        // Once these steps have been completed, we navigate the user to the next step in the form
         const steps = response.data.steps.filter(
           ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
         );
 
-        // Since we know we only have 2 steps, each step in 'success' can be 50% and each step 'in-progress' can be '25%'
-        const progress = 0;
+        // Check which step are in progress or have errored
         for (const step of steps) {
-          switch (step.status) {
-            case 'pending':
-              progress += 10;
-              break;
-            case 'in-progress':
-              setStepNameInProgress(step.title);
-              progress += 30;
-              break;
-            case 'success':
-              progress += 50;
-              break;
-            case 'failed':
-              setError(newStepError(step.result));
-              progress += 50;
-              break;
+          if (step.status === 'in-progress') {
+            setStepNameInProgress(step.title);
+          }
+          if (step.status === 'failed') {
+            setError(newStepError(step.result));
           }
         }
 
-        setProgress(progress);
+        // Check if all steps have been completed
+        const completed = steps.every(step => step.status === 'success');
+        setCompleted(completed);
+        setInProgress(!completed);
+        if (completed) setEstimatedProgress(100);
       } catch (error) {
         setError(error);
       }
@@ -185,11 +210,36 @@ function useBasiqConnection({ userId, currentStep }) {
     return () => {
       clearInterval(timer);
     };
-  }, [jobId, token, userId, asPath, error, completed]);
+  }, [completed, error, jobId, token, userId]);
+
+  // We want the job polling experience to be an engaging experience for the user
+  // So here we use the estimated job time to calculate the progress
+  useEffect(() => {
+    if (!inProgress || error) return;
+    const start = Date.now();
+    const timer = setInterval(checkEstimatedProgress, 500);
+
+    function checkEstimatedProgress() {
+      const progress = Math.round(((Date.now() - start) / estimatedTime) * 100);
+      if (progress >= 100) {
+        clearInterval(timer);
+        return;
+      }
+      setEstimatedProgress(progress);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [inProgress, error, estimatedTime]);
+
+  // If the job is taking longer than the estimated progress, we will show 95% until the job is raedy
+  const progress = inProgress && estimatedProgress >= 95 ? 95 : estimatedProgress;
 
   // If the user has decided to exit and resume process in background we will
   // trigger a toast when the job finishes processing or an error occurres
   useEffect(() => {
+    if (!jobId) return; // Make sure we only trigger the toast when you're on the step 3
     if (asPath === '/account-verification') return;
     if (error) {
       addToast(error.message, {
@@ -205,22 +255,25 @@ function useBasiqConnection({ userId, currentStep }) {
       });
       return;
     }
-  }, [asPath, completed, error]);
+  }, [jobId, addToast, asPath, completed, error]);
 
   return {
+    basiqConnection: {
+      inProgress,
+      progress,
+      stepNameInProgress,
+      estimatedTime,
+      error,
+      completed,
+      reset: resetState,
+    },
     createBasiqConnection,
     deleteBasiqConnection,
-    basiqConnection: jobId
-      ? {
-          progress,
-          stepNameInProgress,
-          error,
-          completed,
-        }
-      : undefined,
   };
 }
 
+// The reason for attatching these properties to the error object is because we will use
+// thes e properties to display information about the error in `AccountVerificationFormStep3InstitutionLogin`
 function newStepError({ detail, title }) {
   const error = new Error();
   error.message = detail;
