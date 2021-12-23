@@ -119,7 +119,6 @@ export function AccountVerificationFormProvider({ children }) {
 function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   const { addToast } = useToasts();
   const { asPath } = useRouter();
-  const token = useClientToken();
 
   const [jobId, setJobId] = useState();
   const [inProgress, setInProgress] = useState(false);
@@ -150,8 +149,8 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     : undefined;
 
   async function createBasiqConnection(data) {
-    if (!userId || !token) return;
-    const jobId = await createConnection({ data, token, userId });
+    if (!userId) return;
+    const jobId = await createConnection({ data, userId });
     setInProgress(true);
     // Optimisic UI. We know the first job basiq will process will always be "verify-credentials"
     setStepNameInProgress('verify-credentials');
@@ -159,14 +158,14 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   }
 
   async function deleteBasiqConnection() {
-    if (!jobId || !userId || !token) return;
-    await deleteConnection({ token, jobId, userId });
+    if (!jobId || !userId) return;
+    await deleteConnection({ jobId, userId });
   }
 
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
     // We can't start a job without this information
-    if (!token || !jobId || !userId) return;
+    if (!jobId || !userId) return;
     // If a job was started, but an error occurred or it's finished, we can stop polling
     if (error || completed) return;
 
@@ -178,7 +177,7 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
 
     async function checkJobStatus() {
       try {
-        const response = await checkConnectionStatus({ token, jobId });
+        const response = await checkConnectionStatus({ jobId });
 
         // In this demo, we only care about the "verify-credentials" and "retrieve-accounts" steps
         const steps = response.data.steps.filter(
@@ -208,7 +207,7 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     return () => {
       clearInterval(timer);
     };
-  }, [completed, error, jobId, token, userId]);
+  }, [completed, error, jobId, userId]);
 
   // We want the job polling experience to be an engaging experience for the user
   // So here we use the estimated job time to calculate the progress
@@ -283,50 +282,22 @@ function newStepError({ detail, title }) {
 // IMPORTANT: Under no circumstance should you store your customers credentials anywhere in your application
 // https://api.basiq.io/reference/create-a-connection
 // https://api.basiq.io/reference/jobs
-async function createConnection({ token, userId, data }) {
-  const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
+async function createConnection({ userId, data }) {
+  const response = await axios.post(`https://au-api.basiq.io/users/${userId}/connections`, data);
   return response.data.id;
 }
 
 // Permanently deletes a connection with the Basiq API
 // Once the connection has been deleted, all of the associated financial data e.g. accounts and transactions can still be accessed via the users end-point
 // https://api.basiq.io/reference/delete-a-connection
-async function deleteConnection({ token, userId, jobId }) {
-  const response = await axios.delete(`https://au-api.basiq.io/users/${userId}/connections/${jobId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
+async function deleteConnection({ userId, jobId }) {
+  const response = await axios.delete(`https://au-api.basiq.io/users/${userId}/connections/${jobId}`);
   return response.data.id;
 }
 
 // Retrieves the details of the connection
 // https://api.basiq.io/reference/retrieve-a-job
-async function checkConnectionStatus({ token, jobId }) {
-  const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
+async function checkConnectionStatus({ jobId }) {
+  const response = await axios.get(`https://au-api.basiq.io/jobs/${jobId}`);
   return response;
-}
-
-function useClientToken() {
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    axios.get('/api/client-token').then(response => setToken(response.data));
-  }, []);
-
-  return token;
 }

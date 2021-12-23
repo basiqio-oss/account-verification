@@ -17,7 +17,6 @@ export function AccountVerificationFormStep0SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
-    console.log('ok..');
     axios
       .post('/api/create-user', formState.values)
       .then(res => {

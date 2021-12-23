@@ -1,17 +1,20 @@
 import Axios from 'axios';
+import { getBasiqAuthorizationHeader } from '../clientAuthentication';
 
 export const axios = Axios.create();
 
-// Inset the "Authorization" header when making requests to the Basiq API directly
-axios.interceptors.request.use(function (request) {
+// Intercept all requests made to the Basiq API and insert a "Authorization" header
+axios.interceptors.request.use(async function (request) {
   const { url, headers } = request;
-  const token = 'XX';
-  if (url?.startsWith('')) {
-    headers.Authorization = `Bearer ${token}`;
+  if (url?.startsWith('https://au-api.basiq.io/')) {
+    headers.Authorization = await getBasiqAuthorizationHeader();
+    headers.Accept = 'application/json';
+    headers['Content-Type'] = 'application/json';
   }
   return request;
 });
 
+// Intercept all responses from the Basiq API and a provide more useful error messages to the user
 axios.interceptors.response.use(
   // Any status code that lie within the range of 2xx cause this function to trigger
   function (response) {
@@ -19,11 +22,17 @@ axios.interceptors.response.use(
   },
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   function (error) {
-    // Provide a more useful error message to the user when calling the Basiq API
     if (error.response.config.url.startsWith('https://au-api.basiq.io/') && error.response.status === 403) {
-      const details = error.response.data.data?.[0];
-      return Promise.reject(details ? Error(details.title + ': ' + details.detail) : error);
+      if (process.env.NODE_ENV !== 'production') {
+        // When in development mode, show a detailed error
+        const details = error.response.data.data?.[0];
+        return Promise.reject(details ? Error(details.title + ': ' + details.detail) : error);
+      } else {
+        // When in production mode, show a generic error
+        return Promise.reject('Something went wrong, please try again. If the problem persists, contact support.');
+      }
     }
+
     return Promise.reject(error);
   }
 );
