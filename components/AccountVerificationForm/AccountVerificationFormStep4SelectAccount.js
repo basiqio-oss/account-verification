@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { maskAccountNumber } from '../../utils/maskAccountNumber';
 import { Button } from '../Button';
 import { ErrorScene } from '../ErrorScene';
 import { ErrorMessage } from '../ErrorMessage';
@@ -9,7 +10,6 @@ import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
-import { maskAccountNumber } from '../../utils/maskAccountNumber';
 
 export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
