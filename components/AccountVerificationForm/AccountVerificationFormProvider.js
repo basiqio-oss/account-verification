@@ -123,7 +123,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
   const [estimatedProgress, setEstimatedProgress] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
   const [completed, setCompleted] = useState(false);
-  const [error, setError] = useState(new Error('fuck'));
+  const [error, setError] = useState();
 
   function resetState() {
     setJobId(undefined);
