@@ -40,7 +40,7 @@ export function AccountVerificationFormStep5Summary() {
       </div>
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         <StepHeading>You&rsquo;re all set!</StepHeading>
 
@@ -50,8 +50,8 @@ export function AccountVerificationFormStep5Summary() {
         </StepDescription>
 
         {/* SUMMARY */}
-        <ul role="list" className="divide-y border-t border-b border-neutral-dim">
-          <li className="py-3 space-x-4 flex items-center">
+        <ul role="list" className="border-t border-b divide-y border-neutral-dim">
+          <li className="flex items-center py-3 space-x-4">
             <div className="flex flex-col flex-grow">
               <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
               <span className="font-medium">{selectedAccount.name}</span>
@@ -65,7 +65,7 @@ export function AccountVerificationFormStep5Summary() {
               {/* Icon: check-circle (https://heroicons.com/) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute -top-2 -right-2 h-6 w-6 text-success-bold border-white bg-white rounded-full"
+                className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -81,7 +81,7 @@ export function AccountVerificationFormStep5Summary() {
 
         {/* We recommend giving the user the ability to remove their 
         bank connection should they wish to. */}
-        <p className="text-xs sm:text-sm text-neutral-muted-darker text-center">
+        <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
           You can manage your bank connections <br />
           in the app settings later.
         </p>

@@ -7,10 +7,10 @@ export function AccountVerificationFormResumeInBackgroundModal({ isOpen, onClose
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalTitle>Exit and resume process in background?</ModalTitle>
       <div className="space-y-2">
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           The process of verifying credentials and fetching accounts will continue in the background.
         </p>
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           You will be notified when it&rsquo;s ready to continue the setup.
         </p>
       </div>

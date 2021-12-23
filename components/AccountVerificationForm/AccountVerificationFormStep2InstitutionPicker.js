@@ -70,7 +70,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                   {filteredInstitutions.map(institution => (
                     <button
                       key={institution.id}
-                      className="relative flex w-full rounded-lg p-3 cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none transition-colors"
+                      className="relative flex w-full p-3 border rounded-lg outline-none cursor-pointer border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
                       onClick={() => onInstitutionClick(institution)}
                       data-cy={`institution-${institution.id}`}
                     >
@@ -151,10 +151,10 @@ function InstitutionsLoadingSkeleton() {
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (
-        <div key={i} className="rounded-lg p-3 flex border border-neutral-subtle-darker animate-pulse">
+        <div key={i} className="flex p-3 border rounded-lg border-neutral-subtle-darker animate-pulse">
           <div className="flex items-center w-full space-x-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-neutral-subtle-darker" />
-            <div className="bg-neutral-subtle-darker rounded h-4 w-48" />
+            <div className="w-48 h-4 rounded bg-neutral-subtle-darker" />
           </div>
         </div>
       ))}
@@ -165,11 +165,11 @@ function InstitutionsLoadingSkeleton() {
 // NO MATCHING RESULTS
 function NoMatchingResults() {
   return (
-    <div className="space-y-6 sm:space-y-8 py-3">
-      <div className="flex flex-col items-center space-y-6 sm:space-y-8 rounded-lg">
+    <div className="py-3 space-y-6 sm:space-y-8">
+      <div className="flex flex-col items-center rounded-lg space-y-6 sm:space-y-8">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-16 w-16 text-neutral-muted"
+          className="w-16 h-16 text-neutral-muted"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -181,8 +181,8 @@ function NoMatchingResults() {
         </svg>
 
         <div className="space-y-3">
-          <h2 className="font-semibold text-center text-xl tracking-tight">No matching results</h2>
-          <p className="text-sm text-center text-neutral-muted-darker leading-relaxed">
+          <h2 className="text-xl font-semibold tracking-tight text-center">No matching results</h2>
+          <p className="text-sm leading-relaxed text-center text-neutral-muted-darker">
             There were no banks matching your search text. Please double-check spelling again. If the problem persists,
             contact support.
           </p>

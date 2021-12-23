@@ -1,6 +1,6 @@
 export function ProgressBar({ value }) {
   return (
-    <div className="relative h-1 sm:h-1.5 md:h-2 w-full bg-white">
+    <div className="relative w-full h-1 bg-white sm:h-1.5 md:h-2">
       <div
         style={{ width: `${value}%` }}
         className={`absolute top-0 left-0 bottom-0 bg-gradient-to-r from-primary-bold to-primary-accent transition-all ${

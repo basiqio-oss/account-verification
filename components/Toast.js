@@ -55,7 +55,7 @@ export function Toast({
         {appearance === 'critical' ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-critical-bold flex-shrink-0"
+            className="flex-shrink-0 w-6 h-6 text-critical-bold"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -68,7 +68,7 @@ export function Toast({
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-success-bold flex-shrink-0"
+            className="flex-shrink-0 w-6 h-6 text-success-bold"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -90,13 +90,13 @@ export function Toast({
         {onDismiss ? (
           <button
             onClick={onDismiss}
-            className="flex w-6 h-6 justify-center items-center rounded hover:opacity-90 active:opacity-75 focus:ring-2 focus:ring-neutral-muted focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none flex-shrink-0"
+            className="flex items-center justify-center flex-shrink-0 w-6 h-6 rounded outline-none hover:opacity-90 active:opacity-75 focus:ring-2 focus:ring-neutral-muted focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
           >
             <span className="sr-only">Dismiss</span>
             {/* Icon: x */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-neutral-muted flex-shrink-0"
+              className="flex-shrink-0 w-5 h-5 text-neutral-muted"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

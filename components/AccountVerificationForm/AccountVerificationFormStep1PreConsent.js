@@ -20,7 +20,7 @@ export function AccountVerificationFormStep1PreConsent() {
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -44,10 +44,10 @@ export function AccountVerificationFormStep1PreConsent() {
         {/* PRE-CONSENT */}
         {/* This section aims to build trust. It's super important to clearly state valid and truthful arguments
         for why it's 100% secure to connect to their bank through the app. */}
-        <ul role="list" className="bg-neutral-subtle rounded-lg border border-neutral-dim divide-y divide-neutral-dim">
+        <ul role="list" className="border rounded-lg bg-neutral-subtle border-neutral-dim divide-y divide-neutral-dim">
           {/* Secure argument 1 */}
-          <li className="px-4 sm:px-6 py-3 bg-gradient-to-tr from-primary-bold to-secondary-bold rounded-t-lg space-x-4 flex items-center">
-            <div className="flex flex-grow text-white font-medium leading-snug">
+          <li className="flex items-center px-4 py-3 rounded-t-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-secondary-bold space-x-4">
+            <div className="flex flex-grow font-medium leading-snug text-white">
               Bank grade 256-bit <br />
               SSL encryption
             </div>
@@ -64,7 +64,7 @@ export function AccountVerificationFormStep1PreConsent() {
                 d="m41.236 11.969.968-.251a1 1 0 0 0-1.019-.748l.05.998ZM24 5.889l.667-.746a1 1 0 0 0-1.334 0l.667.745Zm-17.236 6.08.05-1a1 1 0 0 0-1.018.749l.968.25ZM24 41.243l-.25.968a1 1 0 0 0 .5 0l-.25-.968ZM41.185 10.97c-.392.02-.787.03-1.185.03v2c.431 0 .86-.011 1.286-.033l-.1-1.997ZM40 11a22.91 22.91 0 0 1-15.333-5.857l-1.334 1.49A24.911 24.911 0 0 0 40 13v-2ZM23.333 5.143A22.91 22.91 0 0 1 8 11v2a24.91 24.91 0 0 0 16.667-6.365l-1.334-1.49ZM8 11c-.398 0-.793-.01-1.185-.03l-.101 1.998c.426.022.855.032 1.286.032v-2Zm-2.204.719A25.043 25.043 0 0 0 5 18h2c0-1.998.255-3.935.732-5.781l-1.936-.501ZM5 18c0 11.65 7.968 21.437 18.75 24.212l.5-1.937C14.328 37.722 7 28.715 7 18H5Zm19.25 24.212C35.031 39.437 43 29.65 43 18h-2c0 10.715-7.329 19.722-17.25 22.275l.5 1.937ZM43 18c0-2.168-.276-4.274-.796-6.282l-1.936.501c.477 1.846.732 3.783.732 5.78h2Z"
               />
               <path
-                className="stroke-current text-white"
+                className="text-white stroke-current"
                 d="m18 24 4 4 8-8"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -74,14 +74,14 @@ export function AccountVerificationFormStep1PreConsent() {
           </li>
 
           {/* Secure argument 2 */}
-          <li className="px-4 sm:px-6 py-3 flex items-center">
+          <li className="flex items-center px-4 py-3 sm:px-6">
             <div className="flex flex-grow text-sm">
               We never save your bank <br />
               login credentials in the app
             </div>
 
             {/* Icon: key */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
+            <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
               <svg
                 className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"
                 fill="none"
@@ -113,14 +113,14 @@ export function AccountVerificationFormStep1PreConsent() {
           </li>
 
           {/* Secure argument 3 */}
-          <li className="px-4 sm:px-6 py-3 space-x-4 flex items-center">
+          <li className="flex items-center px-4 py-3 sm:px-6 space-x-4">
             <div className="flex flex-grow text-sm">
               We can not make <br />
               transactions on your behalf
             </div>
 
             {/* Icon: credit-card */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
+            <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
               <svg
                 className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"
                 fill="none"
@@ -154,13 +154,13 @@ export function AccountVerificationFormStep1PreConsent() {
 
         {/* Powered by Basiq API */}
         {/* TODO: Write more */}
-        <p className="text-xs text-neutral-muted-darker text-center max-w-xs mx-auto leading-relaxed">
+        <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
           Powered by open banking platform{' '}
           <a
             target="_blank"
             href="https://basiq.io"
             rel="noopener noreferrer"
-            className="text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="underline rounded outline-none text-primary-bold-darker hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
           >
             basiq.io
           </a>{' '}
