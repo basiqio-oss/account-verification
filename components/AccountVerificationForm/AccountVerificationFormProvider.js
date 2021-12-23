@@ -1,3 +1,4 @@
+import { useToasts } from 'react-toast-notifications';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -106,6 +107,7 @@ function useBasiqConnection({ userId, currentStep }) {
   const [progress, setProgress] = useState();
   const [error, setError] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
+  const { addToast } = useToasts();
 
   const completed = !error && progress === 100;
 
@@ -190,11 +192,17 @@ function useBasiqConnection({ userId, currentStep }) {
   useEffect(() => {
     if (asPath === '/account-verification') return;
     if (error) {
-      console.log('TRIGGER ERROR TOAST', error.message, error.name);
+      addToast(error.message, {
+        title: error.name,
+        appearance: 'success',
+      });
       return;
     }
     if (completed) {
-      console.log('TRIGGER SUCCESS TOAST');
+      addToast('Please continue setup, and select an account to finish.', {
+        title: 'Bank connected',
+        appearance: 'success',
+      });
       return;
     }
   }, [asPath, completed, error]);
