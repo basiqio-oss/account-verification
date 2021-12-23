@@ -4,7 +4,7 @@ export function PasswordField({ id, label, error, ...props }) {
   const [visible, toggleVisibility] = useToggleState(false);
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="text-sm text-black font-medium leading-none block">
+      <label htmlFor={id} className="block text-sm font-medium leading-none text-black">
         {label}
       </label>
       <div className="relative">
@@ -18,20 +18,20 @@ export function PasswordField({ id, label, error, ...props }) {
         />
         <button
           type="button"
-          className="absolute top-0 right-0 h-12 w-12 flex items-center justify-center text-primary-bold"
+          className="absolute top-0 right-0 flex items-center justify-center w-12 h-12 text-primary-bold"
           onClick={toggleVisibility}
         >
           {visible ? <VisibleIcon /> : <NotVisibleIcon />}
         </button>
       </div>
-      {error && <span className="text-sm text-critical-bold-darker block">{error}</span>}
+      {error && <span className="block text-sm text-critical-bold-darker">{error}</span>}
     </div>
   );
 }
 
 function VisibleIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       <path
         strokeLinecap="round"
@@ -45,7 +45,7 @@ function VisibleIcon() {
 
 function NotVisibleIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
