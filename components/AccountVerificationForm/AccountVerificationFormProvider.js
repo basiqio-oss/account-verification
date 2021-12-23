@@ -123,7 +123,21 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
   const [estimatedProgress, setEstimatedProgress] = useState();
   const [stepNameInProgress, setStepNameInProgress] = useState();
   const [completed, setCompleted] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(new Error('fuck'));
+
+  function resetState() {
+    setJobId(undefined);
+    setInProgress(false);
+    setEstimatedProgress(undefined);
+    setStepNameInProgress(undefined);
+    setCompleted(false);
+    setError(undefined);
+  }
+
+  // Reset our state anytime the current step changes
+  useEffect(() => {
+    resetState();
+  }, [currentStep]);
 
   // The estimated time job is expected time to take (in milliseconds)
   // For this demo, we only care about the "verify-credentials" and "retrieve-accounts" step
@@ -134,7 +148,11 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
 
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
+
     setInProgress(true);
+    // Optimisic UI. We know the first job basiq will process will always be "verify-credentials"
+    setStepNameInProgress('verify-credentials');
+
     const jobId = await createConnection({ data, token, userId });
     setJobId(jobId);
   }
@@ -144,24 +162,12 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
     await deleteConnection({ token, jobId, userId });
   }
 
-  // Reset our state anytime the current step changes
-  useEffect(() => {
-    setInProgress(false);
-    setStepNameInProgress(undefined);
-    setJobId(undefined);
-    setEstimatedProgress(undefined);
-    setError(undefined);
-  }, [currentStep]);
-
   // If we have a basiq connection, check the status every 2 seconds
   useEffect(() => {
     // We can't start a job without this information
     if (!token || !jobId || !userId) return;
     // If a job was started, but an error occurred or it's finished, we can stop polling
     if (error || completed) return;
-
-    setInProgress(true);
-    setStepNameInProgress('verify-credentials');
 
     // Immediately check the status of the job
     checkJobStatus();
@@ -181,7 +187,6 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
         // Check which step are in progress or have errored
         for (const step of steps) {
           if (step.status === 'in-progress') {
-            console.log('immm here', step.title);
             setStepNameInProgress(step.title);
           }
           if (step.status === 'failed') {
@@ -190,7 +195,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
         }
 
         // Check if all steps have been completed
-        const completed = steps.every(step => step.status === 'completed' || step.status === 'failed');
+        const completed = steps.every(step => step.status === 'success');
         setCompleted(completed);
         setInProgress(!completed);
         if (completed) setEstimatedProgress(100);
@@ -202,18 +207,17 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
     return () => {
       clearInterval(timer);
     };
-  }, [jobId, token, userId, asPath, error, completed]);
+  }, [completed, error, jobId, token, userId]);
 
-  // We want the job polling experience to be an engaging for the user so we use the estimated job time to calculate the progress
+  // We want the job polling experience to be an engaging experience for the user
+  // So here we use the estimated job time to calculate the progress
   useEffect(() => {
     if (!inProgress) return;
     const start = Date.now();
-    const timer = setInterval(checkEstimatedProgress, 2000);
-    console.log({ start, timer });
+    const timer = setInterval(checkEstimatedProgress, 500);
 
     function checkEstimatedProgress() {
       const progress = Math.round(((Date.now() - start) / estimatedTime) * 100);
-      console.log(progress);
       if (progress >= 100) {
         clearInterval(timer);
         return;
@@ -227,7 +231,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
   }, [inProgress, estimatedTime]);
 
   // If the job is taking longer than the estimated progress, we will show 95% until the job is raedy
-  const progress = inProgress && estimatedProgress > 95 ? 95 : estimatedProgress;
+  const progress = inProgress && estimatedProgress >= 95 ? 95 : estimatedProgress;
 
   // If the user has decided to exit and resume process in background we will
   // trigger a toast when the job finishes processing or an error occurres
@@ -243,10 +247,6 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
     }
   }, [asPath, completed, error]);
 
-  console.log({
-    estimatedProgress,
-  });
-
   return {
     basiqConnection: {
       inProgress,
@@ -255,6 +255,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
       estimatedTime,
       error,
       completed,
+      reset: resetState,
     },
     createBasiqConnection,
     deleteBasiqConnection,

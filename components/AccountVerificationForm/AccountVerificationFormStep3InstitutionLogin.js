@@ -15,7 +15,7 @@ import { StepDescription } from './StepDescription';
 export function AccountVerificationFormStep3InstitutionLogin() {
   const { basiqConnection } = useAccountVerificationForm();
 
-  if (basiqConnection.inProgress) {
+  if (basiqConnection.inProgress || basiqConnection.completed) {
     return <AccountVerificationFormStep3InstitutionLoginProgress />;
   }
 
@@ -133,7 +133,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   // State for managing hiding/showing of the resume in background modal
   const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
 
-  const { error, progress, stepNameInProgress, estimatedTime } = basiqConnection;
+  const { error, progress, completed, stepNameInProgress, estimatedTime, reset } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -141,18 +141,27 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
 
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
         <VerificationProgress value={progress} error={error} />
-        {error ? (
+        {!error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error.name}</h2>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">{error.message}</p>
+              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error?.name}</h2>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">{error?.message}</p>
             </div>
-            {/* TODO: Hook up "Try again" to go back to InstitutionLogin form */}
-            <Button block onClick={undefined}>
+            <Button block onClick={reset}>
               Try again
             </Button>
           </div>
-        ) : progress !== 100 ? (
+        ) : completed ? (
+          <div className="w-full space-y-6 sm:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
+              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
+            </div>
+            <Button block onClick={goForward}>
+              Continue
+            </Button>
+          </div>
+        ) : (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
               <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{STEP_NAME_MAP[stepNameInProgress]}</h2>
@@ -162,16 +171,6 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
             </div>
             <Button block variant="subtle" onClick={openResumeModal}>
               Resume in background
-            </Button>
-          </div>
-        ) : (
-          <div className="w-full space-y-6 sm:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
-            </div>
-            <Button block onClick={goForward}>
-              Continue
             </Button>
           </div>
         )}
