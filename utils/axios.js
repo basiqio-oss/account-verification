@@ -1,9 +1,16 @@
 import Axios from 'axios';
 import { getBasiqAuthorizationHeader } from '../clientAuthentication';
 
+/**
+ * When making API calls from the client, you should always be importing axios from this file rather than "node_modules"
+ * This is because in this file we have set up a custom axios instance with interceptors for managing tokens, error messages etc
+ *
+ * https://axios-http.com/docs/instance
+ * https://axios-http.com/docs/interceptors
+ */
 export const axios = Axios.create();
 
-// Intercept all requests made to the Basiq API and insert a "Authorization" header
+// Intercept all requests made to the Basiq API and insert a "Authorization" header and other common headers
 axios.interceptors.request.use(async function (request) {
   const { url, headers } = request;
   if (url?.startsWith('https://au-api.basiq.io/')) {
