@@ -141,7 +141,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
 
       <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
         <VerificationProgress value={progress} error={error} />
-        {!error ? (
+        {error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
               <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error?.name}</h2>
