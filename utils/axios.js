@@ -36,7 +36,9 @@ axios.interceptors.response.use(
         return Promise.reject(details ? Error(details.title + ': ' + details.detail) : error);
       } else {
         // When in production mode, show a generic error
-        return Promise.reject('Something went wrong, please try again. If the problem persists, contact support.');
+        return Promise.reject(
+          Error('Something went wrong, please try again. If the problem persists, contact support.')
+        );
       }
     }
 
