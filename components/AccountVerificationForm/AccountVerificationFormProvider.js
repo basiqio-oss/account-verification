@@ -179,23 +179,33 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
       try {
         const response = await checkConnectionStatus({ jobId });
 
+        // A job contains multiple steps which can either be "pending" | "in-progress" | "success" | "failed"
         // In this demo, we only care about the "verify-credentials" and "retrieve-accounts" steps
-        const steps = response.data.steps.filter(
+        const filteredSteps = response.data.steps.filter(
           ({ title }) => title === 'verify-credentials' || title === 'retrieve-accounts'
         );
 
-        // Check which step are in progress or have errored
-        for (const step of steps) {
+        // Check which step is in progress or if any steps have failed
+        let stepError;
+        for (const step of filteredSteps) {
           if (step.status === 'in-progress') {
             setStepNameInProgress(step.title);
+            break;
           }
           if (step.status === 'failed') {
-            setError(newStepError(step.result));
+            stepError = newStepError(step.result);
+            break;
           }
         }
 
+        if (stepError) {
+          setError(stepError);
+          return;
+        }
+
         // Check if all steps have been completed
-        const completed = steps.every(step => step.status === 'success');
+        const completed = filteredSteps.every(step => step.status === 'success');
+
         setCompleted(completed);
         setInProgress(!completed);
         if (completed) setEstimatedProgress(100);
