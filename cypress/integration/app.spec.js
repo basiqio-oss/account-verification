@@ -25,8 +25,6 @@ describe('Account verification form', () => {
     cy.get('#email').should('be.visible').type(fixtures.email);
     // Submit the form
     cy.get('button[type="submit"]').click();
-    // Wait until the request to `/api/create-user` has finished
-    cy.wait('@api');
   });
 
   it('Completes step 1 - PreConsent', () => {
