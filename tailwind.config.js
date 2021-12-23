@@ -68,10 +68,10 @@ module.exports = {
       // Success UI colours
       success: {
         // Subtle
-        subtle: '#D9FFE8', // Success Toast background e.g.
+        subtle: '#D6FFEB', // Success Toast background e.g.
 
         // Bold
-        bold: '#00BD4C', // Success Toast border and icon colour e.g.
+        bold: '#00BD62', // Success Toast border and icon colour e.g.
       },
     },
 

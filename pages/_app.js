@@ -5,7 +5,7 @@ import '../styles.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <ToastProvider components={{ Toast }} autoDismiss={true}>
+    <ToastProvider components={{ Toast }} autoDismiss autoDismissTimeout={10000} placement="top-center">
       <AccountVerificationFormProvider>
         <Component {...pageProps} />
       </AccountVerificationFormProvider>

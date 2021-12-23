@@ -81,7 +81,7 @@ export function AccountVerificationForm() {
 
       {/** Debugging */}
       {process.env.NODE_ENV !== 'production' && (
-        <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-muted-darker">
+        <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-dim-darker">
           <button onClick={goBack}>Prev</button>
           <button onClick={goForward}>Next</button>
         </div>

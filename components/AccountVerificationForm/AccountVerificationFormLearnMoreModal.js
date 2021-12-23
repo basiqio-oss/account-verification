@@ -17,11 +17,11 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         <div className="px-8">
           <div className="h-4 rounded-t-lg border-t border-l border-r border-dashed border-neutral-dim"></div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           {/* Product logo - square */}
           <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
           {/* Security icon (shield-check) + Basiq logo */}
-          <div className="flex flex-col justify-center items-center space-y-1 -m-2">
+          <div className="flex flex-col justify-center items-center space-y-1">
             <svg
               className="w-12 h-12 flex-no-shrink"
               fill="none"
