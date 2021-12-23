@@ -238,6 +238,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
   // If the user has decided to exit and resume process in background we will
   // trigger a toast when the job finishes processing or an error occurres
   useEffect(() => {
+    if (!jobId) return; // Make sure we only trigger the toast when you're on the step 3
     if (asPath === '/account-verification') return;
     if (error) {
       addToast(error.message, {
@@ -253,7 +254,7 @@ function useBasiqConnection({ userId, currentStep, selectedInstitution }) {
       });
       return;
     }
-  }, [addToast, asPath, completed, error]);
+  }, [jobId, addToast, asPath, completed, error]);
 
   return {
     basiqConnection: {
