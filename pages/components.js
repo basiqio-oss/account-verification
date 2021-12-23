@@ -6,6 +6,7 @@ import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { VerificationProgress } from '../components/VerificationProgress';
 import { SEO } from '../components/SEO';
+import { LoadingSpinner } from '../components/LoadingSpinner';
 
 // This file is for developer use only, to get an overview of all the components
 export default function Components() {
@@ -15,6 +16,7 @@ export default function Components() {
       <main className="container mx-auto px-6 py-6 space-y-10">
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
+        <SectionLoadingSpinner />
         <SectionTextField />
         <SectionSearchInput />
         <SectionErrorMessage />
@@ -72,6 +74,17 @@ function SectionButtons() {
 
       <div>
         <Button block>Block</Button>
+      </div>
+    </section>
+  );
+}
+
+function SectionLoadingSpinner() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">LoadingSpinner</h2>
+      <div className="space-x-4">
+        <LoadingSpinner />
       </div>
     </section>
   );
