@@ -1,7 +1,7 @@
 import { useToasts } from 'react-toast-notifications';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+import { axios } from '../../utils/axios';
 import { FORM_COMPONENTS } from './AccountVerificationForm';
 
 const AccountVerificationFormContext = createContext({
@@ -151,12 +151,10 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
 
   async function createBasiqConnection(data) {
     if (!userId || !token) return;
-
+    const jobId = await createConnection({ data, token, userId });
     setInProgress(true);
     // Optimisic UI. We know the first job basiq will process will always be "verify-credentials"
     setStepNameInProgress('verify-credentials');
-
-    const jobId = await createConnection({ data, token, userId });
     setJobId(jobId);
   }
 

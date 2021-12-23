@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useFormState } from 'react-use-form-state';
+import { axios } from '../../utils/axios';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { ErrorMessage } from '../ErrorMessage';
@@ -17,6 +17,7 @@ export function AccountVerificationFormStep0SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
+    console.log('ok..');
     axios
       .post('/api/create-user', formState.values)
       .then(res => {
