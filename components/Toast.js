@@ -45,7 +45,7 @@ export function Toast({
           ...getTransitionStyles(placement, transitionState),
           transition: `transform ${transitionDuration}ms cubic-bezier(0.2, 0, 0, 1), opacity ${transitionDuration}ms`,
         }}
-        className={`flex space-x-3 w-72 sm:w-96 rounded-lg border-2 text-black p-3 shadow-md ${
+        className={`flex space-x-3 w-72 sm:w-96 rounded-lg text-black p-3 shadow-lg border-l-8 ${
           appearance === 'critical'
             ? 'bg-critical-subtle border-critical-bold'
             : 'bg-success-subtle border-success-bold'
@@ -82,8 +82,8 @@ export function Toast({
 
         {/* Toast content */}
         <div className="flex flex-col flex-grow space-y-1">
-          {title && <span className="font-medium">{title}</span>}
-          {children && <span className="text-xs">{children}</span>}
+          {title && <span className="font-medium leading-normal">{title}</span>}
+          {children && <span className="text-sm">{children}</span>}
         </div>
 
         {/* Dismiss */}
