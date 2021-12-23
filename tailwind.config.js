@@ -1,9 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     // THEME
     // To easily see what styles are used where, you can search the codebase for `text-primary-bold` e.g.
@@ -84,12 +82,6 @@ module.exports = {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
     extend: {},
-  },
-  variants: {
-    extend: {
-      // Extending ring-{colour} variants to support :hover and :active styles
-      ringColor: ['hover', 'active'],
-    },
   },
   plugins: [],
 };
