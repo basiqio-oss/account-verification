@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { RadioGroup } from '@headlessui/react';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { maskAccountNumber } from '../../utils/maskAccountNumber';
 import { Button } from '../Button';
 import { ErrorScene } from '../ErrorScene';
 import { ErrorMessage } from '../ErrorMessage';
@@ -127,7 +128,9 @@ export function AccountVerificationFormStep4SelectAccount() {
                               <RadioGroup.Label as="p" className="font-medium">
                                 {acc.name}
                               </RadioGroup.Label>
-                              <span className="text-neutral-muted-darker text-xs">{acc.accountNo}</span>
+                              <span className="text-neutral-muted-darker text-xs">
+                                {maskAccountNumber(acc.accountNo)}
+                              </span>
                               <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
                                 <dt className="flex-1">Available:</dt>
                                 <dd className="text-right text-black font-medium">
