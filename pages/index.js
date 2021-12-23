@@ -62,7 +62,7 @@ export default function Home() {
               <div className="relative">
                 {/* Indicator */}
                 {basiqConnectionInProgress && (
-                  <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md transform -translate-y-1/2 translate-x-1/2">
+                  <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md -translate-y-1/2 translate-x-1/2">
                     {basiqConnectionSuccess || basiqConnectionError ? (
                       <IndicatorConnectionFinished error={basiqConnectionError} />
                     ) : (
