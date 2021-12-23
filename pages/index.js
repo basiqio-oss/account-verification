@@ -14,8 +14,8 @@ export default function Home() {
   return (
     <div>
       <SEO />
-      <main className="bg-gradient-to-tr from-primary-bold to-primary-accent min-h-screen flex flex-col justify-center">
-        <div className="mx-auto max-w-md px-4 pt-8 pb-14 text-center space-y-6">
+      <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
+        <div className="max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
@@ -23,19 +23,19 @@ export default function Home() {
           </div>
 
           {/* Product heading */}
-          <h1 className="text-white text-2xl sm:text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
             Start optimising <br />
             your savings
           </h1>
 
           {/* Product short description */}
-          <p className="text-white text-sm sm:text-base text-opacity-90 leading-relaxed">
+          <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
             Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
             account.
           </p>
 
           {hasCompletedForm ? (
-            <div className="mx-auto w-64 space-y-2 sm:space-y-0">
+            <div className="w-64 mx-auto space-y-2 sm:space-y-0">
               {/* VIEW CONNECTED ACCOUNT */}
               {/* It might be a good idea to let the user be able to view a summary of their 
               connected bank accounts. */}
@@ -49,7 +49,7 @@ export default function Home() {
               {/* For developer use only; this will reset state and delete connection */}
               <div className="relative sm:fixed sm:top-0 sm:right-0 sm:px-6 md:px-8 sm:pt-6 mix-blend-soft-light">
                 <button
-                  className="text-xs sm:text-sm text-white rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                  className="text-xs text-white rounded outline-none sm:text-sm hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                   onClick={reset}
                 >
                   Reset app
@@ -57,12 +57,12 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="mx-auto w-56">
+            <div className="w-56 mx-auto">
               {/* CTA to Account Verification flow */}
               <div className="relative">
                 {/* Indicator */}
                 {basiqConnectionInProgress && (
-                  <span className="absolute top-0 right-0 transform -translate-y-1/2 translate-x-1/2 flex h-6 w-6 shadow-md rounded-full">
+                  <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md transform -translate-y-1/2 translate-x-1/2">
                     {basiqConnectionSuccess || basiqConnectionError ? (
                       <IndicatorConnectionFinished error={basiqConnectionError} />
                     ) : (
@@ -87,7 +87,7 @@ export default function Home() {
 
 function IndicatorConnectionInProgress() {
   return (
-    <span className="inline-flex rounded-full h-full w-full text-white items-center justify-center p-1 bg-primary-bold">
+    <span className="inline-flex items-center justify-center w-full h-full p-1 text-white rounded-full bg-primary-bold">
       <LoadingSpinner />
     </span>
   );
@@ -109,7 +109,7 @@ function IndicatorConnectionFinished({ error }) {
         {error ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-critical-subtle"
+            className="w-5 h-5 text-critical-subtle"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -122,7 +122,7 @@ function IndicatorConnectionFinished({ error }) {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-success-subtle"
+            className="w-5 h-5 text-success-subtle"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

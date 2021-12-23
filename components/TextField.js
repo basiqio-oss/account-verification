@@ -1,7 +1,7 @@
 export function TextField({ id, label, type = 'text', error, ...props }) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="text-sm text-black font-medium leading-none block">
+      <label htmlFor={id} className="block text-sm font-medium leading-none text-black">
         {label}
       </label>
       <input
@@ -12,7 +12,7 @@ export function TextField({ id, label, type = 'text', error, ...props }) {
         id={id}
         {...props}
       />
-      {error && <span className="text-sm text-critical-bold-darker block">{error}</span>}
+      {error && <span className="block text-sm text-critical-bold-darker">{error}</span>}
     </div>
   );
 }

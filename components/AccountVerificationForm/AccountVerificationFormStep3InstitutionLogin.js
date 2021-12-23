@@ -73,7 +73,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -101,7 +101,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
                       href={selectedInstitution.forgottenPasswordUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block text-xs text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+                      className="inline-block text-xs underline rounded outline-none text-primary-bold-darker hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                     >
                       Forgot password?
                     </a>
@@ -140,12 +140,12 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8 items-center text-center">
+      <div className="flex flex-col items-center justify-center flex-grow text-center space-y-6 sm:space-y-8">
         <VerificationProgress value={progress} error={error} />
         {error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{error?.name}</h2>
+              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{error?.name}</h2>
               <p className="text-sm sm:text-base text-neutral-muted-darker">{error?.message}</p>
             </div>
             <Button block onClick={reset}>
@@ -155,7 +155,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
         ) : completed ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="font-semibold text-xl sm:text-2xl tracking-tight">Connected 🎉</h3>
+              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">Connected 🎉</h3>
               <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
             </div>
             <Button block onClick={goForward}>
@@ -165,7 +165,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
         ) : (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="font-semibold text-xl sm:text-2xl tracking-tight">{STEP_NAME_MAP[stepNameInProgress]}</h2>
+              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
               <p className="text-sm sm:text-base text-neutral-muted-darker">
                 Usually takes {ms(estimatedTime, { long: true })}
               </p>

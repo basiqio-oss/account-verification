@@ -47,12 +47,12 @@ export function VerificationProgress({ label, value = 0, error }) {
           </linearGradient>
         </defs>
       </svg>
-      <div className="absolute inset-0 flex justify-center items-center">
+      <div className="absolute inset-0 flex items-center justify-center">
         {error ? (
           // Icon: exclamation-circle
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 text-critical-bold"
+            className="w-16 h-16 text-critical-bold"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -63,7 +63,7 @@ export function VerificationProgress({ label, value = 0, error }) {
             />
           </svg>
         ) : (
-          <span className="text-4xl sm:text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-tr from-primary-bold to-primary-accent">
+          <span className="text-4xl font-semibold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-tr from-primary-bold to-primary-accent">
             {value}
             <span>%</span>
           </span>

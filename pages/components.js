@@ -13,7 +13,7 @@ export default function Components() {
   return (
     <>
       <SEO title="Components" />
-      <main className="container mx-auto px-6 py-6 space-y-10">
+      <main className="container px-6 py-6 mx-auto space-y-10">
         <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
         <SectionButtons />
         <SectionLoadingSpinner />

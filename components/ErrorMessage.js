@@ -1,9 +1,9 @@
 export function ErrorMessage({ message }) {
   return (
-    <div role="alert" className="bg-critical-subtle p-3 rounded-lg border-2 border-critical-bold flex space-x-3">
+    <div role="alert" className="flex p-3 border-2 rounded-lg bg-critical-subtle border-critical-bold space-x-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-critical-bold flex-shrink-0"
+        className="flex-shrink-0 w-6 h-6 text-critical-bold"
         viewBox="0 0 20 20"
         fill="currentColor"
       >

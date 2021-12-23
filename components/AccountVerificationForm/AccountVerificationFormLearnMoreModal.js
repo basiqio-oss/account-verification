@@ -15,13 +15,13 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="space-y-2">
         {/* Dashed line - top */}
         <div className="px-8">
-          <div className="h-4 rounded-t-lg border-t border-l border-r border-dashed border-neutral-dim"></div>
+          <div className="h-4 border-t border-l border-r border-dashed rounded-t-lg border-neutral-dim"></div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           {/* Product logo - square */}
           <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
           {/* Security icon (shield-check) + Basiq logo */}
-          <div className="flex flex-col justify-center items-center space-y-1">
+          <div className="flex flex-col items-center justify-center space-y-1">
             <svg
               className="w-12 h-12 flex-no-shrink"
               fill="none"
@@ -47,20 +47,20 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         </div>
         {/* Dashed line - bottom */}
         <div className="px-8">
-          <div className="h-4 rounded-b-lg border-b border-l border-r border-dashed border-neutral-dim"></div>
+          <div className="h-4 border-b border-l border-r border-dashed rounded-b-lg border-neutral-dim"></div>
         </div>
       </div>
 
       {/* Secure argument 1 - Detail */}
-      <div className="space-y-2 text-left">
-        <h4 className="text-md font-semibold leading-snug">Bank grade 256-bit SSL encryption</h4>
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+      <div className="text-left space-y-2">
+        <h4 className="font-semibold leading-snug text-md">Bank grade 256-bit SSL encryption</h4>
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           Powered by leading open banking platform {/* TODO: remove auto-focus on link when opening modal */}
           <a
             target="_blank"
             href="https://basiq.io"
             rel="noopener noreferrer"
-            className="text-primary-bold-darker underline rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="underline rounded outline-none text-primary-bold-darker hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
           >
             basiq.io
           </a>
@@ -70,26 +70,26 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       </div>
 
       {/* Secure argument 2 - Detail */}
-      <div className="space-y-2 text-left">
-        <h4 className="text-md font-semibold leading-snug">We never save your bank login credentials in the app</h4>
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+      <div className="text-left space-y-2">
+        <h4 className="font-semibold leading-snug text-md">We never save your bank login credentials in the app</h4>
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           Credentials are stored using an AES 256-bit encryption envelope, which means they can never be made accessible
           to anyone.
         </p>
       </div>
 
       {/* Secure argument 3 - Detail */}
-      <div className="space-y-2 text-left">
-        <h4 className="text-md font-semibold leading-snug">We can not transact on your behalf</h4>
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+      <div className="text-left space-y-2">
+        <h4 className="font-semibold leading-snug text-md">We can not transact on your behalf</h4>
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           You only give Piper permission to verify the details of the account to deduct the nominated regular fee from.
         </p>
       </div>
 
       {/* Secure argument 4 - Detail */}
-      <div className="space-y-2 text-left">
-        <h4 className="text-md font-semibold leading-snug">We don’t sell your data</h4>
-        <p className="text-sm text-neutral-muted-darker leading-relaxed">
+      <div className="text-left space-y-2">
+        <h4 className="font-semibold leading-snug text-md">We don’t sell your data</h4>
+        <p className="text-sm leading-relaxed text-neutral-muted-darker">
           We don’t sell your personal data, nor do we share it unless you ask us to. All your data is 100% stored
           securely.
         </p>

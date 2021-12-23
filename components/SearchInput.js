@@ -2,11 +2,11 @@ export function SearchInput({ labelScreenReader, ...props }) {
   return (
     <div className="relative">
       {/* Search label (for screen readers only) and icon */}
-      <label htmlFor="search" className="absolute top-auto left-0 h-12 w-12 flex items-center justify-center">
+      <label htmlFor="search" className="absolute left-0 top-auto flex items-center justify-center w-12 h-12">
         <span className="sr-only">{labelScreenReader}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className="w-6 h-6"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -25,7 +25,7 @@ export function SearchInput({ labelScreenReader, ...props }) {
       <input
         id="search"
         type="search"
-        className="w-full h-12 pl-11 pr-3 bg-white placeholder-neutral-muted text-black text-base outline-none rounded-lg border border-neutral-dim-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+        className="w-full h-12 pr-3 text-base text-black bg-white border rounded-lg outline-none pl-11 placeholder-neutral-muted border-neutral-dim-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
         {...props}
       />
     </div>

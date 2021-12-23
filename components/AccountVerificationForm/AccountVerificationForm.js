@@ -36,16 +36,16 @@ export function AccountVerificationForm() {
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
-      <div className="fixed top-0 right-0 left-0 z-10">
+      <div className="fixed top-0 left-0 right-0 z-10">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
-        <div className="bg-gradient-to-b from-white to-transparent h-4 block" />
+        <div className="block h-4 bg-gradient-to-b from-white to-transparent" />
       </div>
 
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
-      <div className="absolute left-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
+      <div className="absolute left-0 px-4 pt-6 sm:px-6 md:px-8 sm:pt-8 md:fixed">
         <span className="text-xs sm:text-sm text-neutral-muted-darker">
           <span data-cy="current-step">{currentStep + 1}</span> of {totalSteps}
         </span>
@@ -54,12 +54,12 @@ export function AccountVerificationForm() {
       {/* CANCEL BANK CONNECTION */}
       {/* Important to not lock the user in. They should be able to regret 
       their decision to connect with a bank at any point. */}
-      <div className="absolute right-0 px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:fixed">
+      <div className="absolute right-0 px-4 pt-6 sm:px-6 md:px-8 sm:pt-8 md:fixed">
         {/* Show Cancel button unless the user is on the first or last step */}
         {currentStep > 0 && currentStep !== totalSteps - 1 ? (
           // TODO: change tabindex so Cancel doesn't get focused first
           <button
-            className="text-xs sm:text-sm text-primary-bold-darker rounded hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none"
+            className="text-xs rounded outline-none sm:text-sm text-primary-bold-darker hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
             onClick={openCancellationModal}
           >
             Cancel
@@ -67,7 +67,7 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      <div className="min-h-screen flex flex-col mx-auto max-w-md px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
+      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-16 mx-auto sm:px-6 sm:pt-8">
         <Component />
       </div>
 
@@ -81,7 +81,7 @@ export function AccountVerificationForm() {
 
       {/** Debugging */}
       {process.env.NODE_ENV !== 'production' && (
-        <div className="sm:fixed bottom-6 left-6 space-x-6 text-sm text-neutral-dim-darker">
+        <div className="text-sm sm:fixed bottom-6 left-6 space-x-6 text-neutral-dim-darker">
           <button onClick={goBack}>Prev</button>
           <button onClick={goForward}>Next</button>
         </div>

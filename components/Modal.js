@@ -30,7 +30,7 @@ export function Modal({ children, isOpen, onClose, initialFocus }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg space-y-6">
+            <div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden align-middle bg-white rounded-lg shadow-xl transition-all transform space-y-6">
               {children}
             </div>
           </Transition.Child>
@@ -42,7 +42,7 @@ export function Modal({ children, isOpen, onClose, initialFocus }) {
 
 export function ModalTitle({ children }) {
   return (
-    <Dialog.Title as="h3" className="text-2xl font-semibold tracking-tight leading-tight">
+    <Dialog.Title as="h3" className="text-2xl font-semibold leading-tight tracking-tight">
       {children}
     </Dialog.Title>
   );

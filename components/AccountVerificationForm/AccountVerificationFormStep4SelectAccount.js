@@ -101,7 +101,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                               // Lock icon
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
+                                className="w-6 h-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -128,12 +128,12 @@ export function AccountVerificationFormStep4SelectAccount() {
                               <RadioGroup.Label as="p" className="font-medium">
                                 {acc.name}
                               </RadioGroup.Label>
-                              <span className="text-neutral-muted-darker text-xs">
+                              <span className="text-xs text-neutral-muted-darker">
                                 {maskAccountNumber(acc.accountNo)}
                               </span>
-                              <dl className="grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker text-xs">
+                              <dl className="text-xs grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker">
                                 <dt className="flex-1">Available:</dt>
-                                <dd className="text-right text-black font-medium">
+                                <dd className="font-medium text-right text-black">
                                   {formatCurrency(acc.availableFunds)}
                                 </dd>
                                 <dt className="flex-1">Balance:</dt>
@@ -199,12 +199,12 @@ function AccountsLoadingSkeleton() {
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (
-        <div key={i} className="rounded-lg p-3 flex border border-neutral-subtle-darker animate-pulse">
+        <div key={i} className="flex p-3 border rounded-lg border-neutral-subtle-darker animate-pulse">
           <div className="flex space-x-3">
-            <span className="w-6 h-6 rounded-full border-2 border-neutral-subtle-darker" />
+            <span className="w-6 h-6 border-2 rounded-full border-neutral-subtle-darker" />
             <div className="flex-grow space-y-2">
-              <div className="bg-neutral-subtle-darker rounded h-6 w-48" />
-              <div className="bg-neutral-subtle-darker rounded h-4 w-32" />
+              <div className="w-48 h-6 rounded bg-neutral-subtle-darker" />
+              <div className="w-32 h-4 rounded bg-neutral-subtle-darker" />
               <div className="grid gap-y-0.5">
                 <div className="h-4" />
                 <div className="h-4" />

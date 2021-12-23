@@ -38,7 +38,7 @@ export function AccountVerificationFormStep0SignUp() {
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
         <StepHeading>
@@ -69,7 +69,7 @@ export function AccountVerificationFormStep0SignUp() {
             />
 
             {/* Terms and Conditions */}
-            <p className="text-xs text-neutral-muted-darker text-center max-w-xs mx-auto leading-relaxed">
+            <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>
 
