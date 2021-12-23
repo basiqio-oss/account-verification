@@ -6,10 +6,9 @@ import { StepDescription } from './StepDescription';
 import { StepLogo } from './StepLogo';
 
 export function AccountVerificationFormStep5Summary() {
-  const { finish, accountVerificationFormState } = useAccountVerificationForm();
+  const { finish, hasCompletedForm } = useAccountVerificationForm();
 
-  const { selectedInstitution, selectedAccount } = accountVerificationFormState;
-  if (!selectedInstitution || !selectedAccount) return null;
+  if (!hasCompletedForm) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">

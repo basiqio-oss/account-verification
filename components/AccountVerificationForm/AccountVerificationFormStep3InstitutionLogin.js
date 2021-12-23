@@ -127,11 +127,12 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
 }
 
 function AccountVerificationFormStep3InstitutionLoginProgress() {
-  const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
-  const { selectedInstitution } = accountVerificationFormState;
-
   // State for managing hiding/showing of the resume in background modal
   const [isResumeModalOpen, openResumeModal, closeResumeModal] = useTernaryState(false);
+  const { goForward, accountVerificationFormState, basiqConnection } = useAccountVerificationForm();
+
+  const { selectedInstitution } = accountVerificationFormState;
+  if (!selectedInstitution) return null;
 
   const { error, progress, completed, stepNameInProgress, estimatedTime, reset } = basiqConnection;
 

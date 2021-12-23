@@ -12,13 +12,13 @@ import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
   const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
-  const { selectedInstitution } = accountVerificationFormState;
+  const { user, selectedInstitution } = accountVerificationFormState;
 
   const [selectedAccount, setSelectedAccount] = useState();
   const [validationError, setValidationError] = useState(false);
 
   const { data, error, loading, refetch } = useAccountsData({
-    userId: accountVerificationFormState.user.id,
+    userId: user?.id,
     institutionId: selectedInstitution?.id,
   });
 
@@ -35,7 +35,7 @@ export function AccountVerificationFormStep4SelectAccount() {
     }
   }
 
-  if (!selectedInstitution) return null;
+  if (!user || !selectedInstitution) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
