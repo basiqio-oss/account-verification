@@ -1,0 +1,11 @@
+{
+  "extends": ["next", "prettier", "plugin:cypress/recommended"],
+  "plugins": ["cypress"],
+  "rules": {
+    "no-unused-vars": "error",
+    "no-undef": "error",
+    "no-redeclare": "error",
+    "import/order": ["error", { "newlines-between": "never" }],
+    "@next/next/no-img-element": "off"
+  }
+}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* Smooth the font on the level of the pixel, as opposed to the subpixel. */
+    @apply antialiased;
+  }
+}
+
+/* CSS variables created from the theme colours, used for stop colors in SVG gradients e.g. */
+:root {
+  --color-primary-bold: theme('colors.primary.bold');
+  --color-primary-accent: theme('colors.primary.accent');
+  --color-secondary-bold: theme('colors.secondary.bold');
+}
