@@ -1,4 +1,3 @@
-// TODO: Should there be a default src?
 export function StepLogo({ src, alt }) {
   return (
     <div className="flex justify-center">
