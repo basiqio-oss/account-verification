@@ -63,7 +63,7 @@ export function VerificationProgress({ label, value = 0, error }) {
             />
           </svg>
         ) : (
-          <span className="text-4xl font-semibold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-tr from-primary-bold to-primary-accent">
+          <span className="text-4xl font-semibold tracking-tight text-transparent sm:text-5xl tabular-nums bg-clip-text bg-gradient-to-tr from-primary-bold to-primary-accent">
             {value}
             <span>%</span>
           </span>
