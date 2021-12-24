@@ -134,7 +134,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   const { selectedInstitution } = accountVerificationFormState;
   if (!selectedInstitution) return null;
 
-  const { error, progress, completed, stepNameInProgress, estimatedTime, reset } = basiqConnection;
+  const { error, progress, completed, stepNameInProgress, estimatedTime, estimatedTimeOver, reset } = basiqConnection;
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
@@ -167,7 +167,9 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
             <div className="space-y-3 sm:space-y-4">
               <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
               <p className="text-sm sm:text-base text-neutral-muted-darker">
-                Usually takes {ms(estimatedTime, { long: true })}
+                {estimatedTimeOver
+                  ? `It\u2019 taking a bit longer than expected`
+                  : `Usually takes ${ms(estimatedTime, { long: true })}`}
               </p>
             </div>
             <Button block variant="subtle" onClick={openResumeModal}>
