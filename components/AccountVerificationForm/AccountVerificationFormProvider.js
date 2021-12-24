@@ -25,7 +25,7 @@ const AccountVerificationFormContext = createContext({
   updateAccountVerificationFormState: undefined,
   // Function to create a secure connection to the basiq API.
   createBasiqConnection: undefined,
-  // The state of the secure connection to the basiq API
+  // The state of the secure connection to the basiq API. See `useBasiqConnection`
   basiqConnection: undefined,
   // Function to reset the state of the form
   reset: undefined,
@@ -33,6 +33,7 @@ const AccountVerificationFormContext = createContext({
   hasCompletedForm: undefined,
 });
 
+// This custom hook gives components access the `AccountVerificationFormContext` form context
 export const useAccountVerificationForm = () => useContext(AccountVerificationFormContext);
 
 const initialAccountVerificationFormState = {
@@ -116,6 +117,7 @@ export function AccountVerificationFormProvider({ children }) {
   );
 }
 
+// Custom hook for managing the connect to the Basiq API
 function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   const { addToast } = useToasts();
   const { asPath } = useRouter();
@@ -209,8 +211,8 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     };
   }, [completed, error, jobId, userId]);
 
-  // We want the job polling experience to be an engaging experience for the user
-  // So here we use the estimated job time to calculate the progress
+  // We want the job polling experience to be an engaging experience for the user, we here we are
+  // using the estimated connection time to show a progress bar which will get updated every 500ms
   useEffect(() => {
     if (!inProgress || error) return;
     const start = Date.now();
@@ -219,10 +221,11 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     function checkEstimatedProgress() {
       const progress = Math.round(((Date.now() - start) / estimatedTime) * 100);
       if (progress >= 100) {
+        setEstimatedProgress(100);
         clearInterval(timer);
-        return;
+      } else {
+        setEstimatedProgress(progress);
       }
-      setEstimatedProgress(progress);
     }
 
     return () => {
@@ -230,12 +233,8 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     };
   }, [inProgress, error, estimatedTime]);
 
-  // If the job is taking longer than the estimated progress, we will show 95% until the job is raedy
-  const progress = inProgress && estimatedProgress >= 95 ? 95 : estimatedProgress;
-
   // If the user has decided to exit and resume process in background we will
   // trigger a toast when the job finishes processing or an error occurres
-  // TODO this triggers twice
   useEffect(() => {
     if (!jobId) return; // Make sure we only trigger the toast when you're on the step 3
     if (asPath === '/account-verification') return;
@@ -255,12 +254,20 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     }
   }, [jobId, addToast, asPath, completed, error]);
 
+  // Some banks can be pretty slow to connect with and often take longer than their estimated time
+  // To improve the UX, we can use this variable to let the user know it's taking longer than expected
+  const estimatedTimeOver = inProgress && estimatedProgress >= 95;
+
+  // If the job is taking longer than the expected we will show 95% until the job is raedy
+  const progress = estimatedTimeOver ? 95 : estimatedProgress;
+
   return {
     basiqConnection: {
       inProgress,
       progress,
       stepNameInProgress,
       estimatedTime,
+      estimatedTimeOver,
       error,
       completed,
       reset: resetState,
