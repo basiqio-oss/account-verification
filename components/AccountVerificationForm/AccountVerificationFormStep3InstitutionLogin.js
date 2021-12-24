@@ -168,7 +168,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
               <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
               <p className="text-sm sm:text-base text-neutral-muted-darker">
                 {estimatedTimeOver
-                  ? `It&rsquo;s taking a bit longer than expected`
+                  ? `It\u2019 taking a bit longer than expected`
                   : `Usually takes ${ms(estimatedTime, { long: true })}`}
               </p>
             </div>
