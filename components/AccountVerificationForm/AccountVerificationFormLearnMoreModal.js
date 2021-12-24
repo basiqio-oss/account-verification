@@ -88,9 +88,9 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
 
       {/* Secure argument 4 - Detail */}
       <div className="text-left space-y-2">
-        <h4 className="font-semibold leading-snug text-md">We don’t sell your data</h4>
+        <h4 className="font-semibold leading-snug text-md">We don&rsquo;t sell your data</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          We don’t sell your personal data, nor do we share it unless you ask us to. All your data is 100% stored
+          We don&rsquo;t sell your personal data, nor do we share it unless you ask us to. All your data is 100% stored
           securely.
         </p>
       </div>
