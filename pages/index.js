@@ -15,7 +15,7 @@ export default function Home() {
     <div>
       <SEO />
       <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
-        <div className="max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
+        <div className="z-10 max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
@@ -80,6 +80,8 @@ export default function Home() {
             </div>
           )}
         </div>
+        <div className="absolute -mt-10 bg-white rounded-full opacity-75 w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
+        <div className="absolute w-32 h-32 ml-24 -mt-32 bg-white rounded-full top-1/2 left-1/2 blur-sm mix-blend-overlay opacity-30" />
       </main>
     </div>
   );
