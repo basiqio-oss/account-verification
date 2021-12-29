@@ -39,7 +39,7 @@ export function AccountVerificationForm() {
       <div className="fixed top-0 left-0 right-0 z-10">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
-        <div className="block h-4 bg-gradient-to-b from-white to-transparent" />
+        <div className="block h-4 bg-gradient-to-b from-white" />
       </div>
 
       {/* STEP COUNT */}
@@ -67,7 +67,7 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-16 mx-auto sm:px-6 sm:pt-8">
+      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8">
         <Component />
       </div>
 
@@ -81,7 +81,7 @@ export function AccountVerificationForm() {
 
       {/** Debugging */}
       {process.env.NODE_ENV !== 'production' && (
-        <div className="text-sm sm:fixed bottom-6 left-6 space-x-6 text-neutral-dim-darker">
+        <div className="bottom-0 left-0 text-sm sm:fixed space-x-6 text-neutral-dim-darker">
           <button onClick={goBack}>Prev</button>
           <button onClick={goForward}>Next</button>
         </div>
