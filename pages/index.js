@@ -46,7 +46,7 @@ export default function Home() {
           </p>
 
           {hasCompletedForm ? (
-            <div className="w-64 mx-auto space-y-2 sm:space-y-0">
+            <div className="w-64 mx-auto">
               {/* VIEW CONNECTED ACCOUNT */}
               {/* It might be a good idea to let the user be able to view a summary of their 
               connected bank accounts. */}
@@ -58,9 +58,9 @@ export default function Home() {
 
               {/* RESET APP */}
               {/* For developer use only; this will reset state and delete connection */}
-              <div className="relative sm:fixed sm:top-0 sm:right-0 sm:px-6 md:px-8 sm:pt-6 mix-blend-soft-light">
+              <div className="absolute top-0 right-0 px-4 pt-4 sm:px-6 md:px-8 sm:pt-6 md:pt-8 md:fixed">
                 <button
-                  className="text-xs text-white rounded outline-none sm:text-sm hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+                  className="text-xs text-white rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                   onClick={reset}
                 >
                   Reset app
@@ -72,7 +72,7 @@ export default function Home() {
               {/* CTA to Account Verification flow */}
               <div className="relative">
                 {/* Indicator */}
-                {basiqConnectionInProgress && (
+                {(basiqConnectionInProgress || basiqConnectionSuccess) && (
                   <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md -translate-y-1/2 translate-x-1/2">
                     {basiqConnectionSuccess || basiqConnectionError ? (
                       <IndicatorConnectionFinished error={basiqConnectionError} />
@@ -84,7 +84,7 @@ export default function Home() {
                 {/* Action */}
                 <Link href="/account-verification" passHref>
                   <Button as="a" variant="inverted" block>
-                    {basiqConnectionInProgress ? 'Continue setup' : 'Get started'}
+                    {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Get started'}
                   </Button>
                 </Link>
               </div>

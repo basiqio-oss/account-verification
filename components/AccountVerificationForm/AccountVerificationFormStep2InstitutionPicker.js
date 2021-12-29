@@ -70,7 +70,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                   {filteredInstitutions.map(institution => (
                     <button
                       key={institution.id}
-                      className="relative flex w-full p-3 border rounded-lg outline-none cursor-pointer border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
+                      className="relative flex w-full p-3 border rounded-lg outline-none cursor-pointer border-neutral-dim active:bg-primary-subtle focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
                       onClick={() => onInstitutionClick(institution)}
                       data-cy={`institution-${institution.id}`}
                     >
