@@ -93,7 +93,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                           className={`relative rounded-lg p-3 flex  ${
                             acc.disabled
                               ? 'bg-neutral-subtle-darker cursor-not-allowed opacity-50'
-                              : 'bg-white cursor-pointer border border-neutral-dim hover:bg-primary-subtle hover:border-primary-bold active:bg-primary-subtle-darker transition-colors'
+                              : 'bg-white cursor-pointer border border-neutral-dim active:bg-primary-subtle-darker transition-colors'
                           } ${checked && 'bg-primary-subtle border-primary-bold'}`}
                         >
                           <div className="flex flex-grow space-x-3">
