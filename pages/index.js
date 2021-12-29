@@ -61,7 +61,7 @@ export default function Home() {
               {/* CTA to Account Verification flow */}
               <div className="relative">
                 {/* Indicator */}
-                {basiqConnectionInProgress && (
+                {(basiqConnectionInProgress || basiqConnectionSuccess) && (
                   <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md -translate-y-1/2 translate-x-1/2">
                     {basiqConnectionSuccess || basiqConnectionError ? (
                       <IndicatorConnectionFinished error={basiqConnectionError} />
@@ -73,7 +73,7 @@ export default function Home() {
                 {/* Action */}
                 <Link href="/account-verification" passHref>
                   <Button as="a" variant="inverted" block>
-                    {basiqConnectionInProgress ? 'Continue setup' : 'Get started'}
+                    {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Get started'}
                   </Button>
                 </Link>
               </div>
