@@ -67,7 +67,7 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8 min-h-[-webkit-fill-available]">
+      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8">
         <Component />
       </div>
 
@@ -81,7 +81,7 @@ export function AccountVerificationForm() {
 
       {/** Debugging */}
       {process.env.NODE_ENV !== 'production' && (
-        <div className="text-sm sm:fixed bottom-6 left-6 space-x-6 text-neutral-dim-darker">
+        <div className="bottom-0 left-0 text-sm sm:fixed space-x-6 text-neutral-dim-darker">
           <button onClick={goBack}>Prev</button>
           <button onClick={goForward}>Next</button>
         </div>

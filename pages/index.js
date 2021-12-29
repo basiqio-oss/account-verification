@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div>
       <SEO />
-      <main className="flex flex-col justify-center min-h-screen min-h-[-webkit-fill-available] bg-gradient-to-tr from-primary-bold to-primary-accent">
+      <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
         <div className="max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">
@@ -47,7 +47,7 @@ export default function Home() {
 
               {/* RESET APP */}
               {/* For developer use only; this will reset state and delete connection */}
-              <div className="absolute right-0 px-4 pt-6 sm:px-6 md:px-8 sm:pt-8 md:fixed mix-blend-soft-light">
+              <div className="absolute top-0 right-0 px-4 pt-4 sm:px-6 md:px-8 sm:pt-8 md:fixed mix-blend-hard-light">
                 <button
                   className="text-xs text-white rounded outline-none sm:text-sm hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                   onClick={reset}
