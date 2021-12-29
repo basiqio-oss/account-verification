@@ -44,11 +44,11 @@ export function AccountVerificationFormStep1PreConsent() {
         {/* PRE-CONSENT */}
         {/* This section aims to build trust. It's super important to clearly state valid and truthful arguments
         for why it's 100% secure to connect to their bank through the app. */}
-        <ul role="list" className="border rounded-lg bg-neutral-subtle border-neutral-dim divide-y divide-neutral-dim">
+        <ul role="list" className="rounded-lg bg-neutral-subtle">
           {/* Secure argument 1 */}
-          <li className="flex items-center px-4 py-3 rounded-t-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-secondary-bold space-x-4">
+          <li className="flex items-center px-4 py-3 rounded-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-secondary-bold space-x-4">
             <div className="flex flex-grow font-medium leading-snug text-white">
-              Bank grade 256-bit <br />
+              Bank grade 256-bit <br className="not-sr-only" />
               SSL encryption
             </div>
 
@@ -74,41 +74,43 @@ export function AccountVerificationFormStep1PreConsent() {
           </li>
 
           {/* Secure argument 2 */}
-          <li className="flex items-center px-4 py-3 sm:px-6">
-            <div className="flex flex-grow text-sm">
-              We never save your bank <br />
-              login credentials in the app
-            </div>
+          <li className="flex items-center px-4 pt-3 sm:px-6">
+            <div className="flex items-center flex-grow pb-3 border-b border-neutral-dim">
+              <div className="flex flex-grow text-sm">
+                We never save your bank <br />
+                login credentials in the app
+              </div>
 
-            {/* Icon: key */}
-            <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
-              <svg
-                className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  d="M20 9.333A2.667 2.667 0 0 1 22.667 12M28 12a8 8 0 0 1-10.324 7.657l-3.01 3.01H12v2.666H9.333V28h-4A1.333 1.333 0 0 1 4 26.667v-3.448c0-.354.14-.693.39-.943l7.953-7.952A8 8 0 1 1 28 12Z"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  stroke="url(#gradient1)"
-                />
-                <defs>
-                  <linearGradient
-                    id="gradient1"
-                    x1="4"
-                    y1="25.3333"
-                    x2="22.0923"
-                    y2="2.07176"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="var(--color-primary-bold)" />
-                    <stop offset="1" stopColor="var(--color-secondary-bold)" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              {/* Icon: key */}
+              <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
+                <svg
+                  className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                >
+                  <path
+                    d="M20 9.333A2.667 2.667 0 0 1 22.667 12M28 12a8 8 0 0 1-10.324 7.657l-3.01 3.01H12v2.666H9.333V28h-4A1.333 1.333 0 0 1 4 26.667v-3.448c0-.354.14-.693.39-.943l7.953-7.952A8 8 0 1 1 28 12Z"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    stroke="url(#gradient1)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="gradient1"
+                      x1="4"
+                      y1="25.3333"
+                      x2="22.0923"
+                      y2="2.07176"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="var(--color-primary-bold)" />
+                      <stop offset="1" stopColor="var(--color-secondary-bold)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
             </div>
           </li>
 
