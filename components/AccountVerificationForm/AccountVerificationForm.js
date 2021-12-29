@@ -39,7 +39,7 @@ export function AccountVerificationForm() {
       <div className="fixed top-0 left-0 right-0 z-10">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
-        <div className="block h-4 bg-gradient-to-b from-white to-transparent" />
+        <div className="block h-4 bg-gradient-to-b from-white" />
       </div>
 
       {/* STEP COUNT */}
