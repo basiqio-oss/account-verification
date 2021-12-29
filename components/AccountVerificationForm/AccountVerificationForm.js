@@ -67,7 +67,7 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-16 mx-auto sm:px-6 sm:pt-8">
+      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8 min-h-[-webkit-fill-available]">
         <Component />
       </div>
 

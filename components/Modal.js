@@ -5,7 +5,7 @@ export function Modal({ children, isOpen, onClose, initialFocus }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose} initialFocus={initialFocus}>
-        <div className="min-h-screen px-4 text-center">
+        <div className="min-h-screen px-4 text-center min-h-[-webkit-fill-available]">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -18,7 +18,7 @@ export function Modal({ children, isOpen, onClose, initialFocus }) {
             <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
           </Transition.Child>
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="inline-block h-screen align-middle" aria-hidden="true">
+          <span className="inline-block h-screen align-middle h-[-webkit-fill-available]" aria-hidden="true">
             &#8203;
           </span>
           <Transition.Child
