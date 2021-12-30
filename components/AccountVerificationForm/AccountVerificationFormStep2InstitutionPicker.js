@@ -70,7 +70,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                   {filteredInstitutions.map(institution => (
                     <button
                       key={institution.id}
-                      className="relative flex w-full p-3 border rounded-lg outline-none cursor-pointer border-neutral-dim active:bg-primary-subtle focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
+                      className="relative flex w-full p-3 bg-white border rounded-lg outline-none cursor-pointer border-neutral-dim active:bg-primary-subtle focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
                       onClick={() => onInstitutionClick(institution)}
                       data-cy={`institution-${institution.id}`}
                     >
@@ -151,7 +151,7 @@ function InstitutionsLoadingSkeleton() {
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (
-        <div key={i} className="flex p-3 border rounded-lg border-neutral-subtle-darker animate-pulse">
+        <div key={i} className="flex p-3 bg-white border rounded-lg border-neutral-subtle-darker animate-pulse">
           <div className="flex items-center w-full space-x-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md bg-neutral-subtle-darker" />
             <div className="w-48 h-4 rounded bg-neutral-subtle-darker" />
