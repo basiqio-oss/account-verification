@@ -81,22 +81,6 @@ module.exports = {
     fontFamily: {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
-
-    // HEIGHT
-    // These overrides fix bugs in mobile browsers when using `100vh` for the layout to fill height of viewport
-    // More info: https://www.markusantonwolf.com/blog/solution-to-the-mobile-viewport-height-issue-with-tailwind-css/
-    height: theme => ({
-      auto: 'auto',
-      ...theme('spacing'),
-      full: '100%',
-      screen: 'calc(var(--vh) * 100)',
-    }),
-    minHeight: theme => ({
-      0: '0',
-      ...theme('spacing'),
-      full: '100%',
-      screen: 'calc(var(--vh) * 100)',
-    }),
     extend: {},
   },
   plugins: [],
