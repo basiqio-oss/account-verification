@@ -91,4 +91,12 @@ NOTE: Out-of-the-box, the Account Verification Form layout works best with a per
 
 ### 4. Product copywriting
 
+Search for `PRODUCT-COPY` in the codebase to find all the places that needs product-specific copywriting.
+
 Make sure to read through all copywriting in the files to make sure it's accurate with the product you are building.
+
+## Icons
+
+All icons used in this starter kit are exported from [heroicons.com](https://heroicons.com/).
+
+You can easily see which icon is which if you search the codebase for `Icon: `.
