@@ -36,7 +36,7 @@ export function AccountVerificationForm() {
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
-      <div className="fixed top-0 left-0 right-0 z-20">
+      <div className="fixed top-0 left-0 right-0 z-30">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
         <div className="block h-4 bg-gradient-to-b from-white" />
@@ -45,7 +45,7 @@ export function AccountVerificationForm() {
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
-      <div className="absolute left-0 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed space-y-2">
+      <div className="absolute left-0 z-20 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed space-y-2">
         <span className="text-xs sm:text-sm text-neutral-muted-darker">
           <span data-cy="current-step">{currentStep + 1}</span> of {totalSteps}
         </span>
@@ -64,7 +64,7 @@ export function AccountVerificationForm() {
       {/* CANCEL BANK CONNECTION */}
       {/* Important to not lock the user in. They should be able to regret 
       their decision to connect with a bank at any point. */}
-      <div className="absolute right-0 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed">
+      <div className="absolute right-0 z-20 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed">
         {/* Show Cancel button unless the user is on the first or last step */}
         {currentStep > 0 && currentStep !== totalSteps - 1 ? (
           // TODO: change tabindex so Cancel doesn't get focused first
