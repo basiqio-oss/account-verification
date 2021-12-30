@@ -70,14 +70,14 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
   if (!selectedInstitution) return null;
 
   return (
-    <div className="flex flex-col space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-8 sm:space-y-12">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center space-y-8 sm:space-y-12">
         <div className="space-y-3">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -141,7 +141,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   const { error, progress, completed, stepNameInProgress, estimatedTime, estimatedTimeOver, reset } = basiqConnection;
 
   return (
-    <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8">
+    <div className="flex flex-col items-center text-center space-y-8 sm:space-y-12">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
       <VerificationProgress value={progress} error={error} />
       {error ? (

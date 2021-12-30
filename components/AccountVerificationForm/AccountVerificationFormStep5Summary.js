@@ -12,7 +12,7 @@ export function AccountVerificationFormStep5Summary() {
   if (!selectedInstitution || !selectedAccount) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-8 sm:space-y-12">
       {/* SUCCESS ANIMATION: check-circle */}
       <div className="flex justify-center">
         <svg
@@ -50,58 +50,55 @@ export function AccountVerificationFormStep5Summary() {
         </svg>
       </div>
 
-      {/* STEP CONTENT */}
-      <div className="flex flex-col space-y-6 sm:space-y-8">
-        {/* STEP HEADING */}
-        <StepHeading>You&rsquo;re all set!</StepHeading>
+      {/* STEP HEADING */}
+      <StepHeading>You&rsquo;re all set!</StepHeading>
 
-        {/* STEP DESCRIPTION */}
-        <StepDescription>
-          We have verified the details of the bank account below, and you&rsquo;re good to go.
-        </StepDescription>
+      {/* STEP DESCRIPTION */}
+      <StepDescription>
+        We have verified the details of the bank account below, and you&rsquo;re good to go.
+      </StepDescription>
 
-        {/* SUMMARY */}
-        <ul role="list" className="border-t border-b divide-y border-neutral-dim">
-          <li className="flex items-center py-3 space-x-4">
-            <div className="flex flex-col flex-grow">
-              <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
-              <span className="font-medium">{selectedAccount.name}</span>
-              <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
-            </div>
+      {/* SUMMARY */}
+      <ul role="list" className="border-t border-b divide-y border-neutral-dim">
+        <li className="flex items-center py-3 space-x-4">
+          <div className="flex flex-col flex-grow">
+            <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
+            <span className="font-medium">{selectedAccount.name}</span>
+            <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
+          </div>
 
-            {/* Connected bank logo */}
-            <div className="relative">
-              <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
+          {/* Connected bank logo */}
+          <div className="relative">
+            <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-              {/* Icon: check-circle (https://heroicons.com/) */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </li>
-        </ul>
+            {/* Icon: check-circle (https://heroicons.com/) */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        </li>
+      </ul>
 
-        {/* We recommend giving the user the ability to remove their 
+      {/* We recommend giving the user the ability to remove their 
         bank connection should they wish to. */}
-        <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
-          You can manage your bank connections <br />
-          in the app settings later.
-        </p>
+      <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
+        You can manage your bank connections <br />
+        in the app settings later.
+      </p>
 
-        {/* Action */}
-        <Button variant="bold" block onClick={finish}>
-          Done
-        </Button>
-      </div>
+      {/* Action */}
+      <Button variant="bold" block onClick={finish}>
+        Done
+      </Button>
     </div>
   );
 }

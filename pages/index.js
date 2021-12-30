@@ -24,7 +24,7 @@ export default function Home() {
           <div className="absolute mt-24 bg-white rounded-full opacity-50 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
         </div>
 
-        <div className="z-10 max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
+        <div className="z-10 max-w-md px-4 pt-6 pb-16 mx-auto text-center sm:pt-8 sm:pb-20 space-y-6">
           {/* Product logo and divider */}
           <div className="inline-block space-y-6">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
