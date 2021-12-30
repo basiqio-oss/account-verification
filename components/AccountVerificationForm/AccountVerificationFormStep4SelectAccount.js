@@ -199,7 +199,7 @@ function AccountsLoadingSkeleton() {
   return (
     <div className="space-y-3">
       {skeletonItems.map(i => (
-        <div key={i} className="flex p-3 border rounded-lg border-neutral-subtle-darker animate-pulse">
+        <div key={i} className="flex p-3 bg-white border rounded-lg border-neutral-subtle-darker animate-pulse">
           <div className="flex space-x-3">
             <span className="w-6 h-6 border-2 rounded-full border-neutral-subtle-darker" />
             <div className="flex-grow space-y-2">
