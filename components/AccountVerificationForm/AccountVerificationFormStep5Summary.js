@@ -52,13 +52,15 @@ export function AccountVerificationFormStep5Summary() {
 
       {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
-        {/* STEP HEADING */}
-        <StepHeading>You&rsquo;re all set!</StepHeading>
+        <div className="space-y-3 sm:space-y-4">
+          {/* STEP HEADING */}
+          <StepHeading>You&rsquo;re all set!</StepHeading>
 
-        {/* STEP DESCRIPTION */}
-        <StepDescription>
-          We have verified the details of the bank account below, and you&rsquo;re good to go.
-        </StepDescription>
+          {/* STEP DESCRIPTION */}
+          <StepDescription>
+            We have verified the details of the bank account below, and you&rsquo;re good to go.
+          </StepDescription>
+        </div>
 
         {/* SUMMARY */}
         <ul role="list" className="border-t border-b divide-y border-neutral-dim">
