@@ -19,7 +19,6 @@ export function AccountVerificationFormStep1PreConsent() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}
@@ -154,8 +153,7 @@ export function AccountVerificationFormStep1PreConsent() {
           </li>
         </ul>
 
-        {/* Powered by Basiq API */}
-        {/* TODO: Write more */}
+        {/* POWERED BY BASIQ API */}
         <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
           Powered by open banking platform{' '}
           <a
@@ -169,7 +167,7 @@ export function AccountVerificationFormStep1PreConsent() {
           to securely connect your bank account.
         </p>
 
-        {/* Actions */}
+        {/* ACTIONS */}
         <div className="space-y-2">
           <Button variant="bold" block onClick={goForward}>
             Continue
@@ -180,7 +178,7 @@ export function AccountVerificationFormStep1PreConsent() {
           </Button>
         </div>
 
-        {/** Learn more modal */}
+        {/** LEARN MORE MODAL */}
         <AccountVerificationFormLearnMoreModal
           isOpen={isLearnMoreModalOpen}
           onClose={closeLearnMoreModal}

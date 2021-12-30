@@ -55,7 +55,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="text-left space-y-2">
         <h4 className="font-semibold leading-snug text-md">Bank grade 256-bit SSL encryption</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          Powered by leading open banking platform {/* TODO: remove auto-focus on link when opening modal */}
+          Powered by leading open banking platform
           <a
             target="_blank"
             href="https://basiq.io"
