@@ -76,7 +76,6 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}

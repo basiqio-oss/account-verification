@@ -45,7 +45,6 @@ export function AccountVerificationFormStep4SelectAccount() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -64,6 +63,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           )}
         </div>
 
+        {/* ACCOUNTS RADIO GROUP */}
         {loading ? (
           <AccountsLoadingSkeleton />
         ) : errorOrNoData ? (
@@ -160,6 +160,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   );
 }
 
+// RETRIEVE ACCOUNTS
 // Custom react hook for managing our fetch request to retrieves a list of accounts for the current user
 // The code for this API route can be found in `pages/api/accounts`
 function useAccountsData({ userId, institutionId }) {

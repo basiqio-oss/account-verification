@@ -38,7 +38,6 @@ export function AccountVerificationFormStep2InstitutionPicker() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -110,6 +109,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
   );
 }
 
+// RETRIEVE INSTITUTIONS
 // Custom react hook for managing our fetch request to retrieves a list institutions
 // The code for this API route can be found in `pages/api/institutions`
 function useInstitutionsData() {
