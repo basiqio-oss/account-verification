@@ -1,6 +1,7 @@
 export function ErrorMessage({ message }) {
   return (
     <div role="alert" className="flex p-3 border-2 rounded-lg bg-critical-subtle border-critical-bold space-x-3">
+      {/* Icon: exclamation-circle (solid) */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="flex-shrink-0 w-6 h-6 text-critical-bold"

@@ -13,8 +13,9 @@ export function AccountVerificationFormStep5Summary() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* SUCCESS ANIMATION: check-circle */}
+      {/* SUCCESS ANIMATION */}
       <div className="flex justify-center">
+        {/* Icon: check-circle (outline) */}
         <svg
           className="w-20 h-20 -mx-2 -my-2 text-secondary-bold-darker checkmark"
           fill="none"
@@ -74,7 +75,7 @@ export function AccountVerificationFormStep5Summary() {
             <div className="relative">
               <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-              {/* Icon: check-circle (https://heroicons.com/) */}
+              {/* Icon: check-circle (solid) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"

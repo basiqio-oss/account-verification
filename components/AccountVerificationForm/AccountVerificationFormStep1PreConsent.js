@@ -51,7 +51,7 @@ export function AccountVerificationFormStep1PreConsent() {
               SSL encryption
             </div>
 
-            {/* Icon: shield-check */}
+            {/* Icon: shield-check (outline) */}
             <svg
               className="w-12 h-12 sm:w-14 sm:h-14 flex-no-shrink"
               fill="none"
@@ -80,7 +80,7 @@ export function AccountVerificationFormStep1PreConsent() {
                 login credentials in the app
               </div>
 
-              {/* Icon: key */}
+              {/* Icon: key (outline) */}
               <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
                 <svg
                   className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"
@@ -120,7 +120,7 @@ export function AccountVerificationFormStep1PreConsent() {
               transactions on your behalf
             </div>
 
-            {/* Icon: credit-card */}
+            {/* Icon: credit-card (outline) */}
             <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14">
               <svg
                 className="w-8 h-8 sm:w-9 sm:h-9 flex-no-shrink"

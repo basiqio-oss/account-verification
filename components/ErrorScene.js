@@ -4,6 +4,7 @@ export function ErrorScene({ title, message, actionOnClick }) {
   return (
     <div role="alert" className="space-y-6 sm:space-y-8">
       <div className="flex flex-col items-center rounded-lg space-y-6 sm:space-y-8">
+        {/* Icon: exclamation-circle (solid) */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-16 h-16 text-critical-bold"

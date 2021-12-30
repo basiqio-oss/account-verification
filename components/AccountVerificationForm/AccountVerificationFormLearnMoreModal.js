@@ -11,6 +11,8 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         Security you <br />
         can trust
       </ModalTitle>
+
+      {/* API CONNECTION ILLUSTRATION */}
       {/* Illustration to communicate secure bank connection using Basiq */}
       <div className="space-y-2">
         {/* Dashed line - top */}
@@ -20,8 +22,8 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         <div className="flex items-center justify-between">
           {/* Product logo - square */}
           <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
-          {/* Security icon (shield-check) + Basiq logo */}
           <div className="flex flex-col items-center justify-center space-y-1">
+            {/* Icon: shield-check (outline) */}
             <svg
               className="w-12 h-12 flex-no-shrink"
               fill="none"
@@ -40,6 +42,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                 strokeLinejoin="round"
               />
             </svg>
+            {/* Basiq logo */}
             <img className="w-16 h-4" src="/basiq-logo.svg" alt="Basiq logo" />
           </div>
           {/* Bank illustration */}
@@ -95,6 +98,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         </p>
       </div>
 
+      {/* Actions */}
       <div className="space-y-2">
         <Button ref={connectButtonRef} onClick={onConfirm} variant="bold" block>
           Securely connect my account

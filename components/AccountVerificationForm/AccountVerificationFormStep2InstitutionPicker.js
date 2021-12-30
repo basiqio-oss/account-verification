@@ -84,7 +84,7 @@ export function AccountVerificationFormStep2InstitutionPicker() {
                         {/* Institution shortName */}
                         <span className="flex flex-grow font-medium">{institution.shortName}</span>
 
-                        {/* Chevron icon */}
+                        {/* Icon: chevron-right (outline) */}
                         <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             className="stroke-current text-neutral-muted"
