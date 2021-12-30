@@ -85,7 +85,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="text-left space-y-2">
         <h4 className="font-semibold leading-snug text-md">We can not transact on your behalf</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          You only give Piper permission to verify the details of the account to deduct the nominated regular fee from.
+          You only give permission to verify the details of the account to deduct the nominated regular fee from.
         </p>
       </div>
 
