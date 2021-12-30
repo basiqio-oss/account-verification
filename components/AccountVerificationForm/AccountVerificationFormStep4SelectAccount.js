@@ -49,7 +49,7 @@ export function AccountVerificationFormStep4SelectAccount() {
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <StepHeading>
             Select your daily <br />
             spending account
