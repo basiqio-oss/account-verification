@@ -48,7 +48,7 @@ export function AccountVerificationFormStep1PreConsent() {
           {/* Secure argument 1 */}
           <li className="flex items-center px-4 py-3 rounded-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-secondary-bold space-x-4">
             <div className="flex flex-grow font-medium leading-snug text-white">
-              Bank grade 256-bit <br className="not-sr-only" />
+              Bank grade 256-bit <br />
               SSL encryption
             </div>
 

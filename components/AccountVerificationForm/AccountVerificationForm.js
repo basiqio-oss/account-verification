@@ -36,7 +36,7 @@ export function AccountVerificationForm() {
       {/* PROGRESS BAR */}
       {/* Delightful indication of the progress the user has made, to be 
       displayed in conjunction with a Step Count */}
-      <div className="fixed top-0 left-0 right-0 z-10">
+      <div className="fixed top-0 left-0 right-0 z-20">
         <ProgressBar value={Math.round(((currentStep + 1) / totalSteps) * 100)} />
         {/* Fade to blend form content nicely when scrolling down the page */}
         <div className="block h-4 bg-gradient-to-b from-white" />
@@ -45,7 +45,7 @@ export function AccountVerificationForm() {
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
-      <div className="absolute left-0 px-4 pt-6 sm:px-6 md:px-8 sm:pt-8 md:fixed">
+      <div className="absolute left-0 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed space-y-2">
         <span className="text-xs sm:text-sm text-neutral-muted-darker">
           <span data-cy="current-step">{currentStep + 1}</span> of {totalSteps}
         </span>
@@ -53,7 +53,7 @@ export function AccountVerificationForm() {
         {/** Debugging navigation */}
         {process.env.NODE_ENV !== 'production' && (
           <>
-            <div className="text-xs sm:text-sm text-neutral-dim-darker space-x-2 ">
+            <div className="text-xs sm:text-sm text-neutral-dim-darker space-x-2">
               <button onClick={goBack}>Prev</button>
               <button onClick={goForward}>Next</button>
             </div>
@@ -64,7 +64,7 @@ export function AccountVerificationForm() {
       {/* CANCEL BANK CONNECTION */}
       {/* Important to not lock the user in. They should be able to regret 
       their decision to connect with a bank at any point. */}
-      <div className="absolute right-0 px-4 pt-6 sm:px-6 md:px-8 sm:pt-8 md:fixed">
+      <div className="absolute right-0 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed">
         {/* Show Cancel button unless the user is on the first or last step */}
         {currentStep > 0 && currentStep !== totalSteps - 1 ? (
           // TODO: change tabindex so Cancel doesn't get focused first
@@ -77,7 +77,8 @@ export function AccountVerificationForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8 sm:pb-16">
+      {/* FORM COMPONENT */}
+      <div className="relative z-10 flex flex-col max-w-md min-h-screen px-4 pt-6 pb-6 mx-auto sm:px-6 sm:pt-8 sm:pb-16">
         <Component />
       </div>
 
@@ -85,7 +86,7 @@ export function AccountVerificationForm() {
       {/* For purely decorative purposes, an illustrations brings some delight 
       to your application, subtly using the brand colours whilst not taking 
       all the attention from the user. */}
-      <div className="fixed bottom-0 left-0 hidden w-full sm:block sm:p-6 md:p-8">
+      <div className="fixed bottom-0 left-0 z-0 hidden w-full sm:block sm:p-6 md:p-8">
         <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1322 229">
           <path
             d="M1.86 188.088a11.025 11.025 0 0 0 10.834-1.95c3.794-3.256 4.984-8.62 5.952-13.587l2.864-14.69-5.995 4.22c-4.311 3.034-8.72 6.166-11.704 10.561-2.985 4.395-4.288 10.394-1.89 15.15"
@@ -295,7 +296,7 @@ export function AccountVerificationForm() {
         </svg>
       </div>
 
-      {/** Cancellation modal */}
+      {/* CANCELLATION MODAL */}
       <AccountVerificationFormCancellationModal
         isOpen={isCancellationModalOpen}
         onClose={closeCancellationModal}
