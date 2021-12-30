@@ -37,12 +37,11 @@ export function AccountVerificationFormStep0SignUp() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
         <StepHeading>
-          We need your email
+          Sign up with your email
           {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
           Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
           <br />
