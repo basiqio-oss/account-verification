@@ -32,7 +32,7 @@ export function AccountVerificationFormStep1PreConsent() {
           </StepHeading>
 
           {/* STEP DESCRIPTION */}
-          {/* Value exchange, e.g. a paragraph that answers the question "Why should I connect my bank account?" 
+          {/* PRODUCT-COPY: Value exchange, e.g. a paragraph that answers the question "Why should I connect my bank account?" 
           It's important to communicate the value exchange, i.e. what will the product be able to do once 
           the user has connected their bank. */}
           <StepDescription>

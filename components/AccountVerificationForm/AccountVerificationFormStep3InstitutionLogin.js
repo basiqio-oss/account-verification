@@ -98,7 +98,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
               {formFields.map(({ FieldComponent, field }) => (
                 <div key={field.id} className="space-y-2">
                   <FieldComponent {...field} disabled={submitting} />
-                  {/** Forgot password */}
+                  {/* Forgot password */}
                   {field.id === 'password' && selectedInstitution.forgottenPasswordUrl && (
                     <a
                       href={selectedInstitution.forgottenPasswordUrl}

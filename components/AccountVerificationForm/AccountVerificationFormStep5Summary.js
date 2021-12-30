@@ -57,6 +57,7 @@ export function AccountVerificationFormStep5Summary() {
           <StepHeading>You&rsquo;re all set!</StepHeading>
 
           {/* STEP DESCRIPTION */}
+          {/* PRODUCT-COPY: Re-iterate the value exchange to the user. */}
           <StepDescription>
             We have verified the details of the bank account below, and you&rsquo;re good to go.
           </StepDescription>
@@ -92,8 +93,9 @@ export function AccountVerificationFormStep5Summary() {
           </li>
         </ul>
 
-        {/* We recommend giving the user the ability to remove their 
-        bank connection should they wish to. */}
+        {/* PRODUCT-COPY */}
+        {/* It's recommended to give the user the ability to remove their 
+        bank connection should they wish to. This paragraph is just an mock example. */}
         <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
           You can manage your bank connections <br />
           in the app settings later.

@@ -47,7 +47,7 @@ export function AccountVerificationFormStep4SelectAccount() {
 
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
-        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+        {/* PRODUCT-COPY: A short as possible heading to help the user quickly recognise the task at hand. */}
         <div className="space-y-3 sm:space-y-4">
           <StepHeading>
             Select your daily <br />
@@ -55,6 +55,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           </StepHeading>
 
           {/* STEP DESCRIPTION */}
+          {/* PRODUCT-COPY: Depending on what account features your product supports. */}
           {(loading || !errorOrNoData) && (
             <StepDescription>
               Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
