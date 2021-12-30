@@ -78,7 +78,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
 
       {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
-        <div className="space-y-3">
+        <div className="space-y-4">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
           <StepHeading>{selectedInstitution.shortName}</StepHeading>

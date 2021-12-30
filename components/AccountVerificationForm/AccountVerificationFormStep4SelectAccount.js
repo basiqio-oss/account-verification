@@ -49,18 +49,20 @@ export function AccountVerificationFormStep4SelectAccount() {
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
-        <StepHeading>
-          Select your daily <br />
-          spending account
-        </StepHeading>
+        <div className="space-y-4">
+          <StepHeading>
+            Select your daily <br />
+            spending account
+          </StepHeading>
 
-        {/* STEP DESCRIPTION */}
-        {(loading || !errorOrNoData) && (
-          <StepDescription>
-            Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
-            accounts.
-          </StepDescription>
-        )}
+          {/* STEP DESCRIPTION */}
+          {(loading || !errorOrNoData) && (
+            <StepDescription>
+              Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
+              accounts.
+            </StepDescription>
+          )}
+        </div>
 
         {loading ? (
           <AccountsLoadingSkeleton />

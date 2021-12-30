@@ -26,24 +26,26 @@ export default function Home() {
 
         <div className="z-10 max-w-md px-4 pt-8 pb-16 mx-auto text-center space-y-6 sm:space-y-8">
           {/* Product logo and divider */}
-          <div className="inline-block space-y-6">
+          <div className="inline-block space-y-6 sm:space-y-8">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
             <div className="w-full bg-primary-accent h-[1px]">
               <div className="border-b border-white mix-blend-soft-light" />
             </div>
           </div>
 
-          {/* Product heading */}
-          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Start optimising <br />
-            your savings
-          </h1>
+          <div className="space-y-4">
+            {/* Product heading */}
+            <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              Start optimising <br />
+              your savings
+            </h1>
 
-          {/* Product short description */}
-          <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
-            Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
-            account.
-          </p>
+            {/* Product short description */}
+            <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
+              Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
+              account.
+            </p>
+          </div>
 
           {hasCompletedForm ? (
             <div className="w-64 mx-auto">
