@@ -32,79 +32,76 @@ export function AccountVerificationFormStep2InstitutionPicker() {
     : [];
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-6 sm:space-y-8">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-        {/* STEP HEADING */}
-        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
-        <StepHeading>Find your bank</StepHeading>
+      {/* STEP HEADING */}
+      {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+      <StepHeading>Find your bank</StepHeading>
 
-        {/* INSTITUTIONS */}
-        <div className="space-y-3">
-          {(loading || !errorOrNoData) && (
-            <SearchInput
-              labelScreenReader="Search"
-              placeholder="Search"
-              value={searchValue}
-              onChange={e => setSearchValue(e.target.value)}
-              disabled={loading}
-            />
-          )}
-          {loading ? (
-            <InstitutionsLoadingSkeleton />
-          ) : errorOrNoData ? (
-            <ErrorScene
-              title="Failed to load banks"
-              message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."
-              actionOnClick={refetch}
-            />
-          ) : (
-            <>
-              {filteredInstitutions.length ? (
-                <div className="space-y-3">
-                  {filteredInstitutions.map(institution => (
-                    <button
-                      key={institution.id}
-                      className="relative flex w-full p-3 bg-white border rounded-lg outline-none cursor-pointer border-neutral-dim active:bg-primary-subtle focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
-                      onClick={() => onInstitutionClick(institution)}
-                      data-cy={`institution-${institution.id}`}
-                    >
-                      <div className="flex items-center w-full space-x-3">
-                        {/* Institution logo */}
-                        <img
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
-                          src={institution.logo.links.square}
-                          alt={`Logo of ${institution.name}`}
+      {/* INSTITUTIONS */}
+      <div className="space-y-3">
+        {(loading || !errorOrNoData) && (
+          <SearchInput
+            labelScreenReader="Search"
+            placeholder="Search"
+            value={searchValue}
+            onChange={e => setSearchValue(e.target.value)}
+            disabled={loading}
+          />
+        )}
+        {loading ? (
+          <InstitutionsLoadingSkeleton />
+        ) : errorOrNoData ? (
+          <ErrorScene
+            title="Failed to load banks"
+            message="Something went wrong whilst fetching the list of banks. If the problem persists, please contact support."
+            actionOnClick={refetch}
+          />
+        ) : (
+          <>
+            {filteredInstitutions.length ? (
+              <div className="space-y-3">
+                {filteredInstitutions.map(institution => (
+                  <button
+                    key={institution.id}
+                    className="relative flex w-full p-3 bg-white border rounded-lg outline-none cursor-pointer border-neutral-dim active:bg-primary-subtle focus:border-primary-bold focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent transition-colors"
+                    onClick={() => onInstitutionClick(institution)}
+                    data-cy={`institution-${institution.id}`}
+                  >
+                    <div className="flex items-center w-full space-x-3">
+                      {/* Institution logo */}
+                      <img
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-md"
+                        src={institution.logo.links.square}
+                        alt={`Logo of ${institution.name}`}
+                      />
+
+                      {/* Institution shortName */}
+                      <span className="flex flex-grow font-medium">{institution.shortName}</span>
+
+                      {/* Chevron icon */}
+                      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          className="stroke-current text-neutral-muted"
+                          d="M7.5 4.167 13.333 10 7.5 15.833"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
-
-                        {/* Institution shortName */}
-                        <span className="flex flex-grow font-medium">{institution.shortName}</span>
-
-                        {/* Chevron icon */}
-                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            className="stroke-current text-neutral-muted"
-                            d="M7.5 4.167 13.333 10 7.5 15.833"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <NoMatchingResults />
-              )}
-            </>
-          )}
-        </div>
+                      </svg>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <NoMatchingResults />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

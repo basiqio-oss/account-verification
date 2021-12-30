@@ -31,60 +31,57 @@ export function AccountVerificationFormStep0SignUp() {
   }
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-6 sm:space-y-8">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
-      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
-        {/* STEP HEADING */}
-        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
-        <StepHeading>
-          We need your email
-          {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
+      {/* STEP HEADING */}
+      {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+      <StepHeading>
+        We need your email
+        {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
           Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
-          <br />
-          to get started
-        </StepHeading>
+        <br />
+        to get started
+      </StepHeading>
 
-        {/* CREATE USER FORM */}
-        {/* This form is just a fake sign up form, with the purpose of creating a user in Basiq's API 
+      {/* CREATE USER FORM */}
+      {/* This form is just a fake sign up form, with the purpose of creating a user in Basiq's API 
         (needed to Create Connections). If your app needs to have users, it's a great idea to replace 
         or build out this form, and then use the email address from your app's user to Create User in the API.
         PS. You can also use mobile number to Create User in the API */}
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-6 sm:space-y-8">
-            {/** Error state */}
-            {error && <ErrorMessage message={error.message} />}
+      <form onSubmit={handleSubmit}>
+        <div className="space-y-6 sm:space-y-8">
+          {/** Error state */}
+          {error && <ErrorMessage message={error.message} />}
 
-            <TextField
-              {...email('email')}
-              id="email"
-              label="Email"
-              placeholder="your@email.com"
-              disabled={submitting}
-              required
-            />
+          <TextField
+            {...email('email')}
+            id="email"
+            label="Email"
+            placeholder="your@email.com"
+            disabled={submitting}
+            required
+          />
 
-            {/* Terms and Conditions */}
-            <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
-              By continuing you agree to the Terms and Conditions and our Privacy Policy.
-            </p>
+          {/* Terms and Conditions */}
+          <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
+            By continuing you agree to the Terms and Conditions and our Privacy Policy.
+          </p>
 
-            {/* Actions */}
-            <div className="space-y-2">
-              <Button type="submit" loading={submitting} variant="bold" block>
-                Continue
-              </Button>
-              <Button type="button" disabled={submitting} variant="subtle" block onClick={cancel}>
-                Cancel
-              </Button>
-            </div>
+          {/* Actions */}
+          <div className="space-y-2">
+            <Button type="submit" loading={submitting} variant="bold" block>
+              Continue
+            </Button>
+            <Button type="button" disabled={submitting} variant="subtle" block onClick={cancel}>
+              Cancel
+            </Button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

@@ -39,14 +39,14 @@ export function AccountVerificationFormStep4SelectAccount() {
   if (!user || !selectedInstitution) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-6 sm:space-y-8">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+      <div className="flex flex-col space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
         <StepHeading>

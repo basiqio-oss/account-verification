@@ -70,14 +70,14 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
   if (!selectedInstitution) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col space-y-6 sm:space-y-8">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       {/* STEP CONTENT */}
-      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
         <div className="space-y-3">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
@@ -141,47 +141,44 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
   const { error, progress, completed, stepNameInProgress, estimatedTime, estimatedTimeOver, reset } = basiqConnection;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8">
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
-
-      <div className="flex flex-col items-center justify-center flex-grow text-center space-y-6 sm:space-y-8">
-        <VerificationProgress value={progress} error={error} />
-        {error ? (
-          <div className="w-full space-y-6 sm:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{error?.name}</h2>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">{error?.message}</p>
-            </div>
-            <Button block onClick={reset}>
-              Try again
-            </Button>
+      <VerificationProgress value={progress} error={error} />
+      {error ? (
+        <div className="w-full space-y-6 sm:space-y-8">
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{error?.name}</h2>
+            <p className="text-sm sm:text-base text-neutral-muted-darker">{error?.message}</p>
           </div>
-        ) : completed ? (
-          <div className="w-full space-y-6 sm:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">Connected 🎉</h3>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
-            </div>
-            <Button block onClick={goForward}>
-              Continue
-            </Button>
+          <Button block onClick={reset}>
+            Try again
+          </Button>
+        </div>
+      ) : completed ? (
+        <div className="w-full space-y-6 sm:space-y-8">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">Connected 🎉</h3>
+            <p className="text-sm sm:text-base text-neutral-muted-darker">One last step to go...</p>
           </div>
-        ) : (
-          <div className="w-full space-y-6 sm:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
-              <p className="text-sm sm:text-base text-neutral-muted-darker">
-                {estimatedTimeOver
-                  ? `It\u2019 taking a bit longer than expected`
-                  : `Usually takes ${ms(estimatedTime, { long: true })}`}
-              </p>
-            </div>
-            <Button block variant="subtle" onClick={openResumeModal}>
-              Resume in background
-            </Button>
+          <Button block onClick={goForward}>
+            Continue
+          </Button>
+        </div>
+      ) : (
+        <div className="w-full space-y-6 sm:space-y-8">
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
+            <p className="text-sm sm:text-base text-neutral-muted-darker">
+              {estimatedTimeOver
+                ? `It\u2019 taking a bit longer than expected`
+                : `Usually takes ${ms(estimatedTime, { long: true })}`}
+            </p>
           </div>
-        )}
-      </div>
+          <Button block variant="subtle" onClick={openResumeModal}>
+            Resume in background
+          </Button>
+        </div>
+      )}
       <AccountVerificationFormResumeInBackgroundModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );

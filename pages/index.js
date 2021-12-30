@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div>
       <SEO />
-      <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
+      <main className="flex items-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
         {/* Decorative blurry circles */}
         <div className="absolute w-full h-screen overflow-hidden">
           <div className="absolute -mt-64 bg-white rounded-full opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
