@@ -13,25 +13,36 @@ export function AccountVerificationFormStep5Summary() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* SUCCESS ICON */}
-      {/* TODO: add animation for extra delight */}
+      {/* SUCCESS ANIMATION: check-circle */}
       <div className="flex justify-center">
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-bold-darker"
+          className="w-20 h-20 -mx-2 -my-2 text-secondary-bold-darker checkmark"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          stroke="currentColor"
         >
           <path
+            className="checkmark__circle"
+            d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            stroke="url(#gradient)"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={1}
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            strokeDasharray={56}
+            strokeDashoffset={56}
+          />
+          <path
+            className="checkmark__check"
+            d="m9 12 2 2 4-4"
             stroke="url(#gradient)"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray={10}
+            strokeDashoffset={10}
           />
           <defs>
-            <linearGradient id="gradient" x1="4" y1="25.3333" x2="22.0923" y2="2.07176" gradientUnits="userSpaceOnUse">
+            <linearGradient id="gradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
               <stop stopColor="var(--color-primary-bold)" />
               <stop offset="1" stopColor="var(--color-secondary-bold)" />
             </linearGradient>
