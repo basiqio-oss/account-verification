@@ -69,7 +69,9 @@ export function AccountVerificationFormStep5Summary() {
             <div className="flex flex-col flex-grow">
               <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
               <span className="font-medium">{selectedAccount.name}</span>
-              <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
+              <span className={`text-xs font-medium ${process.env.NODE_ENV !== 'production' && 'blur-sm'}`}>
+                {formatCurrency(selectedAccount.balance)}
+              </span>
             </div>
 
             {/* Connected bank logo */}

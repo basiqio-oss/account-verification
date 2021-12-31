@@ -136,11 +136,17 @@ export function AccountVerificationFormStep4SelectAccount() {
                               </span>
                               <dl className="text-xs grid grid-cols-2 gap-y-0.5 text-neutral-muted-darker">
                                 <dt className="flex-1">Available:</dt>
-                                <dd className="font-medium text-right text-black">
+                                <dd
+                                  className={`font-medium text-right text-black ${
+                                    process.env.NODE_ENV !== 'production' && 'blur-sm'
+                                  }`}
+                                >
                                   {formatCurrency(acc.availableFunds)}
                                 </dd>
                                 <dt className="flex-1">Balance:</dt>
-                                <dd className="text-right">{formatCurrency(acc.balance)}</dd>
+                                <dd className={`text-right ${process.env.NODE_ENV !== 'production' && 'blur-sm'}`}>
+                                  {formatCurrency(acc.balance)}
+                                </dd>
                               </dl>
                             </div>
                           </div>
