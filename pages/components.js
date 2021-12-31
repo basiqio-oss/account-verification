@@ -1,4 +1,4 @@
-import { useToasts } from 'react-toast-notifications';
+import toast from 'react-hot-toast';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
 import { PasswordField } from '../components/PasswordField';
@@ -24,7 +24,7 @@ export default function Components() {
         <SectionErrorMessage />
         <SectionProgressBar />
         <SectionVerificationProgress />
-        <SectionToast />
+        <SectionToastNotification />
       </main>
     </>
   );
@@ -158,16 +158,14 @@ function SectionVerificationProgress() {
   );
 }
 
-function SectionToast() {
-  const { addToast } = useToasts();
-
+function SectionToastNotification() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">Toast</h2>
       <div className="flex flex-wrap gap-4">
         <Button
           onClick={() =>
-            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
+            toast.success('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
               title: 'Successfully added toast',
               appearance: 'success',
             })
@@ -179,7 +177,7 @@ function SectionToast() {
         <Button
           variant="critical"
           onClick={() =>
-            addToast('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
+            toast.error('Biscuit chocolate cheesecake pudding candy canes tart halvah sweet.', {
               title: 'Something went wrong',
               appearance: 'critical',
             })

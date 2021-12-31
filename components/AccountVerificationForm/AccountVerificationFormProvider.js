@@ -1,4 +1,4 @@
-import { useToasts } from 'react-toast-notifications';
+import toast from 'react-hot-toast';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { axios } from '../../utils/axios';
@@ -119,7 +119,6 @@ export function AccountVerificationFormProvider({ children }) {
 
 // Custom hook for managing the connect to the Basiq API
 function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
-  const { addToast } = useToasts();
   const { asPath } = useRouter();
 
   const [jobId, setJobId] = useState();
@@ -249,20 +248,20 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
     if (!jobId) return; // Make sure we only trigger the toast when you're on the step 3
     if (asPath === '/account-verification') return;
     if (error) {
-      addToast(error.message, {
+      toast.error(error.message, {
         title: error.name,
         appearance: 'critical',
       });
       return;
     }
     if (completed) {
-      addToast('Please continue setup, and select an account to finish.', {
+      toast.success('Please continue setup, and select an account to finish.', {
         title: 'Bank connected',
         appearance: 'success',
       });
       return;
     }
-  }, [jobId, addToast, asPath, completed, error]);
+  }, [jobId, asPath, completed, error]);
 
   // Some banks can be pretty slow to connect with and often take longer than their estimated time
   // To improve the UX, we can use this variable to let the user know it's taking longer than expected
