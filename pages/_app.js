@@ -1,5 +1,5 @@
+import { ToastNotification } from '../components/ToastNotification';
 import { AccountVerificationFormProvider } from '../components/AccountVerificationForm';
-import { Toaster } from '../components/Toaster';
 import '../styles.css';
 
 export default function MyApp({ Component, pageProps }) {
@@ -8,7 +8,8 @@ export default function MyApp({ Component, pageProps }) {
       <AccountVerificationFormProvider>
         <Component {...pageProps} />
       </AccountVerificationFormProvider>
-      <Toaster />
+
+      <ToastNotification />
     </>
   );
 }

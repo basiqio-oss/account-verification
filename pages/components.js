@@ -24,7 +24,7 @@ export default function Components() {
         <SectionErrorMessage />
         <SectionProgressBar />
         <SectionVerificationProgress />
-        <SectionToast />
+        <SectionToastNotification />
       </main>
     </>
   );
@@ -158,7 +158,7 @@ function SectionVerificationProgress() {
   );
 }
 
-function SectionToast() {
+function SectionToastNotification() {
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-semibold tracking-tight">Toast</h2>
