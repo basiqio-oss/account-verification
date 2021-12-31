@@ -23,7 +23,7 @@ export const Button = forwardRef(function Button(
       disabled={Tag === 'button' ? disabled : undefined}
       className={`px-8 h-12 rounded-lg ${
         block ? 'w-full flex' : 'inline-flex'
-      } items-center justify-center font-sans font-medium ${variantClasses} ${
+      } items-center justify-center font-sans font-medium select-none ${variantClasses} ${
         disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
       }`}
       {...props}

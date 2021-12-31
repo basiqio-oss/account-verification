@@ -53,6 +53,7 @@ export function Toast({
       >
         {/* Toast icon */}
         {appearance === 'critical' ? (
+          // Icon: exclamation-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="flex-shrink-0 w-6 h-6 text-critical-bold"
@@ -66,6 +67,7 @@ export function Toast({
             />
           </svg>
         ) : (
+          // Icon: check-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="flex-shrink-0 w-6 h-6 text-success-bold"
@@ -93,7 +95,7 @@ export function Toast({
             className="flex items-center justify-center flex-shrink-0 w-6 h-6 rounded outline-none hover:opacity-90 active:opacity-75 focus:ring-2 focus:ring-neutral-muted focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
           >
             <span className="sr-only">Dismiss</span>
-            {/* Icon: x */}
+            {/* Icon: x (solid) */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="flex-shrink-0 w-5 h-5 text-neutral-muted"

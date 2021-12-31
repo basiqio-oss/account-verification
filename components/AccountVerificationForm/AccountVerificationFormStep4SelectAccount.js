@@ -45,10 +45,9 @@ export function AccountVerificationFormStep4SelectAccount() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
-        {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+        {/* PRODUCT-COPY: A short as possible heading to help the user quickly recognise the task at hand. */}
         <div className="space-y-3 sm:space-y-4">
           <StepHeading>
             Select your daily <br />
@@ -56,6 +55,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           </StepHeading>
 
           {/* STEP DESCRIPTION */}
+          {/* PRODUCT-COPY: Depending on what account features your product supports. */}
           {(loading || !errorOrNoData) && (
             <StepDescription>
               Please select an account that allows direct debits. Many banks only allow withdrawals from transaction
@@ -64,6 +64,7 @@ export function AccountVerificationFormStep4SelectAccount() {
           )}
         </div>
 
+        {/* ACCOUNTS RADIO GROUP */}
         {loading ? (
           <AccountsLoadingSkeleton />
         ) : errorOrNoData ? (
@@ -100,7 +101,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                         >
                           <div className="flex flex-grow space-x-3">
                             {acc.disabled ? (
-                              // Lock icon
+                              // Icon: lock-closed (outline)
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-6 h-6"
@@ -160,6 +161,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   );
 }
 
+// RETRIEVE ACCOUNTS
 // Custom react hook for managing our fetch request to retrieves a list of accounts for the current user
 // The code for this API route can be found in `pages/api/accounts`
 function useAccountsData({ userId, institutionId }) {

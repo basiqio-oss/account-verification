@@ -11,6 +11,8 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         Security you <br />
         can trust
       </ModalTitle>
+
+      {/* API CONNECTION ILLUSTRATION */}
       {/* Illustration to communicate secure bank connection using Basiq */}
       <div className="space-y-2">
         {/* Dashed line - top */}
@@ -20,8 +22,8 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         <div className="flex items-center justify-between">
           {/* Product logo - square */}
           <img className="w-16 h-16" src="/product-logo-square.svg" alt="Piper logo" />
-          {/* Security icon (shield-check) + Basiq logo */}
           <div className="flex flex-col items-center justify-center space-y-1">
+            {/* Icon: shield-check (outline) */}
             <svg
               className="w-12 h-12 flex-no-shrink"
               fill="none"
@@ -40,6 +42,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
                 strokeLinejoin="round"
               />
             </svg>
+            {/* Basiq logo */}
             <img className="w-16 h-4" src="/basiq-logo.svg" alt="Basiq logo" />
           </div>
           {/* Bank illustration */}
@@ -55,7 +58,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="text-left space-y-2">
         <h4 className="font-semibold leading-snug text-md">Bank grade 256-bit SSL encryption</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          Powered by leading open banking platform {/* TODO: remove auto-focus on link when opening modal */}
+          Powered by leading open banking platform
           <a
             target="_blank"
             href="https://basiq.io"
@@ -82,7 +85,8 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="text-left space-y-2">
         <h4 className="font-semibold leading-snug text-md">We can not transact on your behalf</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          You only give Piper permission to verify the details of the account to deduct the nominated regular fee from.
+          All access is read-only, meaning we can see accounts and transactions to report on them, but are unable to
+          perform any actions on behalf of the user.
         </p>
       </div>
 
@@ -95,6 +99,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
         </p>
       </div>
 
+      {/* Actions */}
       <div className="space-y-2">
         <Button ref={connectButtonRef} onClick={onConfirm} variant="bold" block>
           Securely connect my account

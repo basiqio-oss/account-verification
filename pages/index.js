@@ -15,17 +15,8 @@ export default function Home() {
     <div>
       <SEO />
       <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
-        {/* Decorative blurry circles */}
-        <div className="absolute w-full h-screen overflow-hidden">
-          <div className="absolute -mt-64 bg-white rounded-full opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
-          <div className="absolute -mt-10 bg-white rounded-full opacity-75 w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
-          <div className="absolute -ml-16 bg-white rounded-full -mt-[550px] opacity-10 w-72 h-72 top-1/2 left-1/2 blur-2xl mix-blend-overlay" />
-          <div className="absolute w-32 h-32 ml-24 -mt-32 bg-white rounded-full opacity-25 top-1/2 left-1/2 blur-sm mix-blend-overlay" />
-          <div className="absolute mt-24 bg-white rounded-full opacity-50 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
-        </div>
-
         <div className="z-10 max-w-md px-4 pt-8 pb-16 mx-auto text-center space-y-6 sm:space-y-8">
-          {/* Product logo and divider */}
+          {/* PRODUCT LOGO */}
           <div className="inline-block space-y-6 sm:space-y-8">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
             <div className="w-full bg-primary-accent h-[1px]">
@@ -34,13 +25,13 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            {/* Product heading */}
+            {/* PRODUCT-COPY HEADING */}
             <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Start optimising <br />
               your savings
             </h1>
 
-            {/* Product short description */}
+            {/* PRODUCT-COPY SHORT DESCRIPTION */}
             <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
               Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
               account.
@@ -71,7 +62,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="w-56 mx-auto">
-              {/* CTA to Account Verification flow */}
+              {/* CTA TO ACCOUNT VERIFICATION FORM */}
               <div className="relative">
                 {/* Indicator */}
                 {(basiqConnectionInProgress || basiqConnectionSuccess) && (
@@ -83,7 +74,7 @@ export default function Home() {
                     )}
                   </span>
                 )}
-                {/* Action */}
+                {/* ACTION */}
                 <Link href="/account-verification" passHref>
                   <Button as="a" variant="inverted" block>
                     {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Get started'}
@@ -92,6 +83,15 @@ export default function Home() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Decorative blurry circles */}
+        <div className="absolute w-full h-screen overflow-hidden">
+          <div className="absolute -mt-64 bg-white rounded-full opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
+          <div className="absolute -mt-10 bg-white rounded-full opacity-75 w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
+          <div className="absolute -ml-16 bg-white rounded-full -mt-[550px] opacity-10 w-72 h-72 top-1/2 left-1/2 blur-2xl mix-blend-overlay" />
+          <div className="absolute w-32 h-32 ml-24 -mt-32 bg-white rounded-full opacity-25 top-1/2 left-1/2 blur-sm mix-blend-overlay" />
+          <div className="absolute mt-24 bg-white rounded-full opacity-50 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
         </div>
       </main>
     </div>
@@ -120,6 +120,7 @@ function IndicatorConnectionFinished({ error }) {
         }`}
       >
         {error ? (
+          // Icon: exclamation-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-critical-subtle"
@@ -133,6 +134,7 @@ function IndicatorConnectionFinished({ error }) {
             />
           </svg>
         ) : (
+          // Icon: check-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-success-subtle"

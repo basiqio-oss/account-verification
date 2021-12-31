@@ -62,3 +62,41 @@ This project uses `eslint` to enforce code quality and code formatting. For more
 [Cypress](https://github.com/cypress-io/cypress) is a test runner used for End-to-End (E2E) and Integration Testing. This project includes a simple E2E test which is used to test the account verification form flow.
 
 To run the E2E tests locally, you will first need have the website up and running. This can be done by either running `yarn dev` or `yarn build && yarn start`. The latter can be used when you want to run the tests againts the production build of the website. Once you have the website running in another terminal window run `yarn cypress`.
+
+## Theming
+
+This started kit uses [TailwindCSS](https://tailwindcss.com/docs/configuration) for all styling. Easily customise the theme in `tailwind.config.js` (colours, font etc) and `styles.css` (font import, CSS variables used for icon gradients etc).
+
+Follow these steps to make your Account Verification experience your own.
+
+### 1. Colours
+
+This starter kit has a custom naming convention, aiming to communicate semantic intent. All the colours the app uses are defined and can be customised in `tailwind.config.js`.
+
+### 2. Font
+
+This starter kit uses Inter font family.
+
+1. Change the font @import in `styles.css`
+2. Change the fontFamily in `tailwind.config.js` (`'Inter'`) to match the font name
+
+### 3. Product logos
+
+You can simply replace these SVG files, using the same file name.
+
+- `product-full-logo.svg` - used in `index.js` only
+- `product-square-logo.svg` - used for Account Verification Form
+
+NOTE: Out-of-the-box, the Account Verification Form layout works best with a perfectly square logo, since it uses the square institution logo on some steps.
+
+### 4. Product copywriting
+
+Search for `PRODUCT-COPY` in the codebase to find all the places that needs product-specific copywriting.
+
+Make sure to read through all copywriting in the files to make sure it's accurate with the product you are building.
+
+## Icons
+
+All icons used in this starter kit are exported from [heroicons.com](https://heroicons.com/).
+
+You can easily see which icon is which if you search the codebase for `Icon: `.

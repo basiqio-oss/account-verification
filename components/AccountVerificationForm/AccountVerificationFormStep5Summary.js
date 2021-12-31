@@ -13,8 +13,9 @@ export function AccountVerificationFormStep5Summary() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* SUCCESS ANIMATION: check-circle */}
+      {/* SUCCESS ANIMATION */}
       <div className="flex justify-center">
+        {/* Icon: check-circle (outline) */}
         <svg
           className="w-20 h-20 -mx-2 -my-2 text-secondary-bold-darker checkmark"
           fill="none"
@@ -50,13 +51,13 @@ export function AccountVerificationFormStep5Summary() {
         </svg>
       </div>
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}
           <StepHeading>You&rsquo;re all set!</StepHeading>
 
           {/* STEP DESCRIPTION */}
+          {/* PRODUCT-COPY: Re-iterate the value exchange to the user. */}
           <StepDescription>
             We have verified the details of the bank account below, and you&rsquo;re good to go.
           </StepDescription>
@@ -75,7 +76,7 @@ export function AccountVerificationFormStep5Summary() {
             <div className="relative">
               <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-              {/* Icon: check-circle (https://heroicons.com/) */}
+              {/* Icon: check-circle (solid) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"
@@ -92,8 +93,9 @@ export function AccountVerificationFormStep5Summary() {
           </li>
         </ul>
 
-        {/* We recommend giving the user the ability to remove their 
-        bank connection should they wish to. */}
+        {/* PRODUCT-COPY */}
+        {/* It's recommended to give the user the ability to remove their 
+        bank connection should they wish to. This paragraph is just a mock example. */}
         <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
           You can manage your bank connections <br />
           in the app settings later.
