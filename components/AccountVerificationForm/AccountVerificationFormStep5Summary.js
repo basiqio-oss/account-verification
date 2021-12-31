@@ -95,7 +95,7 @@ export function AccountVerificationFormStep5Summary() {
 
         {/* PRODUCT-COPY */}
         {/* It's recommended to give the user the ability to remove their 
-        bank connection should they wish to. This paragraph is just an mock example. */}
+        bank connection should they wish to. This paragraph is just a mock example. */}
         <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
           You can manage your bank connections <br />
           in the app settings later.
