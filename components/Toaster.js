@@ -56,6 +56,7 @@ function Toast({ id, title, message, appearance, offset }) {
     >
       {/* Toast icon */}
       {appearance === 'critical' ? (
+        // Icon: exclamation-circle (solid)
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="flex-shrink-0 w-6 h-6 text-critical-bold"
@@ -69,6 +70,7 @@ function Toast({ id, title, message, appearance, offset }) {
           />
         </svg>
       ) : (
+        // Icon: check-circle (solid)
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="flex-shrink-0 w-6 h-6 text-success-bold"
@@ -82,18 +84,20 @@ function Toast({ id, title, message, appearance, offset }) {
           />
         </svg>
       )}
+
       {/* Toast content */}
       <div className="flex flex-col flex-grow space-y-1">
         {title && <span className="font-medium leading-normal">{title}</span>}
         {message && <span className="text-sm">{message}</span>}
       </div>
+
       {/* Dismiss */}
       <button
         onClick={() => toast.dismiss(id)}
         className="flex items-center justify-center flex-shrink-0 w-6 h-6 rounded outline-none hover:opacity-90 active:opacity-75 focus:ring-2 focus:ring-neutral-muted focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
       >
         <span className="sr-only">Dismiss</span>
-        {/* Icon: x */}
+        {/* Icon: x (solid) */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="flex-shrink-0 w-5 h-5 text-neutral-muted"
