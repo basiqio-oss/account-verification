@@ -13,25 +13,37 @@ export function AccountVerificationFormStep5Summary() {
 
   return (
     <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
-      {/* SUCCESS ICON */}
-      {/* TODO: add animation for extra delight */}
+      {/* SUCCESS ANIMATION */}
       <div className="flex justify-center">
+        {/* Icon: check-circle (outline) */}
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-bold-darker"
+          className="w-20 h-20 -mx-2 -my-2 text-secondary-bold-darker checkmark"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          stroke="currentColor"
         >
           <path
+            className="checkmark__circle"
+            d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            stroke="url(#gradient)"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={1}
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            strokeDasharray={56}
+            strokeDashoffset={56}
+          />
+          <path
+            className="checkmark__check"
+            d="m9 12 2 2 4-4"
             stroke="url(#gradient)"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray={10}
+            strokeDashoffset={10}
           />
           <defs>
-            <linearGradient id="gradient" x1="4" y1="25.3333" x2="22.0923" y2="2.07176" gradientUnits="userSpaceOnUse">
+            <linearGradient id="gradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
               <stop stopColor="var(--color-primary-bold)" />
               <stop offset="1" stopColor="var(--color-secondary-bold)" />
             </linearGradient>
@@ -39,15 +51,17 @@ export function AccountVerificationFormStep5Summary() {
         </svg>
       </div>
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
-        {/* STEP HEADING */}
-        <StepHeading>You&rsquo;re all set!</StepHeading>
+        <div className="space-y-3 sm:space-y-4">
+          {/* STEP HEADING */}
+          <StepHeading>You&rsquo;re all set!</StepHeading>
 
-        {/* STEP DESCRIPTION */}
-        <StepDescription>
-          We have verified the details of the bank account below, and you&rsquo;re good to go.
-        </StepDescription>
+          {/* STEP DESCRIPTION */}
+          {/* PRODUCT-COPY: Re-iterate the value exchange to the user. */}
+          <StepDescription>
+            We have verified the details of the bank account below, and you&rsquo;re good to go.
+          </StepDescription>
+        </div>
 
         {/* SUMMARY */}
         <ul role="list" className="border-t border-b divide-y border-neutral-dim">
@@ -62,7 +76,7 @@ export function AccountVerificationFormStep5Summary() {
             <div className="relative">
               <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-              {/* Icon: check-circle (https://heroicons.com/) */}
+              {/* Icon: check-circle (solid) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute w-6 h-6 bg-white border-white rounded-full -top-2 -right-2 text-success-bold"
@@ -79,8 +93,9 @@ export function AccountVerificationFormStep5Summary() {
           </li>
         </ul>
 
-        {/* We recommend giving the user the ability to remove their 
-        bank connection should they wish to. */}
+        {/* PRODUCT-COPY */}
+        {/* It's recommended to give the user the ability to remove their 
+        bank connection should they wish to. This paragraph is just a mock example. */}
         <p className="text-xs text-center sm:text-sm text-neutral-muted-darker">
           You can manage your bank connections <br />
           in the app settings later.

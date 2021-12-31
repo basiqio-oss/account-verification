@@ -7,7 +7,6 @@ export default function AccountVerification() {
       <SEO title="Account Verification" />
       <main className="text-black bg-white">
         <AccountVerificationForm />
-        {/* TODO: Add background image */}
       </main>
     </>
   );

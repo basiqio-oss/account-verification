@@ -15,27 +15,31 @@ export default function Home() {
     <div>
       <SEO />
       <main className="flex flex-col justify-center min-h-screen bg-gradient-to-tr from-primary-bold to-primary-accent">
-        <div className="max-w-md px-4 pt-8 mx-auto text-center pb-14 space-y-6">
-          {/* Product logo and divider */}
-          <div className="inline-block space-y-6">
+        <div className="z-10 max-w-md px-4 pt-8 pb-16 mx-auto text-center space-y-6 sm:space-y-8">
+          {/* PRODUCT LOGO */}
+          <div className="inline-block space-y-6 sm:space-y-8">
             <img src="/product-logo-full.svg" alt="Piper logo" width={79} height={102} />
-            <div className="border-b border-white mix-blend-soft-light"></div>
+            <div className="w-full bg-primary-accent h-[1px]">
+              <div className="border-b border-white mix-blend-soft-light" />
+            </div>
           </div>
 
-          {/* Product heading */}
-          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Start optimising <br />
-            your savings
-          </h1>
+          <div className="space-y-4">
+            {/* PRODUCT-COPY HEADING */}
+            <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              Start optimising <br />
+              your savings
+            </h1>
 
-          {/* Product short description */}
-          <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
-            Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
-            account.
-          </p>
+            {/* PRODUCT-COPY SHORT DESCRIPTION */}
+            <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
+              Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
+              account.
+            </p>
+          </div>
 
           {hasCompletedForm ? (
-            <div className="w-64 mx-auto space-y-2 sm:space-y-0">
+            <div className="w-64 mx-auto">
               {/* VIEW CONNECTED ACCOUNT */}
               {/* It might be a good idea to let the user be able to view a summary of their 
               connected bank accounts. */}
@@ -47,9 +51,9 @@ export default function Home() {
 
               {/* RESET APP */}
               {/* For developer use only; this will reset state and delete connection */}
-              <div className="relative sm:fixed sm:top-0 sm:right-0 sm:px-6 md:px-8 sm:pt-6 mix-blend-soft-light">
+              <div className="absolute top-0 right-0 px-4 pt-4 leading-none sm:px-6 md:px-8 sm:pt-6 md:pt-8 md:fixed">
                 <button
-                  className="text-xs text-white rounded outline-none sm:text-sm hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+                  className="text-xs text-white rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                   onClick={reset}
                 >
                   Reset app
@@ -58,10 +62,10 @@ export default function Home() {
             </div>
           ) : (
             <div className="w-56 mx-auto">
-              {/* CTA to Account Verification flow */}
+              {/* CTA TO ACCOUNT VERIFICATION FORM */}
               <div className="relative">
                 {/* Indicator */}
-                {basiqConnectionInProgress && (
+                {(basiqConnectionInProgress || basiqConnectionSuccess) && (
                   <span className="absolute top-0 right-0 flex w-6 h-6 rounded-full shadow-md -translate-y-1/2 translate-x-1/2">
                     {basiqConnectionSuccess || basiqConnectionError ? (
                       <IndicatorConnectionFinished error={basiqConnectionError} />
@@ -70,15 +74,24 @@ export default function Home() {
                     )}
                   </span>
                 )}
-                {/* Action */}
+                {/* ACTION */}
                 <Link href="/account-verification" passHref>
                   <Button as="a" variant="inverted" block>
-                    {basiqConnectionInProgress ? 'Continue setup' : 'Get started'}
+                    {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Get started'}
                   </Button>
                 </Link>
               </div>
             </div>
           )}
+        </div>
+
+        {/* Decorative blurry circles */}
+        <div className="absolute w-full h-screen overflow-hidden">
+          <div className="absolute -mt-64 bg-white rounded-full opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
+          <div className="absolute -mt-10 bg-white rounded-full opacity-75 w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
+          <div className="absolute -ml-16 bg-white rounded-full -mt-[550px] opacity-10 w-72 h-72 top-1/2 left-1/2 blur-2xl mix-blend-overlay" />
+          <div className="absolute w-32 h-32 ml-24 -mt-32 bg-white rounded-full opacity-25 top-1/2 left-1/2 blur-sm mix-blend-overlay" />
+          <div className="absolute mt-24 bg-white rounded-full opacity-50 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
         </div>
       </main>
     </div>
@@ -107,6 +120,7 @@ function IndicatorConnectionFinished({ error }) {
         }`}
       >
         {error ? (
+          // Icon: exclamation-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-critical-subtle"
@@ -120,6 +134,7 @@ function IndicatorConnectionFinished({ error }) {
             />
           </svg>
         ) : (
+          // Icon: check-circle (solid)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-success-subtle"

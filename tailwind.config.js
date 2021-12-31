@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     // THEME
     // To easily see what styles are used where, you can search the codebase for `text-primary-bold` e.g.
-    // For more information on how to configure this TailwindCSS theme, go to https://v2.tailwindcss.com/docs/theme
+    // For more information on how to configure this TailwindCSS theme, go to https://tailwindcss.com/docs/theme
 
     colors: {
       // BRAND COLOURS

@@ -37,12 +37,12 @@ export function AccountVerificationFormStep0SignUp() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         {/* STEP HEADING */}
         {/* A short as possible heading to help the user quickly recognise the task at hand. */}
+        {/* PRODUCT-COPY: Depending on your product (if you're adding a real user account creation e.g.) */}
         <StepHeading>
-          We need your email
+          Sign up with your email
           {/* FYI: The hard-coded linebreak (<br>) is purely for decorative purposes.
           Only suitable if the text doesn't wrap in small devices (320px viewport width e.g.) */}
           <br />
@@ -69,6 +69,7 @@ export function AccountVerificationFormStep0SignUp() {
             />
 
             {/* Terms and Conditions */}
+            {/* PRODUCT-COPY: Depending on your product (if you're adding a real user account creation e.g.) */}
             <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
               By continuing you agree to the Terms and Conditions and our Privacy Policy.
             </p>

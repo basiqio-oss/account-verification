@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { Button } from '../components/Button';
 import { TextField } from '../components/TextField';
+import { PasswordField } from '../components/PasswordField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -18,6 +19,7 @@ export default function Components() {
         <SectionButtons />
         <SectionLoadingSpinner />
         <SectionTextField />
+        <SectionPasswordField />
         <SectionSearchInput />
         <SectionErrorMessage />
         <SectionProgressBar />
@@ -97,6 +99,17 @@ function SectionTextField() {
       <TextField label="Label" />
       <TextField label="Label" placeholder="Placeholder" />
       <TextField label="Label" error="Something went wrong" />
+    </section>
+  );
+}
+
+function SectionPasswordField() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold tracking-tight">PasswordField</h2>
+      <PasswordField label="Label" />
+      <PasswordField label="Label" placeholder="Placeholder" />
+      <PasswordField label="Label" error="Something went wrong" />
     </section>
   );
 }

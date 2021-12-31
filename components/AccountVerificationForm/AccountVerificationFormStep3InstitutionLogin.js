@@ -4,6 +4,7 @@ import ms from 'ms';
 import { useTernaryState } from '../../utils/useTernaryState';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
+import { PasswordField } from '../PasswordField';
 import { VerificationProgress } from '../VerificationProgress';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
@@ -26,7 +27,7 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
   const { goBack, accountVerificationFormState, createBasiqConnection } = useAccountVerificationForm();
   const { selectedInstitution } = accountVerificationFormState;
 
-  const [formState, { text, password }] = useFormState();
+  const [formState, { text }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState();
 
@@ -39,14 +40,17 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
         const label = selectedInstitution[key];
         const placeholder = selectedInstitution[key];
         return {
-          id,
-          label,
-          placeholder,
+          field: {
+            id,
+            label,
+            placeholder,
+            ...text(id),
+          },
           // We should always show a password field, except for the loginId field
-          ...(id === 'loginId' ? text(id) : password(id)),
+          FieldComponent: id === 'loginId' ? TextField : PasswordField,
         };
       });
-  }, [password, selectedInstitution, text]);
+  }, [selectedInstitution, text]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -72,9 +76,8 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
       {/* and what bank they're about to connect to. */}
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
-      {/* STEP CONTENT */}
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
-        <div className="space-y-3">
+        <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}
           <StepHeading>{selectedInstitution.shortName}</StepHeading>
@@ -92,10 +95,10 @@ function AccountVerificationFormStep3InstitutionLoginForm() {
               {/* Error state */}
               {error && <ErrorMessage message={error.message} />}
 
-              {formFields.map(field => (
+              {formFields.map(({ FieldComponent, field }) => (
                 <div key={field.id} className="space-y-2">
-                  <TextField {...field} disabled={submitting} />
-                  {/** Forgot password */}
+                  <FieldComponent {...field} disabled={submitting} />
+                  {/* Forgot password */}
                   {field.id === 'password' && selectedInstitution.forgottenPasswordUrl && (
                     <a
                       href={selectedInstitution.forgottenPasswordUrl}
