@@ -76,13 +76,25 @@ export function AccountVerificationFormProvider({ children }) {
   async function cancel() {
     // Cancelling at the first step doesn't require a confirmation modal as the user has not submitted any form data yet
     if (currentStep === 0) {
-      router.push('/');
+      router.push(
+        {
+          pathname: '/',
+        },
+        undefined,
+        { scroll: false }
+      );
       return;
     }
     setCancelling(true);
     try {
       await deleteBasiqConnection();
-      router.push('/');
+      router.push(
+        {
+          pathname: '/',
+        },
+        undefined,
+        { scroll: false }
+      );
       resetState();
     } catch {
       // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset
@@ -93,7 +105,13 @@ export function AccountVerificationFormProvider({ children }) {
   // Called when the user has successfully finished all steps
   function finish() {
     setHasCompletedForm(true);
-    router.push('/');
+    router.push(
+      {
+        pathname: '/',
+      },
+      undefined,
+      { scroll: false }
+    );
   }
 
   const contextValue = {
