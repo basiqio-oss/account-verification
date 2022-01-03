@@ -46,3 +46,13 @@
     transform: scale3d(1.1, 1.1, 1);
   }
 }
+
+.content {
+  opacity: 0;
+  background-color: cornflowerblue;
+  transition: 1s;
+}
+
+.fadeIn {
+  opacity: 1;
+}
