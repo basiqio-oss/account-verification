@@ -82,18 +82,7 @@ module.exports = {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
 
-    extend: {
-      keyframes: {
-        fadeIn: {
-          from: {
-            opacity: '0',
-          },
-          to: {
-            transform: '1',
-          },
-        },
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
