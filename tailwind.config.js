@@ -83,13 +83,14 @@ module.exports = {
     },
 
     extend: {
+      animation: {
+        'ping-slow': 'pingSlow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
       keyframes: {
-        fadeIn: {
-          from: {
+        pingSlow: {
+          '75%, 100%': {
+            transform: 'scale(1.5)',
             opacity: '0',
-          },
-          to: {
-            transform: '1',
           },
         },
       },
