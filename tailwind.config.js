@@ -14,24 +14,24 @@ module.exports = {
       // Primary brand colours
       primary: {
         // Subtle
-        subtle: '#F1F0FF', // <Button variant="subtle"/> bg, and radio options e.g.
-        'subtle-darker': '#E8E5FF', // <Button variant="subtle"/> :hover bg
-        'subtle-darkest': '#DEDBFF', // <Button variant="subtle"/> :active bg
+        subtle: '#E1EFFF', // <Button variant="subtle"/> bg, and radio options e.g.
+        'subtle-darker': '#D4E8FF', // <Button variant="subtle"/> :hover bg
+        'subtle-darkest': '#C2DEFF', // <Button variant="subtle"/> :active bg
 
         // Bold
-        bold: '#4737FF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
-        'bold-darker': '#1400FE', // Links (darker to provide more contrast)
+        bold: '#0058BF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
+        'bold-darker': '#004BA3', // Links (darker to provide more contrast)
 
         // Accent
-        accent: '#9C4EFF', // primary-bold to primary-accent bg gradient e.g.
+        accent: '#3D96FF', // primary-bold to primary-accent bg gradient e.g.
       },
 
       // Secondary brand colours
       secondary: {
         // Bold
-        'bold-lighter': '#34F1CF', // icons on dark bg (lighter to provide more contrast)
-        bold: '#10EDC5', // primary-bold to secondary-bold bg gradients e.g.
-        'bold-darker': '#0FD7B3', // icons on light bg (darker to provide more contrast)
+        'bold-lighter': '#97C7FF', // icons on dark bg (lighter to provide more contrast)
+        bold: '#8ac0ff', // primary-bold to secondary-bold bg gradients e.g.
+        'bold-darker': '#7AB5FF', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
