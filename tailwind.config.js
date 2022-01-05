@@ -82,7 +82,19 @@ module.exports = {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
     },
 
-    extend: {},
+    extend: {
+      animation: {
+        'ping-slow': 'pingSlow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        pingSlow: {
+          '75%, 100%': {
+            transform: 'scale(1.5)',
+            opacity: '0',
+          },
+        },
+      },
+    },
   },
   plugins: [],
 };

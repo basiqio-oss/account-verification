@@ -3,7 +3,7 @@ const strokeWidth = 8;
 const center = diameter / 2;
 const pathRadius = center - strokeWidth / 2;
 
-export function VerificationProgress({ label, value = 0, error }) {
+export function CircularProgressBar({ label, value = 0, error }) {
   const pathRatio = getPathRatio({ value });
 
   // Calculate dash coordinates relative to the circle (the actual "progress" bar)
@@ -20,7 +20,11 @@ export function VerificationProgress({ label, value = 0, error }) {
 
   return (
     <div className="relative" style={{ height: diameter, width: diameter }}>
+      {!error && value !== 100 && (
+        <div className="absolute z-0 w-full h-full border-2 rounded-full motion-safe:animate-ping-slow border-neutral-subtle" />
+      )}
       <svg
+        className="relative z-10"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={value}
@@ -47,7 +51,7 @@ export function VerificationProgress({ label, value = 0, error }) {
           </linearGradient>
         </defs>
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
         {error ? (
           // Icon: exclamation-circle
           <svg
