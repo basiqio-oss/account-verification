@@ -29,9 +29,9 @@ module.exports = {
       // Secondary brand colours
       secondary: {
         // Bold
-        'bold-lighter': '#97C7FF', // icons on dark bg (lighter to provide more contrast)
-        bold: '#8ac0ff', // primary-bold to secondary-bold bg gradients e.g.
-        'bold-darker': '#7AB5FF', // icons on light bg (darker to provide more contrast)
+        'bold-lighter': '#F6C759', // icons on dark bg (lighter to provide more contrast)
+        bold: '#EFBC50', // primary-bold to secondary-bold bg gradients e.g.
+        'bold-darker': '#E5AE54', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
