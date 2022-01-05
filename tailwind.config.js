@@ -79,7 +79,7 @@ module.exports = {
     // Font-weights used through-out this example app are:
     // 400 (default), 500 (font-medium), and 600 (font-semibold).
     fontFamily: {
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      sans: ['Lato', ...defaultTheme.fontFamily.sans],
     },
 
     extend: {},
