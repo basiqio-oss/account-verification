@@ -36,7 +36,7 @@ export function AccountVerificationFormStep1PreConsent() {
           It's important to communicate the value exchange, i.e. what will the product be able to do once 
           the user has connected their bank. */}
           <StepDescription>
-            We need to verify the details of the account from which to to deduct the nominated regular fee.
+            PiperPay needs to connect to your bank in order to confirm ownership of the account to debit.
           </StepDescription>
         </div>
 
