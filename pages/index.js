@@ -18,7 +18,7 @@ export default function Home() {
         <div className="z-10 max-w-md px-4 pt-8 pb-16 mx-auto text-center space-y-6 sm:space-y-8">
           {/* PRODUCT LOGO */}
           <div className="inline-block space-y-6 sm:space-y-8">
-            <img src="/product-logo-full.svg" alt="Logo of PiperPay" width={79} height={102} />
+            <img src="/product-logo-full.svg" alt="Logo of PiperPay" width={136} height={102} />
             <div className="w-full bg-primary-accent h-[1px]">
               <div className="border-b border-white mix-blend-soft-light" />
             </div>
