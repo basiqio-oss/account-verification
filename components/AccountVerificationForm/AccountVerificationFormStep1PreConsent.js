@@ -17,7 +17,7 @@ export function AccountVerificationFormStep1PreConsent() {
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
-      <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
+      <StepLogo src="/product-logo-square.svg" alt="Logo of PiperPay" />
 
       <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
         <div className="space-y-3 sm:space-y-4">
