@@ -81,6 +81,11 @@ module.exports = {
     fontFamily: {
       sans: ['Lato', ...defaultTheme.fontFamily.sans],
     },
+    fontWeight: {
+      normal: 400,
+      medium: 700,
+      semibold: 900,
+    },
 
     extend: {},
   },
