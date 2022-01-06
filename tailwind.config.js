@@ -40,7 +40,7 @@ module.exports = {
       // Base UI colours
       transparent: 'transparent',
       current: 'currentColor', // svgs to be able to grab the text-{color} as stroke- or fill colour
-      black: '#000217', // default text colour
+      black: '#4a4a4a', // default text colour
       white: '#FFFFFF', // default bg colour of the /account-verification flow, <Button variant="inverted"/> e.g.
 
       // Neutral UI colours
@@ -49,8 +49,8 @@ module.exports = {
         'subtle-darker': '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
         dim: '#DEE4E7', // border, divide colour
         'dim-darker': '#BECBD0', // form input border, radio circles e.g.
-        muted: '#7E888E', // muted icons, e.g. in <SearchInput />
-        'muted-darker': '#4F6772', // muted text (darker to provide more contrast)
+        muted: '#777f81', // muted icons, e.g. in <SearchInput />
+        'muted-darker': '#6B7173', // muted text (darker to provide more contrast)
       },
 
       // Critical UI colours
