@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { LoadingSpinner } from './LoadingSpinner';
 
 const VARIANT_MAP = {
-  bold: 'bg-primary-bold text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
+  bold: 'bg-black text-white hover:bg-opacity-90 active:bg-opacity-75 focus:ring-2 focus:ring-black focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   subtle:
     'bg-primary-subtle text-primary-bold hover:bg-primary-subtle-darker active:bg-primary-subtle-darkest focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent outline-none',
   inverted:
@@ -21,7 +21,7 @@ export const Button = forwardRef(function Button(
     <Tag
       ref={ref}
       disabled={Tag === 'button' ? disabled : undefined}
-      className={`px-8 h-12 rounded-lg ${
+      className={`px-8 h-12 rounded-full ${
         block ? 'w-full flex' : 'inline-flex'
       } items-center justify-center font-sans font-medium select-none ${variantClasses} ${
         disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
