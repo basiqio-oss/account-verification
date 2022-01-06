@@ -160,7 +160,7 @@ export function AccountVerificationFormStep4SelectAccount() {
                 Finish
               </Button>
               <Button type="button" variant="subtle" block onClick={() => goToStep(2)}>
-                Connect a different institution
+                Connect to a different bank
               </Button>
             </div>
           </form>
