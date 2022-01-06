@@ -5,7 +5,7 @@ import { useTernaryState } from '../../utils/useTernaryState';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { PasswordField } from '../PasswordField';
-import { VerificationProgress } from '../VerificationProgress';
+import { CircularProgressBar } from '../CircularProgressBar';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { AccountVerificationFormResumeInBackgroundModal } from './AccountVerificationFormResumeInBackgroundModal';
@@ -144,7 +144,8 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       <div className="flex flex-col items-center justify-center flex-grow text-center space-y-6 sm:space-y-8">
-        <VerificationProgress value={progress} error={error} />
+        <CircularProgressBar value={progress} error={error} />
+
         {error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
