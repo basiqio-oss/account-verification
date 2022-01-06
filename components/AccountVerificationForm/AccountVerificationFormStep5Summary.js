@@ -45,7 +45,7 @@ export function AccountVerificationFormStep5Summary() {
           <defs>
             <linearGradient id="gradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
               <stop stopColor="var(--color-primary-bold)" />
-              <stop offset="1" stopColor="var(--color-secondary-bold)" />
+              <stop offset="1" stopColor="var(--color-primary-accent)" />
             </linearGradient>
           </defs>
         </svg>
