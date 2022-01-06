@@ -12,7 +12,7 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goBack, goForward, accountVerificationFormState, updateAccountVerificationFormState } =
+  const { goBackTwoSteps, goForward, accountVerificationFormState, updateAccountVerificationFormState } =
     useAccountVerificationForm();
   const { user, selectedInstitution } = accountVerificationFormState;
 
@@ -159,7 +159,7 @@ export function AccountVerificationFormStep4SelectAccount() {
               <Button type="submit" block>
                 Finish
               </Button>
-              <Button type="button" variant="subtle" block onClick={goBack}>
+              <Button type="button" variant="subtle" block onClick={goBackTwoSteps}>
                 Pick another bank
               </Button>
             </div>
