@@ -57,7 +57,6 @@ export function AccountVerificationFormProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = FORM_COMPONENTS.length;
   const goBack = () => setCurrentStep(step => (step === 0 ? 0 : step - 1));
-  // const goBackTwoSteps = () => setCurrentStep(step => (step === 0 ? 0 : step - 2));
   const goToStep = step => setCurrentStep(step);
   const goForward = () => setCurrentStep(step => (step === totalSteps - 1 ? totalSteps - 1 : currentStep + 1));
 
