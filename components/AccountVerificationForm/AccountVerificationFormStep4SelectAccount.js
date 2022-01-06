@@ -12,7 +12,8 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goForward, accountVerificationFormState, updateAccountVerificationFormState } = useAccountVerificationForm();
+  const { goBackTwoSteps, goForward, accountVerificationFormState, updateAccountVerificationFormState } =
+    useAccountVerificationForm();
   const { user, selectedInstitution } = accountVerificationFormState;
 
   const [selectedAccount, setSelectedAccount] = useState();
@@ -75,7 +76,9 @@ export function AccountVerificationFormStep4SelectAccount() {
           />
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-            {validationError && <ErrorMessage message="Please select an account" />}
+            {validationError && (
+              <ErrorMessage message="Please select an account that allows direct debits, or pick another bank." />
+            )}
             <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
               <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
               <div className="space-y-3">
@@ -151,9 +154,15 @@ export function AccountVerificationFormStep4SelectAccount() {
                 })}
               </div>
             </RadioGroup>
-            <Button type="submit" block>
-              Finish
-            </Button>
+            {/* Actions */}
+            <div className="space-y-2">
+              <Button type="submit" block>
+                Finish
+              </Button>
+              <Button type="button" variant="subtle" block onClick={goBackTwoSteps}>
+                Pick another bank
+              </Button>
+            </div>
           </form>
         )}
       </div>
