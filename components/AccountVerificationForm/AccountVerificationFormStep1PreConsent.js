@@ -45,7 +45,7 @@ export function AccountVerificationFormStep1PreConsent() {
         for why it's 100% secure to connect to their bank through the app. */}
         <ul role="list" className="rounded-lg bg-neutral-subtle">
           {/* Secure argument 1 */}
-          <li className="flex items-center px-4 py-3 rounded-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-secondary-bold space-x-4">
+          <li className="flex items-center px-4 py-3 rounded-lg sm:px-6 bg-gradient-to-tr from-primary-bold to-primary-accent space-x-4">
             <div className="flex flex-grow font-medium leading-snug text-white">
               Bank grade 256-bit <br />
               SSL encryption
@@ -105,7 +105,7 @@ export function AccountVerificationFormStep1PreConsent() {
                       gradientUnits="userSpaceOnUse"
                     >
                       <stop stopColor="var(--color-primary-bold)" />
-                      <stop offset="1" stopColor="var(--color-secondary-bold)" />
+                      <stop offset="1" stopColor="var(--color-primary-accent)" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -145,7 +145,7 @@ export function AccountVerificationFormStep1PreConsent() {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stopColor="var(--color-primary-bold)" />
-                    <stop offset="1" stopColor="var(--color-secondary-bold)" />
+                    <stop offset="1" stopColor="var(--color-primary-accent)" />
                   </linearGradient>
                 </defs>
               </svg>
