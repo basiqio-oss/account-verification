@@ -24,7 +24,6 @@ module.exports = {
 
         // Accent
         accent: '#F1F5AC', // primary-bold to primary-accent bg gradient e.g.
-        'accent-darker': '#d9dd9b',
       },
 
       // Secondary brand colours
@@ -32,7 +31,7 @@ module.exports = {
         // Bold
         'bold-lighter': '#f5f8c5', // icons on dark bg (lighter to provide more contrast)
         bold: '#F1F5AC', // primary-bold to secondary-bold bg gradients e.g.
-        'bold-darker': '#d9dd9b', // icons on light bg (darker to provide more contrast)
+        'bold-darker': '#E5E9A3', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
