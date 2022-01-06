@@ -12,7 +12,7 @@ const AccountVerificationFormContext = createContext({
   // Function to navigate the user to the previous step
   goBack: undefined,
   // Function to navigate the user two steps back
-  goBackTwoSteps: undefined,
+  goToStep: undefined,
   // Function to navigate the user to the next step
   goForward: undefined,
   // Function to cancel the the users verification. A confirmation modal will be triggered.
@@ -57,7 +57,8 @@ export function AccountVerificationFormProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = FORM_COMPONENTS.length;
   const goBack = () => setCurrentStep(step => (step === 0 ? 0 : step - 1));
-  const goBackTwoSteps = () => setCurrentStep(step => (step === 0 ? 0 : step - 2));
+  // const goBackTwoSteps = () => setCurrentStep(step => (step === 0 ? 0 : step - 2));
+  const goToStep = step => setCurrentStep(step);
   const goForward = () => setCurrentStep(step => (step === totalSteps - 1 ? totalSteps - 1 : currentStep + 1));
 
   // State for managing the basiq connection
@@ -103,7 +104,7 @@ export function AccountVerificationFormProvider({ children }) {
     currentStep,
     totalSteps,
     goBack,
-    goBackTwoSteps,
+    goToStep,
     goForward,
     cancel,
     cancelling,
