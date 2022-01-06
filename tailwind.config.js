@@ -14,16 +14,16 @@ module.exports = {
       // Primary brand colours
       primary: {
         // Subtle
-        subtle: '#E1EFFF', // <Button variant="subtle"/> bg, and radio options e.g.
-        'subtle-darker': '#D4E8FF', // <Button variant="subtle"/> :hover bg
-        'subtle-darkest': '#C2DEFF', // <Button variant="subtle"/> :active bg
+        subtle: '#ecedf5', // <Button variant="subtle"/> bg, and radio options e.g.
+        'subtle-darker': '#d8dbea', // <Button variant="subtle"/> :hover bg
+        'subtle-darkest': '#c5c9e0', // <Button variant="subtle"/> :active bg
 
         // Bold
-        bold: '#0058BF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
-        'bold-darker': '#004BA3', // Links (darker to provide more contrast)
+        bold: '#3D4C96', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
+        'bold-darker': '#2A3466', // Links (darker to provide more contrast)
 
         // Accent
-        accent: '#3D96FF', // primary-bold to primary-accent bg gradient e.g.
+        accent: '#498EBE', // primary-bold to primary-accent bg gradient e.g.
       },
 
       // Secondary brand colours
