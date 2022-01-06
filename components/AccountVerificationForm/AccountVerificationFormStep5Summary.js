@@ -59,7 +59,8 @@ export function AccountVerificationFormStep5Summary() {
           {/* STEP DESCRIPTION */}
           {/* PRODUCT-COPY: Re-iterate the value exchange to the user. */}
           <StepDescription>
-            We have verified the details of the bank account below, and you&rsquo;re good to go.
+            We now have read-only access to your account listed below, and we can calculate and remove the carbon of
+            your spending.
           </StepDescription>
         </div>
 

@@ -36,7 +36,8 @@ export function AccountVerificationFormStep1PreConsent() {
           It's important to communicate the value exchange, i.e. what will the product be able to do once 
           the user has connected their bank. */}
           <StepDescription>
-            We need to verify the details of the account from which to to deduct the nominated regular fee.
+            We need read-only access to your account to calculate and remove the carbon of your spending. Stores pay, so
+            it&rsquo;s always 100% free for you!
           </StepDescription>
         </div>
 
