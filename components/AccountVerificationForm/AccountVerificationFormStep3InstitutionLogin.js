@@ -5,7 +5,7 @@ import { useTernaryState } from '../../utils/useTernaryState';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { PasswordField } from '../PasswordField';
-import { VerificationProgress } from '../VerificationProgress';
+import { CircularProgressBar } from '../CircularProgressBar';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { AccountVerificationFormResumeInBackgroundModal } from './AccountVerificationFormResumeInBackgroundModal';
@@ -144,7 +144,8 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
       <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       <div className="flex flex-col items-center justify-center flex-grow text-center space-y-6 sm:space-y-8">
-        <VerificationProgress value={progress} error={error} />
+        <CircularProgressBar value={progress} error={error} />
+
         {error ? (
           <div className="w-full space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
@@ -171,7 +172,7 @@ function AccountVerificationFormStep3InstitutionLoginProgress() {
               <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{STEP_NAME_MAP[stepNameInProgress]}</h2>
               <p className="text-sm sm:text-base text-neutral-muted-darker">
                 {estimatedTimeOver
-                  ? `It\u2019 taking a bit longer than expected`
+                  ? `It\u2019s taking a bit longer than expected`
                   : `Usually takes ${ms(estimatedTime, { long: true })}`}
               </p>
             </div>

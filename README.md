@@ -16,7 +16,7 @@ This application takes a user through the account verification process using the
 To get started, you will first need to clone the repository and `cd` into your new directory.
 
 ```sh
-git clone git@github.com:bridget-basiq/account-verification.git
+git clone git@github.com:basiqio/account-verification.git
 cd account-verification
 ```
 

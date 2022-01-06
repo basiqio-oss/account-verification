@@ -36,7 +36,7 @@ export function AccountVerificationFormStep1PreConsent() {
           It's important to communicate the value exchange, i.e. what will the product be able to do once 
           the user has connected their bank. */}
           <StepDescription>
-            We need to verify the details of the account to deduct the nominated regular fee from.
+            We need to verify the details of the account from which to to deduct the nominated regular fee.
           </StepDescription>
         </div>
 
@@ -116,7 +116,7 @@ export function AccountVerificationFormStep1PreConsent() {
           {/* Secure argument 3 */}
           <li className="flex items-center px-4 py-3 sm:px-6 space-x-4">
             <div className="flex flex-grow text-sm">
-              We can not make <br />
+              We cannot make <br />
               transactions on your behalf
             </div>
 
@@ -155,7 +155,7 @@ export function AccountVerificationFormStep1PreConsent() {
 
         {/* POWERED BY BASIQ API */}
         <p className="max-w-xs mx-auto text-xs leading-relaxed text-center text-neutral-muted-darker">
-          Powered by open banking platform{' '}
+          Powered by open data platform{' '}
           <a
             target="_blank"
             href="https://basiq.io"

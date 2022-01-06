@@ -56,7 +56,7 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
 
       {/* Secure argument 1 - Detail */}
       <div className="text-left space-y-2">
-        <h4 className="font-semibold leading-snug text-md">Bank grade 256-bit SSL encryption</h4>
+        <h4 className="font-semibold leading-snug text-md">Bank grade security</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
           Powered by leading open banking platform{' '}
           <a
@@ -67,16 +67,16 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
           >
             basiq.io
           </a>
-          , we use AES 256-bit encryption, trusted by all major banks, to keep your data private and secure. We undergo
+          , we use encryption trusted by all major banks, to keep your data private and secure. We undergo
           regular penetration testing and privacy compliance audits.
         </p>
       </div>
 
       {/* Secure argument 2 - Detail */}
       <div className="text-left space-y-2">
-        <h4 className="font-semibold leading-snug text-md">We never save your bank login credentials in the app</h4>
+        <h4 className="font-semibold leading-snug text-md">This app will never save your bank login credentials</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          Credentials are stored using an AES 256-bit encryption envelope, which means they can never be made accessible
+          For ongoing data access, credentials are stored by Basiq using an AES 256-bit envelope encryption, which means they can never be made accessible
           to anyone.
         </p>
       </div>
@@ -85,16 +85,16 @@ export function AccountVerificationFormLearnMoreModal({ isOpen, onClose, onConfi
       <div className="text-left space-y-2">
         <h4 className="font-semibold leading-snug text-md">We can not transact on your behalf</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          All access is read-only, meaning we can see accounts and transactions to report on them, but are unable to
-          perform any actions on behalf of the user.
+          All access to data is read-only, meaning we can see accounts and transactions to report on them, but are unable to
+          perform any actions on behalf of the user without explicit permission to do so.
         </p>
       </div>
 
       {/* Secure argument 4 - Detail */}
       <div className="text-left space-y-2">
-        <h4 className="font-semibold leading-snug text-md">We don&rsquo;t sell your data</h4>
+        <h4 className="font-semibold leading-snug text-md">We will never sell your data</h4>
         <p className="text-sm leading-relaxed text-neutral-muted-darker">
-          We don&rsquo;t sell your personal data, nor do we share it unless you ask us to. All your data is 100% stored
+          We will only share your data with parties or applications where you have provided permission. All your data is stored
           securely.
         </p>
       </div>

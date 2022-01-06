@@ -5,7 +5,7 @@ import { PasswordField } from '../components/PasswordField';
 import { SearchInput } from '../components/SearchInput';
 import { ProgressBar } from '../components/ProgressBar';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { VerificationProgress } from '../components/VerificationProgress';
+import { CircularProgressBar } from '../components/CircularProgressBar';
 import { SEO } from '../components/SEO';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 
@@ -23,7 +23,7 @@ export default function Components() {
         <SectionSearchInput />
         <SectionErrorMessage />
         <SectionProgressBar />
-        <SectionVerificationProgress />
+        <SectionCircularProgressBar />
         <SectionToastNotification />
       </main>
     </>
@@ -141,18 +141,18 @@ function SectionProgressBar() {
   );
 }
 
-function SectionVerificationProgress() {
+function SectionCircularProgressBar() {
   return (
     <section className="space-y-4">
-      <h2 className="text-2xl font-semibold tracking-tight">VerificationProgress</h2>
+      <h2 className="text-2xl font-semibold tracking-tight">CircularProgressBar</h2>
       <div className="flex flex-wrap gap-4">
-        <VerificationProgress value={0} />
-        <VerificationProgress value={20} />
-        <VerificationProgress value={40} />
-        <VerificationProgress value={60} />
-        <VerificationProgress value={80} />
-        <VerificationProgress value={100} />
-        <VerificationProgress value={100} error />
+        <CircularProgressBar value={0} />
+        <CircularProgressBar value={20} />
+        <CircularProgressBar value={40} />
+        <CircularProgressBar value={60} />
+        <CircularProgressBar value={80} />
+        <CircularProgressBar value={100} />
+        <CircularProgressBar value={100} error />
       </div>
     </section>
   );
