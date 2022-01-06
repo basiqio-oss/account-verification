@@ -26,15 +26,11 @@ export default function Home() {
 
           <div className="space-y-4">
             {/* PRODUCT-COPY HEADING */}
-            <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Start optimising <br />
-              your savings
-            </h1>
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Get started</h1>
 
             {/* PRODUCT-COPY SHORT DESCRIPTION */}
-            <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
-              Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
-              account.
+            <p className="text-sm leading-relaxed sm:text-base text-opacity-90">
+              Create an account to discover your Sustain rating, it&rsquo;s your personal carbon footprint simplified.
             </p>
           </div>
 
@@ -44,16 +40,14 @@ export default function Home() {
               {/* It might be a good idea to let the user be able to view a summary of their 
               connected bank accounts. */}
               <Link href="/account-verification" passHref>
-                <Button block variant="inverted">
-                  View verified account
-                </Button>
+                <Button block>View verified account</Button>
               </Link>
 
               {/* RESET APP */}
               {/* For developer use only; this will reset state and delete connection */}
               <div className="absolute top-0 right-0 px-4 pt-4 leading-none sm:px-6 md:px-8 sm:pt-6 md:pt-8 md:fixed">
                 <button
-                  className="text-xs text-white rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+                  className="text-xs rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
                   onClick={reset}
                 >
                   Reset app
@@ -76,8 +70,8 @@ export default function Home() {
                 )}
                 {/* ACTION */}
                 <Link href="/account-verification" passHref>
-                  <Button as="a" variant="inverted" block>
-                    {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Get started'}
+                  <Button as="a" block>
+                    {basiqConnectionInProgress || basiqConnectionSuccess ? 'Continue setup' : 'Sign up'}
                   </Button>
                 </Link>
               </div>
@@ -87,11 +81,11 @@ export default function Home() {
 
         {/* Decorative blurry circles */}
         <div className="absolute w-full h-screen overflow-hidden">
-          <div className="absolute -mt-64 bg-white rounded-full opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
-          <div className="absolute -mt-10 bg-white rounded-full opacity-50 w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
-          <div className="absolute -ml-16 bg-white rounded-full -mt-[550px] opacity-10 w-72 h-72 top-1/2 left-1/2 blur-2xl mix-blend-overlay" />
-          <div className="absolute w-32 h-32 ml-24 -mt-32 bg-white rounded-full opacity-25 top-1/2 left-1/2 blur-sm mix-blend-overlay" />
-          <div className="absolute mt-24 bg-white rounded-full opacity-40 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
+          <div className="absolute -mt-64 rounded-full bg-primary-accent opacity-40 w-80 h-80 top-1/2 left-1/2 -ml-[800px] blur-xl mix-blend-overlay" />
+          <div className="absolute -mt-10 rounded-full opacity-50 bg-primary-accent w-52 h-52 top-1/2 left-1/2 -ml-80 blur-md mix-blend-overlay" />
+          <div className="absolute -ml-16 rounded-full bg-primary-accent -mt-[550px] opacity-10 w-72 h-72 top-1/2 left-1/2 blur-2xl mix-blend-overlay" />
+          <div className="absolute w-32 h-32 ml-24 -mt-32 rounded-full opacity-25 bg-primary-accent top-1/2 left-1/2 blur-sm mix-blend-overlay" />
+          <div className="absolute mt-24 rounded-full bg-primary-accent opacity-40 w-96 h-96 top-1/2 left-1/2 ml-[450px] blur-xl mix-blend-overlay" />
         </div>
       </main>
     </div>
