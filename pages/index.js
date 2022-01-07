@@ -51,14 +51,16 @@ export default function Home() {
 
               {/* RESET APP */}
               {/* For developer use only; this will reset state and delete connection */}
-              <div className="absolute top-0 right-0 px-4 pt-4 leading-none sm:px-6 md:px-8 sm:pt-6 md:pt-8 md:fixed">
-                <button
-                  className="text-xs text-white rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
-                  onClick={reset}
-                >
-                  Reset app
-                </button>
-              </div>
+              {process.env.NODE_ENV !== 'production' && (
+                <div className="absolute top-0 right-0 px-4 pt-4 leading-none sm:px-6 md:px-8 sm:pt-6 md:pt-8 md:fixed">
+                  <button
+                    className="text-xs text-white rounded outline-none sm:text-sm text-opacity-90 hover:text-opacity-75 active:text-opacity-50 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
+                    onClick={reset}
+                  >
+                    Reset app
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="w-56 mx-auto">
