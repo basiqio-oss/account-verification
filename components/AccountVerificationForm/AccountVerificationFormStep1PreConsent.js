@@ -13,13 +13,13 @@ export function AccountVerificationFormStep1PreConsent() {
   const [isLearnMoreModalOpen, openLearnMoreModal, closeLearnMoreModal] = useTernaryState(false);
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-12">
+    <div className="flex flex-col flex-grow space-y-8 sm:space-y-12">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
       <StepLogo src="/product-logo-square.svg" alt="Piper logo" />
 
-      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
+      <div className="flex flex-col justify-center flex-grow space-y-8">
         <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}
           {/* A short as possible heading to help the user quickly recognise the task at hand. */}

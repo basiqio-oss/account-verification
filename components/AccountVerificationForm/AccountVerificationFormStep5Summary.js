@@ -12,7 +12,7 @@ export function AccountVerificationFormStep5Summary() {
   if (!selectedInstitution || !selectedAccount) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-12">
+    <div className="flex flex-col flex-grow space-y-8 sm:space-y-12">
       {/* SUCCESS ANIMATION */}
       <div className="flex justify-center">
         {/* Icon: check-circle (outline) */}
@@ -51,7 +51,7 @@ export function AccountVerificationFormStep5Summary() {
         </svg>
       </div>
 
-      <div className="flex flex-col justify-center flex-grow space-y-6 sm:space-y-8">
+      <div className="flex flex-col space-y-8">
         <div className="space-y-3 sm:space-y-4">
           {/* STEP HEADING */}
           <StepHeading>You&rsquo;re all set!</StepHeading>
