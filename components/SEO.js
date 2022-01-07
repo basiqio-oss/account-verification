@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 export function SEO({ title }) {
-  const documentTitle = ['Piper', title].filter(Boolean).join(' - ');
+  const documentTitle = ['PiperPay', title].filter(Boolean).join(' - ');
   return (
     <Head>
       <title>{documentTitle}</title>
