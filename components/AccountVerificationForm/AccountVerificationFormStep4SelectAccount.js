@@ -77,7 +77,7 @@ export function AccountVerificationFormStep4SelectAccount() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
             {validationError && (
-              <ErrorMessage message="Please select an account that allows direct debits, or pick another bank." />
+              <ErrorMessage message="Please select an account that allows direct debits, or connect to a different bank." />
             )}
             <RadioGroup value={selectedAccount} onChange={setSelectedAccount}>
               <RadioGroup.Label className="sr-only">Select account</RadioGroup.Label>
