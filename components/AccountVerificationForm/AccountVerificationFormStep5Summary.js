@@ -12,12 +12,12 @@ export function AccountVerificationFormStep5Summary() {
   if (!selectedInstitution || !selectedAccount) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col flex-grow space-y-6 sm:space-y-12">
       {/* SUCCESS ANIMATION */}
       <div className="flex justify-center">
         {/* Icon: check-circle (outline) */}
         <svg
-          className="w-20 h-20 -mx-2 -my-2 text-secondary-bold-darker checkmark"
+          className="w-[68px] h-[68px] -m-1.5 sm:w-20 sm:h-20 sm:-mx-2 sm:-my-2 text-secondary-bold-darker checkmark"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

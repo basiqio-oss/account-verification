@@ -40,7 +40,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   if (!user || !selectedInstitution) return null;
 
   return (
-    <div className="flex flex-col flex-grow space-y-6 sm:space-y-8">
+    <div className="flex flex-col flex-grow space-y-6 sm:space-y-12">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}

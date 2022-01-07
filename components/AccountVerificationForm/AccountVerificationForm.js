@@ -45,7 +45,7 @@ export function AccountVerificationForm() {
       {/* STEP COUNT */}
       {/* Helps the user feel like they have an overview of their progress, 
       indicating how long it's going to take, and how many steps are left. */}
-      <div className="absolute left-0 z-20 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed space-y-2">
+      <div className="absolute left-0 z-20 px-4 pt-8 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed space-y-2">
         <span className="text-xs sm:text-sm text-neutral-muted-darker">
           <span data-cy="current-step">{currentStep + 1}</span> of {totalSteps}
         </span>
@@ -62,7 +62,7 @@ export function AccountVerificationForm() {
       </div>
 
       {/* FORM STEPS COMPONENT */}
-      <div className="relative z-10 flex flex-col max-w-md min-h-screen px-4 pt-6 pb-12 mx-auto sm:px-6 sm:pt-8 sm:pb-16">
+      <div className="relative z-10 flex flex-col max-w-md px-4 pt-8 pb-12 mx-auto sm:px-6 sm:pt-14 sm:pb-14">
         <Component />
       </div>
 
@@ -71,7 +71,7 @@ export function AccountVerificationForm() {
       their decision to connect with a bank at any point. */}
       {/* Show Cancel button unless the user is on the first or last step */}
       {currentStep > 0 && currentStep !== totalSteps - 1 ? (
-        <div className="absolute top-0 right-0 z-20 px-4 pt-6 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed">
+        <div className="absolute top-0 right-0 z-20 px-4 pt-8 leading-none sm:px-6 md:px-8 sm:pt-8 md:fixed">
           <button
             className="text-xs rounded outline-none sm:text-sm text-primary-bold-darker hover:text-opacity-90 active:text-opacity-75 focus:ring-2 focus:ring-primary-bold focus:ring-opacity-30 ring-offset-1 ring-offset-transparent"
             onClick={openCancellationModal}
