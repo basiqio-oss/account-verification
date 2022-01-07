@@ -62,7 +62,7 @@ export function AccountVerificationForm() {
       </div>
 
       {/* FORM STEPS COMPONENT */}
-      <div className="relative z-10 flex flex-col max-w-md px-4 pt-8 pb-12 mx-auto sm:px-6 sm:pt-14 sm:pb-14">
+      <div className="relative z-10 flex flex-col max-w-md px-4 pt-8 pb-8 mx-auto sm:px-6 sm:pt-16 sm:pb-16">
         <Component />
       </div>
 
