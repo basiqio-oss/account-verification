@@ -45,7 +45,7 @@ describe('Account verification form', () => {
     cy.get(`[data-cy="institution-${fixtures.institutionId}"]`).click();
   });
 
-  it('Completes step 2 - InstitutionLogin', () => {
+  it('Completes step 3 - InstitutionLogin', () => {
     // Check the step number
     cy.get('[data-cy=current-step]').contains('4');
     // Fill out the form fields
