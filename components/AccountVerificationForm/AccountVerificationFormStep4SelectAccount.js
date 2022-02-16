@@ -12,15 +12,122 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goToStep, goForward, accountVerificationFormState, updateAccountVerificationFormState } =
+  const { goToStep, goForward, updateAccountVerificationFormState } =
     useAccountVerificationForm();
-  const { user, selectedInstitution } = accountVerificationFormState;
+
+  const userId = sessionStorage.getItem("userId");
+  const selectedInstitution =         {
+    "type": "institution",
+    "id": "AU00000",
+    "name": "Hooli Bank",
+    "shortName": "Hooli",
+    "institutionType": "Test Bank",
+    "country": "Australia",
+    "serviceName": "Personal Online Banking",
+    "serviceType": "Personal Banking",
+    "loginIdCaption": "Login",
+    "passwordCaption": "Password",
+    "tier": "4",
+    "authorization": "user",
+    "features": {
+        "login": [
+            "web"
+        ],
+        "accounts": {
+            "accountNo": [
+                "web"
+            ],
+            "name": [
+                "web"
+            ],
+            "currency": [
+                "web"
+            ],
+            "balance": [
+                "web"
+            ],
+            "availableFunds": [
+                "web"
+            ],
+            "lastUpdated": [
+                "web"
+            ],
+            "accountHolder": [
+                "web"
+            ],
+            "meta": [
+                "web"
+            ]
+        },
+        "transactions": {
+            "status": [
+                "web"
+            ],
+            "description": [
+                "web"
+            ],
+            "date": [
+                "web"
+            ],
+            "amount": [
+                "web"
+            ],
+            "balance": [
+                "web"
+            ],
+            "class": [
+                "web"
+            ]
+        },
+        "profile": {
+            "fullName": [
+                "web"
+            ],
+            "firstName": [
+                "web"
+            ],
+            "lastName": [
+                "web"
+            ],
+            "middleName": [],
+            "phoneNumbers": [
+                "web"
+            ],
+            "emailAddresses": [
+                "web"
+            ],
+            "physicalAddresses": []
+        }
+    },
+    "stage": "live",
+    "status": "operational",
+    "stats": {
+        "averageDurationMs": {
+            "verifyCredentials": 10790,
+            "retrieveAccounts": 128,
+            "retrieveTransactions": 88,
+            "retrieveMeta": 99,
+            "total": 11105
+        }
+    },
+    "logo": {
+        "type": "image",
+        "colors": null,
+        "links": {
+            "square": "https://d388vpyfrt4zrj.cloudfront.net/AU00000.svg",
+            "full": "https://d388vpyfrt4zrj.cloudfront.net/AU00000-full.svg"
+        }
+    },
+    "links": {
+        "self": "https://au-api.basiq.io/institutions/AU00000"
+    }
+};
 
   const [selectedAccount, setSelectedAccount] = useState();
   const [validationError, setValidationError] = useState(false);
 
   const { data, error, loading, refetch } = useAccountsData({
-    userId: user?.id,
+    userId: userId,
     institutionId: selectedInstitution?.id,
   });
 
