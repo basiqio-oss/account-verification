@@ -16,7 +16,7 @@ export function AccountVerificationFormStep4SelectAccount() {
     useAccountVerificationForm();
 
   const userId = sessionStorage.getItem("userId");
-  const selectedInstitution =         {
+  const selectedInstitution = {
     "type": "institution",
     "id": "AU00000",
     "name": "Hooli Bank",
@@ -121,7 +121,7 @@ export function AccountVerificationFormStep4SelectAccount() {
     "links": {
         "self": "https://au-api.basiq.io/institutions/AU00000"
     }
-};
+  };
 
   const [selectedAccount, setSelectedAccount] = useState();
   const [validationError, setValidationError] = useState(false);
@@ -136,7 +136,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   function handleSubmit(e) {
     e.preventDefault();
     if (selectedAccount) {
-      updateAccountVerificationFormState({ selectedAccount });
+      updateAccountVerificationFormState({ selectedAccount, selectedInstitution });
       goForward();
     } else {
       setValidationError(true);
@@ -144,7 +144,7 @@ export function AccountVerificationFormStep4SelectAccount() {
     }
   }
 
-  if (!user || !selectedInstitution) return null;
+  if (!userId || !selectedInstitution) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-8 sm:space-y-12">
