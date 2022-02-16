@@ -96,6 +96,7 @@ export function AccountVerificationFormProvider({ children }) {
   // Called when the user has successfully finished all steps
   function finish() {
     setHasCompletedForm(true);
+    sessionStorage.clear()
     router.push('/');
   }
 
