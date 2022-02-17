@@ -16,119 +16,12 @@ export function AccountVerificationFormStep4SelectAccount() {
     useAccountVerificationForm();
 
   const userId = sessionStorage.getItem("userId");
-  const selectedInstitution = {
-    "type": "institution",
-    "id": "AU00000",
-    "name": "Hooli Bank",
-    "shortName": "Hooli",
-    "institutionType": "Test Bank",
-    "country": "Australia",
-    "serviceName": "Personal Online Banking",
-    "serviceType": "Personal Banking",
-    "loginIdCaption": "Login",
-    "passwordCaption": "Password",
-    "tier": "4",
-    "authorization": "user",
-    "features": {
-        "login": [
-            "web"
-        ],
-        "accounts": {
-            "accountNo": [
-                "web"
-            ],
-            "name": [
-                "web"
-            ],
-            "currency": [
-                "web"
-            ],
-            "balance": [
-                "web"
-            ],
-            "availableFunds": [
-                "web"
-            ],
-            "lastUpdated": [
-                "web"
-            ],
-            "accountHolder": [
-                "web"
-            ],
-            "meta": [
-                "web"
-            ]
-        },
-        "transactions": {
-            "status": [
-                "web"
-            ],
-            "description": [
-                "web"
-            ],
-            "date": [
-                "web"
-            ],
-            "amount": [
-                "web"
-            ],
-            "balance": [
-                "web"
-            ],
-            "class": [
-                "web"
-            ]
-        },
-        "profile": {
-            "fullName": [
-                "web"
-            ],
-            "firstName": [
-                "web"
-            ],
-            "lastName": [
-                "web"
-            ],
-            "middleName": [],
-            "phoneNumbers": [
-                "web"
-            ],
-            "emailAddresses": [
-                "web"
-            ],
-            "physicalAddresses": []
-        }
-    },
-    "stage": "live",
-    "status": "operational",
-    "stats": {
-        "averageDurationMs": {
-            "verifyCredentials": 10790,
-            "retrieveAccounts": 128,
-            "retrieveTransactions": 88,
-            "retrieveMeta": 99,
-            "total": 11105
-        }
-    },
-    "logo": {
-        "type": "image",
-        "colors": null,
-        "links": {
-            "square": "https://d388vpyfrt4zrj.cloudfront.net/AU00000.svg",
-            "full": "https://d388vpyfrt4zrj.cloudfront.net/AU00000-full.svg"
-        }
-    },
-    "links": {
-        "self": "https://au-api.basiq.io/institutions/AU00000"
-    }
-  };
 
   const [selectedAccount, setSelectedAccount] = useState();
   const [validationError, setValidationError] = useState(false);
 
   const { data, error, loading, refetch } = useAccountsData({
     userId: userId,
-    institutionId: selectedInstitution?.id,
   });
 
   const errorOrNoData = error || !data || data.length === 0;
@@ -136,7 +29,7 @@ export function AccountVerificationFormStep4SelectAccount() {
   function handleSubmit(e) {
     e.preventDefault();
     if (selectedAccount) {
-      updateAccountVerificationFormState({ selectedAccount, selectedInstitution });
+      updateAccountVerificationFormState({ selectedAccount });
       goForward();
     } else {
       setValidationError(true);
@@ -144,14 +37,13 @@ export function AccountVerificationFormStep4SelectAccount() {
     }
   }
 
-  if (!userId || !selectedInstitution) return null;
+  if (!userId ) return null;
 
   return (
     <div className="flex flex-col flex-grow space-y-8 sm:space-y-12">
       {/* STEP LOGO */}
       {/* To help the user keep context of what product they're using, */}
       {/* and what bank they're about to connect to. */}
-      <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
       <div className="flex flex-col space-y-8">
         {/* STEP HEADING */}
@@ -280,14 +172,14 @@ export function AccountVerificationFormStep4SelectAccount() {
 // RETRIEVE ACCOUNTS
 // Custom react hook for managing our fetch request to retrieves a list of accounts for the current user
 // The code for this API route can be found in `pages/api/accounts`
-function useAccountsData({ userId, institutionId }) {
+function useAccountsData({ userId }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
 
   const fetchAccounts = useCallback(() => {
     axios
-      .get('/api/accounts', { params: { userId, institutionId } })
+      .get('/api/accounts', { params: { userId } })
       .then(res => {
         setData(res.data);
         setError(undefined);
@@ -297,7 +189,7 @@ function useAccountsData({ userId, institutionId }) {
         setError(error);
         setLoading(false);
       });
-  }, [institutionId, userId]);
+  }, [userId]);
 
   useEffect(() => {
     fetchAccounts();

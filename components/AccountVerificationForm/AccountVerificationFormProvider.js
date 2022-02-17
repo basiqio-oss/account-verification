@@ -72,6 +72,7 @@ export function AccountVerificationFormProvider({ children }) {
     setCurrentStep(0);
     setCancelling(false);
     setHasCompletedForm(false);
+    sessionStorage.clear()
   }
 
   // State for managing cancelling the account verification form
@@ -86,6 +87,7 @@ export function AccountVerificationFormProvider({ children }) {
     try {
       await deleteBasiqConnection();
       router.push('/');
+      sessionStorage.clear()
       resetState();
     } catch {
       // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset

@@ -3,12 +3,11 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
-import { StepLogo } from './StepLogo';
 
 export function AccountVerificationFormStep5Summary() {
   const { finish, accountVerificationFormState } = useAccountVerificationForm();
 
-  const { selectedInstitution, selectedAccount } = accountVerificationFormState;
+  const { selectedAccount } = accountVerificationFormState;
   if (!selectedAccount) return null;
 
   return (
@@ -67,14 +66,12 @@ export function AccountVerificationFormStep5Summary() {
         <ul role="list" className="border-t border-b divide-y border-neutral-dim">
           <li className="flex items-center py-3 space-x-4">
             <div className="flex flex-col flex-grow">
-              <span className="text-xs text-neutral-muted-darker">{selectedInstitution.name}</span>
               <span className="font-medium">{selectedAccount.name}</span>
               <span className="text-xs font-medium">{formatCurrency(selectedAccount.balance)}</span>
             </div>
 
             {/* Connected bank logo */}
             <div className="relative">
-              <StepLogo src={selectedInstitution.logo.links.square} alt={`Logo of ${selectedInstitution.name}`} />
 
               {/* Icon: check-circle (solid) */}
               <svg

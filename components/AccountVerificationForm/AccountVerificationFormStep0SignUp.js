@@ -17,7 +17,7 @@ export function AccountVerificationFormStep0SignUp() {
 
   useEffect(() => {
     sessionStorage.getItem("userId") ? goToStep(1) : null
-  })
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
