@@ -1,22 +1,22 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-use-form-state';
 import { axios } from '../../utils/axios';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
-import { getClientToken } from '../../clientAuthentication';
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 
 export function AccountVerificationFormStep0SignUp() {
-  const { goToStep, cancel, updateAccountVerificationFormState } = useAccountVerificationForm();
+  const { goToStep, cancel, updateAccountVerificationFormState, goForward } = useAccountVerificationForm();
+
   const [formState, { email }] = useFormState();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState();
 
   useEffect(() => {
-    sessionStorage.getItem("userId") ? goToStep(1) : null
+    sessionStorage.getItem("userId") ? goToStep(2) : null
   }, [])
 
   function handleSubmit(e) {
@@ -28,8 +28,7 @@ export function AccountVerificationFormStep0SignUp() {
         setSubmitting(false);
         updateAccountVerificationFormState({ user: res.data })
         sessionStorage.setItem("userId", res.data.id)
-        const token = await getClientToken();
-        window.location = (`https://consent.basiq.io/home?userId=${res.data.id}&token=${token}`);
+        goForward()
       })
       .catch(error => {
         setSubmitting(false);

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useTernaryState } from '../../utils/useTernaryState';
 import { ProgressBar } from '../ProgressBar';
 import { AccountVerificationFormStep0SignUp } from './AccountVerificationFormStep0SignUp';
+import { AccountVerificationFormStep1PreConsent } from './AccountVerificationFormStep1PreConsent';
 import { AccountVerificationFormStep4SelectAccount } from './AccountVerificationFormStep4SelectAccount';
 import { AccountVerificationFormStep5Summary } from './AccountVerificationFormStep5Summary';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
@@ -9,6 +10,7 @@ import { AccountVerificationFormCancellationModal } from './AccountVerificationF
 
 export const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
+  AccountVerificationFormStep1PreConsent,
   AccountVerificationFormStep4SelectAccount,
   AccountVerificationFormStep5Summary,
 ];

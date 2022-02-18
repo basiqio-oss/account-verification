@@ -7,12 +7,11 @@ import { Button } from '../Button';
 import { ErrorScene } from '../ErrorScene';
 import { ErrorMessage } from '../ErrorMessage';
 import { useAccountVerificationForm } from './AccountVerificationFormProvider';
-import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goToStep, goForward, updateAccountVerificationFormState } =
+  const { goForward, updateAccountVerificationFormState, goToConsent } =
     useAccountVerificationForm();
 
   const userId = sessionStorage.getItem("userId");
@@ -158,7 +157,7 @@ export function AccountVerificationFormStep4SelectAccount() {
               <Button type="submit" block>
                 Finish
               </Button>
-              <Button type="button" variant="subtle" block onClick={() => goToStep(2)}>
+              <Button type="button" variant="subtle" block onClick={goToConsent}>
                 Connect to a different bank
               </Button>
             </div>

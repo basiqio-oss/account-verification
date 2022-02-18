@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 import { useEffect, useState, createContext, useContext } from 'react';
+import { getClientToken } from '../../clientAuthentication';
 import { useRouter } from 'next/router';
 import { axios } from '../../utils/axios';
 import { FORM_COMPONENTS } from './AccountVerificationForm';
@@ -33,6 +34,8 @@ const AccountVerificationFormContext = createContext({
   reset: undefined,
   // Function to be called when the user has successfully finished all steps
   hasCompletedForm: undefined,
+  // Function to redirect user to Basiq Consent UI
+  goToConsent: undefined
 });
 
 // This custom hook gives components access the `AccountVerificationFormContext` form context
@@ -102,6 +105,13 @@ export function AccountVerificationFormProvider({ children }) {
     router.push('/');
   }
 
+  // Go to external Basiq Consent UI
+  async function goToConsent () {
+    let userId = sessionStorage.getItem("userId")
+    const token = await getClientToken();
+    window.location = (`https://consent.basiq.io/home?userId=${userId}&token=${token}`);
+  }
+
   const contextValue = {
     currentStep,
     totalSteps,
@@ -117,6 +127,7 @@ export function AccountVerificationFormProvider({ children }) {
     basiqConnection,
     reset: resetState,
     hasCompletedForm,
+    goToConsent
   };
 
   return (
