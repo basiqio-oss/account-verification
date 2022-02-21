@@ -11,8 +11,7 @@ import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
 
 export function AccountVerificationFormStep4SelectAccount() {
-  const { goForward, updateAccountVerificationFormState, goToConsent } =
-    useAccountVerificationForm();
+  const { goForward, updateAccountVerificationFormState, goToConsent } = useAccountVerificationForm();
 
   const userId = sessionStorage.getItem("userId");
 

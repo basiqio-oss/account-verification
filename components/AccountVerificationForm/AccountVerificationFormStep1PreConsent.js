@@ -4,8 +4,10 @@ import { AccountVerificationFormLearnMoreModal } from './AccountVerificationForm
 import { StepLogo } from './StepLogo';
 import { StepHeading } from './StepHeading';
 import { StepDescription } from './StepDescription';
+import { useAccountVerificationForm } from './AccountVerificationFormProvider';
 
 export function AccountVerificationFormStep1PreConsent() {
+  const { goToConsent } = useAccountVerificationForm()
 
   // State for managing hiding/showing of the learn more model
   const [isLearnMoreModalOpen, openLearnMoreModal, closeLearnMoreModal] = useTernaryState(false);
