@@ -11,6 +11,8 @@ import { AccountVerificationFormCancellationModal } from './AccountVerificationF
 export const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
   AccountVerificationFormStep1PreConsent,
+  // Steps 2 (select institution) and 3 (institution login) are handled in the Basiq Consent UI for v3.0
+  // Completing PreConsent will redirect the user to complete these steps and then back to step 4 to finish
   AccountVerificationFormStep4SelectAccount,
   AccountVerificationFormStep5Summary,
 ];
