@@ -16,6 +16,8 @@ export function AccountVerificationFormStep0SignUp() {
   const [error, setError] = useState();
 
   useEffect(() => {
+    // On loading the page, check to see if there is a user in session 
+    // If a session exists, skip to step 2 to finish onboarding process
     sessionStorage.getItem("userId") ? goToStep(2) : null
   }, [])
 
