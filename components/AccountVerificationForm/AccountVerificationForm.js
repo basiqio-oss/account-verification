@@ -11,8 +11,6 @@ import { AccountVerificationFormCancellationModal } from './AccountVerificationF
 export const FORM_COMPONENTS = [
   AccountVerificationFormStep0SignUp,
   AccountVerificationFormStep1PreConsent,
-  // Steps 2 (select institution) and 3 (institution login) are handled in the Basiq Consent UI for v3.0
-  // Completing PreConsent will redirect the user to complete these steps and then back to step 4 to finish
   AccountVerificationFormStep4SelectAccount,
   AccountVerificationFormStep5Summary,
 ];
@@ -289,6 +287,10 @@ export function AccountVerificationForm() {
             </clipPath>
           </defs>
         </svg>
+
+        <div style={{position: "absolute", bottom: "10px", right: "left"}}>
+          &#9888; <strong>This is a sample app.</strong> We have disabled connecting to live banks - you can connect to our sandbox institution Hooli using the test credentials found <a href="https://api.basiq.io/reference/connect">here</a>.
+        </div>
       </div>
 
       {/* CANCELLATION MODAL */}

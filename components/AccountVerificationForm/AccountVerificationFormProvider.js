@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { useEffect, useState, createContext, useContext } from 'react';
-import { getClientToken } from '../../clientAuthentication';
 import { useRouter } from 'next/router';
+import { getClientToken } from '../../clientAuthentication';
 import { axios } from '../../utils/axios';
 import { FORM_COMPONENTS } from './AccountVerificationForm';
 
@@ -105,11 +105,11 @@ export function AccountVerificationFormProvider({ children }) {
     router.push('/');
   }
 
-  // Go to external Basiq Consent UI
-  async function goToConsent () {
+  // Redirect to the external Basiq Consent UI
+  async function goToConsent(action) {
     let userId = sessionStorage.getItem("userId")
     const token = await getClientToken();
-    window.location = (`https://consent.basiq.io/home?userId=${userId}&token=${token}`);
+    window.location = (`https://consent.basiq.io/home?userId=${userId}&token=${token}&action=${action}`);
   }
 
   const contextValue = {
