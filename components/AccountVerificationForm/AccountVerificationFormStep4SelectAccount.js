@@ -165,8 +165,8 @@ export function AccountVerificationFormStep4SelectAccount() {
               <Button type="submit" block>
                 Finish
               </Button>
-              <Button type="button" variant="subtle" block onClick={(() => goToConsent("update"))}>
-                Connect to a different bank
+              <Button type="button" variant="subtle" block onClick={(() => goToConsent("connect"))}>
+                Connect a different account
               </Button>
             </div>
           </form>
