@@ -1,4 +1,4 @@
-# Account verification v3.0 
+# Account verification v3.0 : Supporting Open Banking
 ### Supporting Open Banking 
 
 This starter kit takes a user through the account verification process using the Basiq API. This project has been to built with three main technologies:
