@@ -97,10 +97,20 @@ export function AccountVerificationFormProvider({ children }) {
   }
 
   // Called when the user has successfully finished all steps
-  function finish() {
-    setHasCompletedForm(true);
-    sessionStorage.clear()
-    router.push('/');
+  async function finish() {
+    try {
+      // Delete user at end of process when not in prod to clean up test data
+      // You can also enable this for production if you do not wish to maintain the user bucket or connection e.g. for a once off check 
+      if (process.env.NODE_ENV !== 'production') {
+        await deleteUser()
+      }
+      setHasCompletedForm(true);
+      sessionStorage.clear()
+      router.push('/');
+    } catch {
+      // If something went wrong while deleting the basiq connection, we send the user to the home page via a full page refresh so all state is reset
+      window.location = window.location.origin;
+    }
   }
 
   // Redirect to the external Basiq Consent UI
@@ -125,7 +135,8 @@ export function AccountVerificationFormProvider({ children }) {
     basiqConnection,
     reset: resetState,
     hasCompletedForm,
-    goToConsent
+    goToConsent,
+    deleteUser
   };
 
   return (
@@ -168,6 +179,11 @@ function useBasiqConnection({ currentStep, userId, selectedInstitution }) {
   async function deleteBasiqConnection() {
     if (!jobId || !userId) return;
     await deleteConnection({ jobId, userId });
+  }
+
+  async function deleteUser() {
+    let userId = sessionStorage.getItem("userId")
+    await deleteConnection({ userId });
   }
 
   // If we have a basiq connection, check the status every 2 seconds
@@ -316,6 +332,11 @@ async function getUserConsent(userId) {
 // https://api.basiq.io/reference/delete-a-connection
 async function deleteConnection({ userId, jobId }) {
   const response = await axios.delete(`https://au-api.basiq.io/users/${userId}/connections/${jobId}`);
+  return response.data.id;
+}
+
+async function deleteUser({ userId, jobId }) {
+  const response = await axios.delete(`https://au-api.basiq.io/users/${userId}`);
   return response.data.id;
 }
 
