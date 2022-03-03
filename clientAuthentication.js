@@ -23,7 +23,7 @@ export async function getClientToken(userId) {
   let token = getClientTokenFromLocalStorage();
   const refreshDate = getClientTokenRefreshDateFromLocalStorage() || 0;
 
-  if (!token || Date.now() - refreshDate > REFRESH_INTERVAL) {
+  if (!token || Date.now() - refreshDate > REFRESH_INTERVAL || userId) {
     // If we don't have a client token in memory or the token has expired, fetch a new one
     token = await updateClientToken(userId);
   }
