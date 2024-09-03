@@ -26,15 +26,11 @@ export default function Home() {
 
           <div className="space-y-4">
             {/* PRODUCT-COPY HEADING */}
-            <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Start optimising <br />
-              your savings
-            </h1>
+              <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Buy now, pay later</h1>
 
             {/* PRODUCT-COPY SHORT DESCRIPTION */}
             <p className="text-sm leading-relaxed text-white sm:text-base text-opacity-90">
-              Piper helps you track and optimise your savings. For every dollar saved you get 10% cashback into your
-              account.
+              PiperPay gives you an easy way to purchase anything online — letting you pay for it when you can.
             </p>
           </div>
 

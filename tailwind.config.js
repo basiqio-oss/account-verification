@@ -14,24 +14,24 @@ module.exports = {
       // Primary brand colours
       primary: {
         // Subtle
-        subtle: '#F1F0FF', // <Button variant="subtle"/> bg, and radio options e.g.
-        'subtle-darker': '#E8E5FF', // <Button variant="subtle"/> :hover bg
-        'subtle-darkest': '#DEDBFF', // <Button variant="subtle"/> :active bg
+        subtle: '#ecedf5', // <Button variant="subtle"/> bg, and radio options e.g.
+        'subtle-darker': '#d8dbea', // <Button variant="subtle"/> :hover bg
+        'subtle-darkest': '#c5c9e0', // <Button variant="subtle"/> :active bg
 
         // Bold
-        bold: '#4737FF', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
-        'bold-darker': '#1400FE', // Links (darker to provide more contrast)
+        bold: '#3D4C96', // <Button variant="bold"/> bg, and primary-bold -> primary-accent bg gradients e.g.
+        'bold-darker': '#2A3466', // Links (darker to provide more contrast)
 
         // Accent
-        accent: '#9C4EFF', // primary-bold to primary-accent bg gradient e.g.
+        accent: '#498EBE', // primary-bold to primary-accent bg gradient e.g.
       },
 
       // Secondary brand colours
       secondary: {
         // Bold
-        'bold-lighter': '#34F1CF', // icons on dark bg (lighter to provide more contrast)
-        bold: '#10EDC5', // primary-bold to secondary-bold bg gradients e.g.
-        'bold-darker': '#0FD7B3', // icons on light bg (darker to provide more contrast)
+        'bold-lighter': '#F6C759', // icons on dark bg (lighter to provide more contrast)
+        bold: '#EFBC50', // primary-bold to secondary-bold bg gradients e.g.
+        'bold-darker': '#E5AE54', // icons on light bg (darker to provide more contrast)
       },
 
       // FUNCTIONAL COLOURS
@@ -40,7 +40,7 @@ module.exports = {
       // Base UI colours
       transparent: 'transparent',
       current: 'currentColor', // svgs to be able to grab the text-{color} as stroke- or fill colour
-      black: '#000217', // default text colour
+      black: '#4a4a4a', // default text colour
       white: '#FFFFFF', // default bg colour of the /account-verification flow, <Button variant="inverted"/> e.g.
 
       // Neutral UI colours
@@ -49,8 +49,8 @@ module.exports = {
         'subtle-darker': '#EBEEEF', // <InstitutionsLoadingSkeleton />, disabled bg colour e.g.
         dim: '#DEE4E7', // border, divide colour
         'dim-darker': '#BECBD0', // form input border, radio circles e.g.
-        muted: '#7E888E', // muted icons, e.g. in <SearchInput />
-        'muted-darker': '#4F6772', // muted text (darker to provide more contrast)
+        muted: '#777f81', // muted icons, e.g. in <SearchInput />
+        'muted-darker': '#6B7173', // muted text (darker to provide more contrast)
       },
 
       // Critical UI colours
@@ -79,7 +79,12 @@ module.exports = {
     // Font-weights used through-out this example app are:
     // 400 (default), 500 (font-medium), and 600 (font-semibold).
     fontFamily: {
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      sans: ['Lato', ...defaultTheme.fontFamily.sans],
+    },
+    fontWeight: {
+      normal: 400,
+      medium: 700,
+      semibold: 900,
     },
 
     extend: {
